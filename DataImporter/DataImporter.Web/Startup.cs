@@ -108,9 +108,13 @@ namespace DataImporter.Web
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapAreaControllerRoute(
+                name: "areas",
+                areaName: "User",
+                pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{Id?}"
+              );
+
+                endpoints.MapRazorPages();
             });
         }
     }
