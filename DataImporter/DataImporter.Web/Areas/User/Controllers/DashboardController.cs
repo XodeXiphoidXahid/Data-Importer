@@ -13,5 +13,9 @@ namespace DataImporter.Web.Areas.User.Controllers
         {
             return View();
         }
+        public IActionResult Login()
+        {
+            return View();
+        }
     }
 }
