@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataImporter.Web.Areas.User.Controllers
 {
+    [Area("User")]
     public class ContactController : Controller
     {
         public IActionResult Index()
