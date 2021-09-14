@@ -1,11 +1,9 @@
 ﻿@model DataImporter.Models.Account.RegisterModel
-@{
-    ViewData["Title"] = "Register";
-}
+@{ ViewData["Title"] = "Register"; }
 
 <h1>@ViewData["Title"]</h1>
 
-<div class="row">
+@*<div class="row">
     <div class="col-md-4">
         <form asp-controller="Account" asp-action="Register" method="post">
             <h4>Create a new account.</h4>
@@ -33,25 +31,99 @@
         <section>
             <h4>Use another service to register.</h4>
             <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                            for details on setting up this ASP.NET application to support logging in via external services.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    
-                }
-            }
+            @{ if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                            {
+                <div>
+                    <p>
+                        There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                        for details on setting up this ASP.NET application to support logging in via external services.
+                    </p>
+                </div> }
+                            else
+                            {
+
+                            } }
         </section>
     </div>
-</div>
+</div>*@
 
+@*@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}*@
+
+<div style="height: 100vh">
+    <div class="d-flex justify-content-center align-items-center h-100 ">
+        <div class="register-box">
+            <div class="container">
+                <div class="card card-outline card-primary">
+                    <div class="card-header text-center">
+                        <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
+                    </div>
+                    <div class="card-body">
+                        <p class="login-box-msg">Register a new membership</p>
+
+                        <form asp-controller="Account" asp-action="Register" method="post">
+                            <div class="input-group mb-3">
+                                <input asp-for="Email" type="email" class="form-control" placeholder="Email">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span asp-validation-for="Email" class="fas fa-envelope"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input asp-for="Password" type="password" class="form-control" placeholder="Password">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span asp-validation-for="Password" class="fas fa-lock"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Retype password">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span asp-validation-for="ConfirmPassword" class="fas fa-lock"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="icheck-primary">
+                                        <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                                        <label for="agreeTerms">
+                                            I agree to the <a href="#">terms</a>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-4">
+                                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                        </form>
+
+                        <div class="social-auth-links text-center">
+                            <a href="#" class="btn btn-block btn-primary">
+                                <i class="fab fa-facebook mr-2"></i>
+                                Sign up using Facebook
+                            </a>
+                            <a href="#" class="btn btn-block btn-danger">
+                                <i class="fab fa-google-plus mr-2"></i>
+                                Sign up using Google+
+                            </a>
+                        </div>
+
+                        <a href="login.html" class="text-center">I already have a membership</a>
+                    </div>
+                    <!-- /.form-box -->
+                </div><!-- /.card -->
+            </div>
+        </div>
+    </div>
+</div>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
