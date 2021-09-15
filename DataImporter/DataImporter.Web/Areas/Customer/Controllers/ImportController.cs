@@ -64,5 +64,29 @@ namespace DataImporter.Web.Areas.User.Controllers
             
             return View();
         }
+
+        public IActionResult Read()
+        {
+            var excelFilePath = Path.Combine(_environment.WebRootPath, "uploadExcel");
+
+            DirectoryInfo directoryInfo = new DirectoryInfo(excelFilePath);
+            FileInfo[] fileInfo = directoryInfo.GetFiles();
+
+            foreach(var file in fileInfo)
+            
+            {
+                using (var stream = System.IO.File.OpenRead(file.ToString()))
+                {
+                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+                    using (var package= new ExcelPackage(stream))
+                    {
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                        var rowCount = worksheet.Dimension.Rows;
+                    }
+                }
+            }
+            return View();
+        }
     }
 }
