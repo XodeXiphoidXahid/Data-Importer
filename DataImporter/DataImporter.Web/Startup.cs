@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using DataImporter.Import;
+using DataImporter.Import.Contexts;
 using DataImporter.Membership;
 using DataImporter.Membership.Contexts;
 using DataImporter.Membership.Entities;
@@ -70,7 +71,6 @@ namespace DataImporter.Web
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionInfo.connectionString, b =>
                 b.MigrationsAssembly(connectionInfo.migrationAssemblyName)));
-
 
 
             // Identity customization started here

@@ -30,8 +30,6 @@ namespace DataImporter.Import.Contexts
         {
             base.OnModelCreating(modelBuilder);
         }
-
-        public DbSet<Group> Groups { get; set; }
-        public DbSet<ExcelData> ExcelDatas { get; set; }
+        public DbSet<ExcelData> ExcelData { get; set; }
     }
 }

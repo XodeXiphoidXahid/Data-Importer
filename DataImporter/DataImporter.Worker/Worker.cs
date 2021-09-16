@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 
-namespace DataImport.Worker
+namespace DataImporter.Worker
 {
     public class Worker : BackgroundService
     {

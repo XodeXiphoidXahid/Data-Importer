@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DataImporter.Import.Contexts;
 using DataImporter.Import.Services;
 using DataImporter.Import.UnitOfWorks;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +26,10 @@ namespace DataImporter.Import
         }
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<ImportDbContext>().AsSelf().WithParameter("connectionString", _connectionString).WithParameter("migrationAssemblyName", _migrationAssemblyName).InstancePerLifetimeScope();
+
+            builder.RegisterType<ImportDbContext>().As<IImportDbContext>().WithParameter("connectionString", _connectionString).WithParameter("migrationAssemblyName", _migrationAssemblyName).InstancePerLifetimeScope();
+
             builder.RegisterType<ImportService>().As<IImportService>().InstancePerLifetimeScope();
 
             builder.RegisterType<ImportUnitOfWork>().As<IImportUnitOfWork>().InstancePerLifetimeScope();

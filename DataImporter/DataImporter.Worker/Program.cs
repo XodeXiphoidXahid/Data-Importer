@@ -1,6 +1,8 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using DataImporter.Import;
+using DataImporter.Import.Contexts;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,13 +13,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DataImport.Worker
+namespace DataImporter.Worker
 {
     public class Program
     {
         private static string _connectionString;
         private static string _migrationAssemblyName;
         private static IConfiguration _configuration;
+        
         public static void Main(string[] args)
         {
             _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", false)
@@ -49,7 +52,10 @@ namespace DataImport.Worker
                 Log.CloseAndFlush();
             }
             
+
         }
+        
+
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
              Host.CreateDefaultBuilder(args)
@@ -65,11 +71,19 @@ namespace DataImport.Worker
                     _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", false)
                         .AddEnvironmentVariables()
                         .Build();
-                   
+
+                    _connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+                    _migrationAssemblyName = typeof(Worker).Assembly.FullName;
+
                     services.AddHostedService<Worker>();
-                    
+                    services.AddDbContext<ImportDbContext>(options =>
+                        options.UseSqlServer(_connectionString, b =>
+                        b.MigrationsAssembly(_migrationAssemblyName)));
+
                 });
 
 
     }
+    
 }
