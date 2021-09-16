@@ -1,5 +1,6 @@
 ﻿using DataImporter.Import.Services;
 using DataImporter.Web.Areas.Customer.Models;
+using DataImporter.Web.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,16 +20,19 @@ namespace DataImporter.Web.Areas.User.Controllers
         private readonly ILogger<ImportController> _logger;
         private readonly IImportService _importService;
         private IWebHostEnvironment _environment;
+        
 
         public ImportController(ILogger<ImportController> logger, IImportService importService, IWebHostEnvironment environment)
         {
             _logger = logger;
             _importService = importService;
             _environment = environment;
+            
         }
 
         public IActionResult Index()
         {
+           
             return View();
         }
 

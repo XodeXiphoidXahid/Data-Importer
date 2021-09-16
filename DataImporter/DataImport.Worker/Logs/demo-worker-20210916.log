@@ -1,0 +1,17 @@
+2021-09-16 17:18:12.368 +06:00 [INF] Application Starting up
+2021-09-16 17:19:05.064 +06:00 [INF] Application Starting up
+2021-09-16 17:22:40.257 +06:00 [INF] Application Starting up
+2021-09-16 17:49:09.604 +06:00 [INF] Application Starting up
+2021-09-16 19:47:39.129 +06:00 [INF] Application Starting up
+2021-09-16 19:48:24.946 +06:00 [FTL] Application start-up failed
+System.ArgumentNullException: Value cannot be null. (Parameter 'path')
+   at System.IO.Path.GetFullPath(String path)
+   at System.IO.DirectoryInfo..ctor(String path)
+   at DataImport.Worker.Worker.ExecuteAsync(CancellationToken stoppingToken) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImport.Worker\Worker.cs:line 39
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at DataImport.Worker.Program.Main(String[] args) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImport.Worker\Program.cs:line 40
+2021-09-16 20:17:05.726 +06:00 [INF] Application Starting up
+2021-09-16 20:17:31.415 +06:00 [INF] Application Starting up

@@ -35,7 +35,10 @@ namespace DataImporter.Web
             builder.RegisterModule(new MembershipModule(connectionInfo.connectionString,
                 connectionInfo.migrationAssemblyName));
 
-            builder.RegisterModule(new ImportModule());
+            builder.RegisterModule(new ImportModule(connectionInfo.connectionString,
+               connectionInfo.migrationAssemblyName, Configuration));
+
+            builder.RegisterModule(new WebModule());
         }
 
         private (string connectionString, string migrationAssemblyName) GetConnectionstringAndAssemblyName()
