@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using DataImporter.Import.Contexts;
+using DataImporter.Import.Repositories;
 using DataImporter.Import.Services;
 using DataImporter.Import.UnitOfWorks;
 using Microsoft.Extensions.Configuration;
@@ -33,6 +34,9 @@ namespace DataImporter.Import
             builder.RegisterType<ImportService>().As<IImportService>().InstancePerLifetimeScope();
 
             builder.RegisterType<ImportUnitOfWork>().As<IImportUnitOfWork>().InstancePerLifetimeScope();
+
+            builder.RegisterType<ExcelDataRepository>().As<IExcelDataRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<GroupRepository>().As<IGroupRepository>().InstancePerLifetimeScope();
 
             base.Load(builder);
         }

@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataImporter.Data\DataImporter.Data.csproj" />
+    <PackageReference Include="EPPlus" Version="5.7.4" />
   </ItemGroup>
 
 </Project>

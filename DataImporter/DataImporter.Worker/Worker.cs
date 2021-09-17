@@ -32,12 +32,17 @@ namespace DataImporter.Worker
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            var excelFilePath = _configuration["wwwroot:UploadedExcel"];
+
             while (!stoppingToken.IsCancellationRequested)
             {
-                var excelFilePath = _configuration["wwwroot:UploadedExcel"];
-
                 DirectoryInfo directoryInfo = new DirectoryInfo(excelFilePath);
                 FileInfo[] fileInfo = directoryInfo.GetFiles();
+
+                if(fileInfo.Count()>0)
+                {
+                    _importService.SaveExcelInDb(fileInfo);
+                }
                 Console.WriteLine("Bro I am here");
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 await Task.Delay(1000, stoppingToken);
