@@ -22,7 +22,6 @@ namespace DataImporter.Import.Services
         public void SaveExcelInDb(FileInfo[] fileInfo)
         {
             foreach (var file in fileInfo)
-
             {
                 List<string> colList = new List<string>();
 
@@ -57,10 +56,16 @@ namespace DataImporter.Import.Services
                             }
                         }
                         _importUnitOfWork.Save();
+                        
                     }
                 }
-                
+                DeleteFile(file);
             }
+        }
+
+        private void DeleteFile(FileInfo file)
+        {
+            file.Delete();
         }
 
         private (int rowCount, int colCount) GetRowAndColNumber(ExcelWorksheet workSheet)
