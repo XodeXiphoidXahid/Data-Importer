@@ -41,3 +41,35 @@ Cannot resolve parameter 'DataImporter.Common.Utilities.IEmailService emailServi
 2021-09-18 20:07:18.924 +06:00 [INF] Application Starting up
 2021-09-18 20:27:56.585 +06:00 [INF] Application Starting up
 2021-09-18 20:28:02.898 +06:00 [INF] Worker running at: "2021-09-18T20:28:02.8885616+06:00"
+2021-09-18 23:23:45.322 +06:00 [INF] Application Starting up
+2021-09-18 23:23:47.682 +06:00 [FTL] Application start-up failed
+System.UnauthorizedAccessException: Access to the path 'D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Web\wwwroot\uploadExcel' is denied.
+   at System.IO.FileStream.ValidateFileHandle(SafeFileHandle fileHandle)
+   at System.IO.FileStream.CreateFileOpenHandle(FileMode mode, FileShare share, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   at System.IO.File.OpenRead(String path)
+   at MimeKit.AttachmentCollection.Add(String fileName)
+   at DataImporter.Common.Utilities.EmailService.SendEmail(String receiver, String subject, String body, FileInfo file) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Common\Utilities\EmailService.cs:line 40
+   at DataImporter.EmailWorker.Worker.ExecuteAsync(CancellationToken stoppingToken) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.EmailWorker\Worker.cs:line 39
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at DataImporter.EmailWorker.Program.Main(String[] args) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.EmailWorker\Program.cs:line 44
+2021-09-18 23:34:53.712 +06:00 [INF] Application Starting up
+2021-09-18 23:34:54.981 +06:00 [FTL] Application start-up failed
+System.UnauthorizedAccessException: Access to the path 'D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Web\wwwroot\uploadExcel' is denied.
+   at System.IO.FileStream.ValidateFileHandle(SafeFileHandle fileHandle)
+   at System.IO.FileStream.CreateFileOpenHandle(FileMode mode, FileShare share, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   at System.IO.File.OpenRead(String path)
+   at MimeKit.AttachmentCollection.Add(String fileName)
+   at DataImporter.Common.Utilities.EmailService.SendEmail(String receiver, String subject, String body, FileInfo file) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Common\Utilities\EmailService.cs:line 40
+   at DataImporter.EmailWorker.Worker.ExecuteAsync(CancellationToken stoppingToken) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.EmailWorker\Worker.cs:line 39
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at DataImporter.EmailWorker.Program.Main(String[] args) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.EmailWorker\Program.cs:line 44

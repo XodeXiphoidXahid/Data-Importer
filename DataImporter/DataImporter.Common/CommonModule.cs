@@ -18,7 +18,7 @@ namespace DataImporter.Common
                 .WithParameter("host", "smtp.gmail.com")
                 .WithParameter("port", 465)
                 .WithParameter("username", "zahidsheikh1521996@gmail.com")
-                .WithParameter("password", "**")
+                .WithParameter("password", "***")
                 .WithParameter("useSSL", true)
                 .WithParameter("from", "zahidsheikh1521996@gmail.com")
                 .InstancePerLifetimeScope();

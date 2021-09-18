@@ -1,7 +1,9 @@
 ﻿using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Http;
 using MimeKit;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,16 +29,17 @@ namespace DataImporter.Common.Utilities
             _from = from;
         }
 
-        public void SendEmail(string receiver, string subject, string body)
+        public void SendEmail(string receiver, string subject, string body, FileInfo file)
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress(_from, _from));
             message.To.Add(new MailboxAddress(receiver, receiver));
             message.Subject = subject;
-            message.Body = new TextPart("plain")
-            {
-                Text = body,
-            };
+            var bodyBuilder = new BodyBuilder { HtmlBody = string.Format("<h2 style='color:red;'>{0}</h2>", body) };
+
+            bodyBuilder.Attachments.Add(file.ToString());
+            
+            message.Body = bodyBuilder.ToMessageBody();
 
             using var client = new SmtpClient();
             client.Timeout = 60000;
