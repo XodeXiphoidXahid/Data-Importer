@@ -16,9 +16,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.8" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
-    <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
-
-    
+    <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" /> 
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DataImporter.Common\DataImporter.Common.csproj" />
     <ProjectReference Include="..\DataImporter.Import\DataImporter.Import.csproj" />
     <ProjectReference Include="..\DataImporter.Membership\DataImporter.Membership.csproj" />
   </ItemGroup>

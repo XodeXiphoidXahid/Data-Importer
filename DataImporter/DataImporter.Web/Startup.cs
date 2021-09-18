@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using DataImporter.Common;
 using DataImporter.Import;
 using DataImporter.Import.Contexts;
 using DataImporter.Membership;
@@ -40,6 +41,8 @@ namespace DataImporter.Web
                connectionInfo.migrationAssemblyName, Configuration));
 
             builder.RegisterModule(new WebModule());
+
+            builder.RegisterModule(new CommonModule());
         }
 
         private (string connectionString, string migrationAssemblyName) GetConnectionstringAndAssemblyName()

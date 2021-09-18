@@ -1,4 +1,5 @@
-﻿using DataImporter.Import.Services;
+﻿using DataImporter.Common.Utilities;
+using DataImporter.Import.Services;
 using DataImporter.Web.Areas.Customer.Models;
 using DataImporter.Web.Models;
 using Microsoft.AspNetCore.Hosting;
@@ -21,18 +22,20 @@ namespace DataImporter.Web.Areas.User.Controllers
         private readonly IImportService _importService;
         private IWebHostEnvironment _environment;
         
+        
 
         public ImportController(ILogger<ImportController> logger, IImportService importService, IWebHostEnvironment environment)
         {
             _logger = logger;
             _importService = importService;
             _environment = environment;
+           
             
         }
 
         public IActionResult Index()
         {
-           
+            
             return View();
         }
 
@@ -48,6 +51,8 @@ namespace DataImporter.Web.Areas.User.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Upload(IFormFile file)
         {
+
+            
             string wwwPath = this._environment.WebRootPath;
             string contentPath = this._environment.ContentRootPath;
 

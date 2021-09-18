@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using DataImporter.Common;
 using DataImporter.Import;
 using DataImporter.Import.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -13,14 +14,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DataImporter.Worker
+namespace DataImporter.EmailWorker
 {
     public class Program
     {
         private static string _connectionString;
         private static string _migrationAssemblyName;
         private static IConfiguration _configuration;
-        
+
         public static void Main(string[] args)
         {
             _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", false)
@@ -52,9 +53,8 @@ namespace DataImporter.Worker
                 Log.CloseAndFlush();
             }
             
-
         }
-        
+
         public static IHostBuilder CreateHostBuilder(string[] args) =>
              Host.CreateDefaultBuilder(args)
                 .UseWindowsService()
@@ -63,6 +63,8 @@ namespace DataImporter.Worker
                 .ConfigureContainer<ContainerBuilder>(builder => {
                     builder.RegisterModule(new ImportModule(_connectionString,
                     _migrationAssemblyName, _configuration));
+
+                    builder.RegisterModule(new CommonModule());
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
@@ -75,14 +77,10 @@ namespace DataImporter.Worker
                     _migrationAssemblyName = typeof(Worker).Assembly.FullName;
 
                     services.AddHostedService<Worker>();
-
                     services.AddDbContext<ImportDbContext>(options =>
                         options.UseSqlServer(_connectionString, b =>
                         b.MigrationsAssembly(_migrationAssemblyName)));
 
                 });
-
-
     }
-    
 }
