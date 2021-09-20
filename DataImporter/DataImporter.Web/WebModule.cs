@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using DataImporter.Web.Models;
+using DataImporter.Web.Models.ReCaptcha;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace DataImporter.Web
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<GoogleReCaptchaService>().As<IGoogleReCaptchaService>()
+               .InstancePerLifetimeScope();
             base.Load(builder);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using DataImporter.Membership.Entities;
 using DataImporter.Models.Account;
+using DataImporter.Web.Models.ReCaptcha;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -23,17 +24,20 @@ namespace DataImporter.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<AccountController> _logger;
         private readonly IEmailSender _emailSender;
+        private  IGoogleReCaptchaService _googleReCaptchaService;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<AccountController> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IGoogleReCaptchaService googleReCaptchaService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _googleReCaptchaService = googleReCaptchaService;
         }
 
         public async Task<IActionResult> Register(string returnUrl = null)
@@ -50,7 +54,19 @@ namespace DataImporter.Controllers
         {
             model.ReturnUrl ??= Url.Content("~/");
             model.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            else
+            {
+                if (!_googleReCaptchaService.ReCaptchaPassed(Request.Form["foo"]))
+                {
+                    ModelState.AddModelError(string.Empty, "You failed the CAPTCHA.");
+                    return View(model);
+                }
+            }
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };

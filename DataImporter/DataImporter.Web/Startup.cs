@@ -8,6 +8,7 @@ using DataImporter.Membership.Contexts;
 using DataImporter.Membership.Entities;
 using DataImporter.Membership.Services;
 using DataImporter.Web.Data;
+using DataImporter.Web.Models.ReCaptcha;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -90,6 +91,8 @@ namespace DataImporter.Web
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
+            
+
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
@@ -157,11 +160,11 @@ namespace DataImporter.Web
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapAreaControllerRoute(
-                name: "areas",
-                areaName: "Customer",
-                pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{Id?}"
-              );
+              //  endpoints.MapAreaControllerRoute(
+              //  name: "areas",
+              //  areaName: "Customer",
+              //  pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{Id?}"
+              //);
 
                 endpoints.MapControllerRoute(
                 name: "default",
