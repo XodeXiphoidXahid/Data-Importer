@@ -75,6 +75,10 @@ namespace DataImporter.Web
                 options.UseSqlServer(connectionInfo.connectionString, b =>
                 b.MigrationsAssembly(connectionInfo.migrationAssemblyName)));
 
+            services.AddDbContext<ImportDbContext>(options =>
+                options.UseSqlServer(connectionInfo.connectionString, b =>
+                b.MigrationsAssembly(connectionInfo.migrationAssemblyName)));
+
 
             // Identity customization started here
             services

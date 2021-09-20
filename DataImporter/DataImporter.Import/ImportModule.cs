@@ -32,6 +32,7 @@ namespace DataImporter.Import
             builder.RegisterType<ImportDbContext>().As<IImportDbContext>().WithParameter("connectionString", _connectionString).WithParameter("migrationAssemblyName", _migrationAssemblyName).InstancePerLifetimeScope();
 
             builder.RegisterType<ImportService>().As<IImportService>().InstancePerLifetimeScope();
+            builder.RegisterType<ExportService>().As<IExportService>().InstancePerLifetimeScope();
 
             builder.RegisterType<ImportUnitOfWork>().As<IImportUnitOfWork>().InstancePerLifetimeScope();
 

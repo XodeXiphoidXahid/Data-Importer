@@ -28,8 +28,13 @@ namespace DataImporter.Import.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Group>()
+                .HasMany(g => g.ExcelDatas)
+                .WithOne(e => e.Group);
+
             base.OnModelCreating(modelBuilder);
         }
-        public DbSet<ExcelData> ExcelData { get; set; }
+        public DbSet<ExcelData> ExcelDatas { get; set; }
+        public DbSet<Group> Groups { get; set; }
     }
 }
