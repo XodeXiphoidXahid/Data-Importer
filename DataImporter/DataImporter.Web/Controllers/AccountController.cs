@@ -1,4 +1,5 @@
-﻿using DataImporter.Membership.Entities;
+﻿using DataImporter.Common.Utilities;
+using DataImporter.Membership.Entities;
 using DataImporter.Models.Account;
 using DataImporter.Web.Models.ReCaptcha;
 using Microsoft.AspNetCore.Authentication;
@@ -14,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace DataImporter.Controllers
 {
@@ -24,20 +26,23 @@ namespace DataImporter.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<AccountController> _logger;
         private readonly IEmailSender _emailSender;
-        private  IGoogleReCaptchaService _googleReCaptchaService;
+        private readonly IGoogleReCaptchaService _googleReCaptchaService;
+        private readonly IEmailService _emailService;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<AccountController> logger,
             IEmailSender emailSender,
-            IGoogleReCaptchaService googleReCaptchaService)
+            IGoogleReCaptchaService googleReCaptchaService,
+            IEmailService emailService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
             _googleReCaptchaService = googleReCaptchaService;
+            _emailService = emailService;
         }
 
         public async Task<IActionResult> Register(string returnUrl = null)
@@ -75,19 +80,22 @@ namespace DataImporter.Controllers
                 {
                     _logger.LogInformation("User created a new account with password.");
 
+                    
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.ActionLink(
-                        "/Account/ConfirmEmail",
-                        values: new { userId = user.Id, code = code, returnUrl = model.ReturnUrl },
+                    code = HttpUtility.HtmlEncode(code);
+                    //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+
+                    var callbackUrl = Url.Action(
+                        nameof(ConfirmEmail),"Account",
+                         new {  token = code, userId = user.Id },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(model.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                    if (_userManager.Options.SignIn.RequireConfirmedEmail)
                     {
-                        return RedirectToAction("RegisterConfirmation", "Account", new { email = model.Email, returnUrl = model.ReturnUrl });
+                        _emailService.SendEmail(model.Email, "Confirm your email",
+                        $"Please confirm your account by <a href='{callbackUrl}'>link</a>.", null);
+
+                        return RedirectToAction("Login", "Account", new { email = model.Email, returnUrl = model.ReturnUrl });
                     }
                     else
                     {
@@ -103,6 +111,21 @@ namespace DataImporter.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> ConfirmEmail(string token, string userId)
+        {
+            
+            //var user = await _userManager.FindByEmailAsync(email);
+            var user = await _userManager.FindByIdAsync(userId);
+            
+            if (user == null)
+                return View("Error");
+
+            token= HttpUtility.HtmlDecode(token);
+           
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
         [TempData]

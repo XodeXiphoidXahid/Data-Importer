@@ -35,11 +35,16 @@ namespace DataImporter.Common.Utilities
             message.From.Add(new MailboxAddress(_from, _from));
             message.To.Add(new MailboxAddress(receiver, receiver));
             message.Subject = subject;
-            var bodyBuilder = new BodyBuilder { HtmlBody = string.Format("<h2 style='color:red;'>{0}</h2>", body) };
+            var bodyBuilder = new BodyBuilder { HtmlBody = string.Format(body) };
 
-            bodyBuilder.Attachments.Add(file.ToString());
-            
+            if(file!=null)
+            {
+                bodyBuilder.Attachments.Add(file.ToString());
+
+               
+            }
             message.Body = bodyBuilder.ToMessageBody();
+
 
             using var client = new SmtpClient();
             client.Timeout = 60000;

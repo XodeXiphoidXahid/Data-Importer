@@ -1,0 +1,45 @@
+2021-09-21 01:12:25.870 +06:00 [INF] Application Starting up
+2021-09-21 01:13:46.332 +06:00 [INF] User created a new account with password.
+2021-09-21 01:25:29.371 +06:00 [INF] Application Starting up
+2021-09-21 01:29:29.618 +06:00 [INF] Application Starting up
+2021-09-21 01:30:44.639 +06:00 [INF] User created a new account with password.
+2021-09-21 01:44:17.596 +06:00 [INF] Application Starting up
+2021-09-21 01:44:32.047 +06:00 [INF] Application Starting up
+2021-09-21 01:45:19.086 +06:00 [INF] User created a new account with password.
+2021-09-21 02:04:37.441 +06:00 [INF] Application Starting up
+2021-09-21 02:05:11.035 +06:00 [INF] User created a new account with password.
+2021-09-21 02:16:19.605 +06:00 [INF] Application Starting up
+2021-09-21 02:16:58.959 +06:00 [INF] User created a new account with password.
+2021-09-21 02:25:46.888 +06:00 [INF] Application Starting up
+2021-09-21 02:26:21.461 +06:00 [INF] User created a new account with password.
+2021-09-21 02:28:19.627 +06:00 [INF] Application Starting up
+2021-09-21 02:29:07.832 +06:00 [INF] User created a new account with password.
+2021-09-21 02:29:39.607 +06:00 [WRN] VerifyUserTokenAsync() failed with purpose: EmailConfirmation for user.
+2021-09-21 02:30:51.710 +06:00 [WRN] VerifyUserTokenAsync() failed with purpose: EmailConfirmation for user.
+2021-09-21 02:30:51.731 +06:00 [WRN] VerifyUserTokenAsync() failed with purpose: EmailConfirmation for user.
+2021-09-21 02:32:39.035 +06:00 [INF] Application Starting up
+2021-09-21 02:33:19.227 +06:00 [INF] User created a new account with password.
+2021-09-21 02:35:20.224 +06:00 [INF] Application Starting up
+2021-09-21 02:36:32.953 +06:00 [INF] Application Starting up
+2021-09-21 02:37:18.580 +06:00 [INF] User created a new account with password.
+2021-09-21 02:37:51.541 +06:00 [WRN] VerifyUserTokenAsync() failed with purpose: EmailConfirmation for user.
+2021-09-21 02:38:45.849 +06:00 [INF] Application Starting up
+2021-09-21 02:40:03.477 +06:00 [INF] User created a new account with password.
+2021-09-21 02:41:24.125 +06:00 [WRN] VerifyUserTokenAsync() failed with purpose: EmailConfirmation for user.
+2021-09-21 03:07:12.554 +06:00 [INF] Application Starting up
+2021-09-21 03:07:57.922 +06:00 [WRN] VerifyUserTokenAsync() failed with purpose: EmailConfirmation for user.
+2021-09-21 12:45:44.568 +06:00 [INF] Application Starting up
+2021-09-21 12:46:30.084 +06:00 [INF] User created a new account with password.
+2021-09-21 12:47:04.833 +06:00 [WRN] VerifyUserTokenAsync() failed with purpose: EmailConfirmation for user.
+2021-09-21 12:52:05.121 +06:00 [INF] Application Starting up
+2021-09-21 12:52:37.021 +06:00 [INF] User created a new account with password.
+2021-09-21 12:53:13.887 +06:00 [WRN] VerifyUserTokenAsync() failed with purpose: EmailConfirmation for user.
+2021-09-21 14:31:07.227 +06:00 [INF] Application Starting up
+2021-09-21 14:31:49.087 +06:00 [INF] User created a new account with password.
+2021-09-21 14:32:19.063 +06:00 [WRN] VerifyUserTokenAsync() failed with purpose: EmailConfirmation for user.
+2021-09-21 15:02:09.070 +06:00 [INF] Application Starting up
+2021-09-21 15:03:50.979 +06:00 [INF] Application Starting up
+2021-09-21 15:04:28.762 +06:00 [WRN] VerifyUserTokenAsync() failed with purpose: EmailConfirmation for user.
+2021-09-21 15:11:06.620 +06:00 [INF] Application Starting up
+2021-09-21 15:11:35.748 +06:00 [INF] User created a new account with password.
+2021-09-21 15:12:05.210 +06:00 [WRN] VerifyUserTokenAsync() failed with purpose: EmailConfirmation for user.
