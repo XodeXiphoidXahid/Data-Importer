@@ -66,7 +66,17 @@ namespace DataImporter.Import.Services
 
         private void DeleteFile(FileInfo file)
         {
+            var fileName = file.Name;
+            DeleteFileLocation(fileName);
             file.Delete();
+            
+        }
+
+        private void DeleteFileLocation(string fileName)
+        {
+            var fileId = _importUnitOfWork.FileLocations.GetAll().Where(f => f.FileName==fileName).FirstOrDefault().Id;
+
+            _importUnitOfWork.FileLocations.Remove(fileId);
         }
 
         private (int rowCount, int colCount) GetRowAndColNumber(ExcelWorksheet workSheet)
