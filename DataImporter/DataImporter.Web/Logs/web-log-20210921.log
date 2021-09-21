@@ -43,3 +43,10 @@
 2021-09-21 15:11:06.620 +06:00 [INF] Application Starting up
 2021-09-21 15:11:35.748 +06:00 [INF] User created a new account with password.
 2021-09-21 15:12:05.210 +06:00 [WRN] VerifyUserTokenAsync() failed with purpose: EmailConfirmation for user.
+2021-09-21 15:20:04.668 +06:00 [INF] Application Starting up
+2021-09-21 15:20:40.479 +06:00 [INF] User created a new account with password.
+2021-09-21 15:38:00.928 +06:00 [INF] Application Starting up
+2021-09-21 15:38:19.825 +06:00 [INF] User logged in.
+2021-09-21 15:38:36.306 +06:00 [INF] Application Starting up
+2021-09-21 15:39:10.249 +06:00 [INF] User logged in.
+2021-09-21 15:42:40.790 +06:00 [INF] Application Starting up

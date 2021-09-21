@@ -161,11 +161,20 @@ namespace DataImporter.Controllers
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    var user = await _userManager.FindByEmailAsync(model.Email);
+                    bool emailStatus = await _userManager.IsEmailConfirmedAsync(user);
+
+                    if(emailStatus)
+                    {
+                        _logger.LogInformation("User logged in.");
+                        return LocalRedirect(returnUrl);
+                    }
+                    
+                    
                 }
                 if (result.RequiresTwoFactor)
                 {
