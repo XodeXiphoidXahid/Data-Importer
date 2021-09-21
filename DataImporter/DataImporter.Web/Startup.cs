@@ -162,11 +162,17 @@ namespace DataImporter.Web
 
             app.UseEndpoints(endpoints =>
             {
-              //  endpoints.MapAreaControllerRoute(
-              //  name: "areas",
-              //  areaName: "Customer",
-              //  pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{Id?}"
-              //);
+                //  endpoints.MapAreaControllerRoute(
+                //  name: "areas",
+                //  areaName: "Customer",
+                //  pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{Id?}"
+                //);
+                endpoints.MapControllerRoute(
+                      name: "areas",
+                      pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{Id?}"
+                  );
+
+
 
                 endpoints.MapControllerRoute(
                 name: "default",

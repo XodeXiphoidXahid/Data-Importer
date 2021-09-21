@@ -33,6 +33,7 @@ namespace DataImporter.Import
 
             builder.RegisterType<ImportService>().As<IImportService>().InstancePerLifetimeScope();
             builder.RegisterType<ExportService>().As<IExportService>().InstancePerLifetimeScope();
+            builder.RegisterType<GroupService>().As<IGroupService>().InstancePerLifetimeScope();
 
             builder.RegisterType<ImportUnitOfWork>().As<IImportUnitOfWork>().InstancePerLifetimeScope();
 

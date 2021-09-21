@@ -1,4 +1,8 @@
-﻿<!-- Content Header (Page header) -->
+﻿
+
+
+
+<!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
         <div class="row form-horizontal justify-content-center">
@@ -31,7 +35,8 @@
                     <!-- form start -->
                     <form class="form-horizontal" method="post" asp-controller="" asp-action="" asp-antiforgery="true">
                         <div class="card-body">
-                            <div class="form-group">
+                            
+                            <div class="form-group row">
                                 <label for="exampleInputFile">File input</label>
                                 <div class="input-group">
                                     <div class="custom-file">
@@ -44,13 +49,13 @@
                                 </div>
                             </div>
                         </div>
-                           
-                            <!-- /.card-body -->
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-info">Upload</button>
-                                <a asp-action="Index" asp-controller="Attendance" class="btn btn-default float-right">Cancel</a>
-                            </div>
-                            <!-- /.card-footer -->
+
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-info">Upload</button>
+                            <a asp-action="Index" asp-controller="Attendance" class="btn btn-default float-right">Cancel</a>
+                        </div>
+                        <!-- /.card-footer -->
                     </form>
                 </div>
                 <!-- /.card -->

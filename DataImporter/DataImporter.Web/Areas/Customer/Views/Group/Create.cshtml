@@ -1,4 +1,8 @@
-﻿<!-- Content Header (Page header) -->
+﻿@model CreateGroupModel
+@{
+    ViewData["Title"] = "Create";
+}
+<!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
         <div class="row form-horizontal justify-content-center">
@@ -29,12 +33,12 @@
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form class="form-horizontal" method="post" asp-controller="" asp-action="" asp-antiforgery="true">
+                    <form class="form-horizontal" method="post" asp-controller="Group" asp-action="Create" asp-antiforgery="true">
                         <div class="card-body">
                             <div class="form-group row">
-                                <label  class="col-sm-2 col-form-label ">Group Name</label>
+                                <label class="col-sm-2 col-form-label ">Group Name</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control"   placeholder="Group Name">
+                                    <input type="text" class="form-control" asp-for="Name" id="name" placeholder="Group Name">
                                 </div>
                             </div>
                         </div>

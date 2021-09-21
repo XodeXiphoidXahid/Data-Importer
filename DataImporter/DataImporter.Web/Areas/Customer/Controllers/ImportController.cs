@@ -1,5 +1,6 @@
 ﻿using DataImporter.Common.Utilities;
 using DataImporter.Import.Services;
+using DataImporter.Import.UnitOfWorks;
 using DataImporter.Web.Areas.Customer.Models;
 using DataImporter.Web.Models;
 using Microsoft.AspNetCore.Hosting;
@@ -21,16 +22,17 @@ namespace DataImporter.Web.Areas.User.Controllers
         private readonly ILogger<ImportController> _logger;
         private readonly IImportService _importService;
         private IWebHostEnvironment _environment;
-        
+        private readonly IImportUnitOfWork _importUnitOfWork;
         
 
-        public ImportController(ILogger<ImportController> logger, IImportService importService, IWebHostEnvironment environment)
+        public ImportController(ILogger<ImportController> logger, IImportService importService, IWebHostEnvironment environment, IImportUnitOfWork importUnitOfWork)
         {
             _logger = logger;
             _importService = importService;
             _environment = environment;
-           
-            
+            _importUnitOfWork = importUnitOfWork;
+
+
         }
 
         public IActionResult Index()
@@ -96,6 +98,24 @@ namespace DataImporter.Web.Areas.User.Controllers
                 }
             }
             return View();
+        }
+
+        public JsonResult GetGroupList(string searchTerm)
+        {
+            var groupList = _importUnitOfWork.Groups.GetAll().ToList();
+
+            if(searchTerm != null)
+            {
+                groupList = _importUnitOfWork.Groups.GetAll().Where(x => x.Name.Contains(searchTerm)).ToList();
+            }
+
+            var modifiedData = groupList.Select(x => new
+            {
+                id=x.Id,
+                text=x.Name
+            });
+
+            return Json(modifiedData);
         }
     }
 }
