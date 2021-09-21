@@ -1,4 +1,5 @@
-﻿using DataImporter.Import.UnitOfWorks;
+﻿using DataImporter.Import.BusinessObjects;
+using DataImporter.Import.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
 using OfficeOpenXml;
 using System;
@@ -79,6 +80,20 @@ namespace DataImporter.Import.Services
         public void SaveExcelInRoot(IFormFile file)
         {
             throw new NotImplementedException();
+        }
+
+        public void SaveFileInfo(FileLocation fileLocation)
+        {
+            _importUnitOfWork.FileLocations.Add(
+
+                new Entities.FileLocation
+                {
+                    GroupId = fileLocation.GroupId,
+                    FileName = fileLocation.FileName
+
+                });
+
+            _importUnitOfWork.Save();
         }
     }
 }

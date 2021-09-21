@@ -77,7 +77,7 @@ namespace DataImporter.Web.Areas.User.Controllers
             {
                 try
                 {
-                    model.SaveFileInfo();
+                    model.SaveFileInfo(fileName);
                 }
                 catch (Exception ex)
                 {

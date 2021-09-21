@@ -12,5 +12,6 @@ namespace DataImporter.Import.UnitOfWorks
     {
         IGroupRepository Groups { get; }
         IExcelDataRepository ExcelDatas { get; }
+        IFileLocationRepository FileLocations { get; }
     }
 }

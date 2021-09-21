@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DataImporter.Import.BusinessObjects;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,5 +13,6 @@ namespace DataImporter.Import.Services
     {
         void SaveExcelInRoot(IFormFile file);
         void SaveExcelInDb(FileInfo[] fileInfo);
+        void SaveFileInfo(FileLocation fileLocation);
     }
 }

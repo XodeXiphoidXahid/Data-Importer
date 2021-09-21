@@ -1,13 +1,12 @@
-﻿using DataImporter.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataImporter.Import.Entities
+namespace DataImporter.Import.BusinessObjects
 {
-    public class FileLocation : IEntity<int>
+    public class FileLocation
     {
         public int Id { get; set; }
         public string FileName { get; set; }

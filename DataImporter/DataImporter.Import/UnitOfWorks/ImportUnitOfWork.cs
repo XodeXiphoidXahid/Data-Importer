@@ -13,13 +13,14 @@ namespace DataImporter.Import.UnitOfWorks
     {
         public IGroupRepository Groups { get; private set; }
         public IExcelDataRepository ExcelDatas { get; private set; }
-
+        public IFileLocationRepository FileLocations { get; private set; }
         public ImportUnitOfWork(ImportDbContext context,
-            IGroupRepository groups, IExcelDataRepository excelDatas)
+            IGroupRepository groups, IExcelDataRepository excelDatas, IFileLocationRepository fileLocations)
             : base(context)
         {
             Groups = groups;
             ExcelDatas = excelDatas;
+            FileLocations = fileLocations;
         }
     }
 }

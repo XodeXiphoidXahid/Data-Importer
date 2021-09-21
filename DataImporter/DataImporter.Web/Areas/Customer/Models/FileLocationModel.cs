@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Autofac;
+using DataImporter.Import.BusinessObjects;
+using DataImporter.Import.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,9 +12,26 @@ namespace DataImporter.Web.Areas.Customer.Models
     {
         public int GroupId { get; set; }
 
-        internal void SaveFileInfo()
+        private readonly IImportService _importService;
+
+        public FileLocationModel()
         {
-            throw new NotImplementedException();
+            _importService = Startup.AutofacContainer.Resolve<IImportService>();
+        }
+        public FileLocationModel(IImportService importService)
+        {
+            _importService = importService;
+        }
+
+        internal void SaveFileInfo(string fileName)
+        {
+            var fileLocation = new FileLocation
+            {
+                GroupId=GroupId,
+                FileName=fileName
+            };
+
+            _importService.SaveFileInfo(fileLocation);
         }
     }
 }
