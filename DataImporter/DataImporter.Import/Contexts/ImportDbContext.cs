@@ -36,5 +36,6 @@ namespace DataImporter.Import.Contexts
         }
         public DbSet<ExcelData> ExcelDatas { get; set; }
         public DbSet<Group> Groups { get; set; }
+        public DbSet<FileLocation> FileLocations { get; set; }
     }
 }

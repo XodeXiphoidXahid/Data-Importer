@@ -48,13 +48,13 @@ namespace DataImporter.Web.Areas.User.Controllers
 
         public IActionResult Upload()
         {
-            return View();
+            var model = new FileLocationModel();
+            
+            return View(model);
         }
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult Upload(IFormFile file)
-        {
-
-            
+        public IActionResult Upload(IFormFile file, FileLocationModel model)
+        {     
             string wwwPath = this._environment.WebRootPath;
             string contentPath = this._environment.ContentRootPath;
 
@@ -72,8 +72,22 @@ namespace DataImporter.Web.Areas.User.Controllers
                 file.CopyTo(stream);
             }
 
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    model.SaveFileInfo();
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Failed to Create Group");
+                    _logger.LogError(ex, "Create Group Failed");
+                }
+
+            }
+            return View(model);
             
-            return View();
         }
 
         public IActionResult Read()
