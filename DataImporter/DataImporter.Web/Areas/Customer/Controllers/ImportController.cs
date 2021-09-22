@@ -3,6 +3,7 @@ using DataImporter.Import.Services;
 using DataImporter.Import.UnitOfWorks;
 using DataImporter.Web.Areas.Customer.Models;
 using DataImporter.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace DataImporter.Web.Areas.User.Controllers
 {
-    [Area("Customer")]
+    [Area("Customer"), Authorize]
     public class ImportController : Controller
     {
         private readonly ILogger<ImportController> _logger;
