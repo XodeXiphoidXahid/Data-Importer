@@ -1,11 +1,13 @@
 ﻿using DataImporter.Common.Utilities;
 using DataImporter.Import.Services;
 using DataImporter.Import.UnitOfWorks;
+using DataImporter.Membership.Entities;
 using DataImporter.Web.Areas.Customer.Models;
 using DataImporter.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OfficeOpenXml;
@@ -24,15 +26,16 @@ namespace DataImporter.Web.Areas.User.Controllers
         private readonly IImportService _importService;
         private IWebHostEnvironment _environment;
         private readonly IImportUnitOfWork _importUnitOfWork;
+        private readonly UserManager<ApplicationUser> _userManager;
         
 
-        public ImportController(ILogger<ImportController> logger, IImportService importService, IWebHostEnvironment environment, IImportUnitOfWork importUnitOfWork)
+        public ImportController(ILogger<ImportController> logger, IImportService importService, IWebHostEnvironment environment, IImportUnitOfWork importUnitOfWork, UserManager<ApplicationUser> userManager)
         {
             _logger = logger;
             _importService = importService;
             _environment = environment;
             _importUnitOfWork = importUnitOfWork;
-
+            _userManager = userManager;
 
         }
 
@@ -55,7 +58,9 @@ namespace DataImporter.Web.Areas.User.Controllers
         }
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Upload(IFormFile file, FileLocationModel model)
-        {     
+        {
+            var userId = _userManager.GetUserId(HttpContext.User);
+
             string wwwPath = this._environment.WebRootPath;
             string contentPath = this._environment.ContentRootPath;
 

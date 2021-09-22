@@ -23,14 +23,14 @@ namespace DataImporter.Web.Areas.Customer.Models
         {
             _groupService = groupService;
         }
-        internal void CreateGroup()
+        internal void CreateGroup(string userId)
         {
             var group = new Group
             {
                 Name = Name
             };
 
-            _groupService.CreateGroup(group);
+            _groupService.CreateGroup(group, userId);
         }
     }
 }

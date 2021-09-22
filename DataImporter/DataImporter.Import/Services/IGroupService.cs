@@ -9,6 +9,6 @@ namespace DataImporter.Import.Services
 {
     public interface IGroupService
     {
-        void CreateGroup(Group group);
+        void CreateGroup(Group group, string userId);
     }
 }

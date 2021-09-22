@@ -17,7 +17,7 @@ namespace DataImporter.Import.Services
         {
             _importUnitOfWork = importUnitOfWork;
         }
-        public void CreateGroup(Group group)
+        public void CreateGroup(Group group, string userId)
         {
             if (group == null)
                 throw new InvalidParameterException("Group was not provided");
@@ -25,7 +25,8 @@ namespace DataImporter.Import.Services
             _importUnitOfWork.Groups.Add(
                 new Entities.Group
                 {
-                    Name = group.Name
+                    Name = group.Name,
+                    UserId=userId
                 }
             );
 
