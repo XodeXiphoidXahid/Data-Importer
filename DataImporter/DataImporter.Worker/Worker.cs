@@ -41,7 +41,7 @@ namespace DataImporter.Worker
 
                 if(fileInfo.Count()>0)
                 {
-                    _importService.SaveExcelInDb(fileInfo);
+                    _importService.SaveExcelInDb(fileInfo);// Ekhane groupId taw pass korte hbe.
                 }
                 Console.WriteLine("Bro I am here");
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);

@@ -13,6 +13,6 @@ namespace DataImporter.Import.Services
     {
         void SaveExcelInRoot(IFormFile file);
         void SaveExcelInDb(FileInfo[] fileInfo);
-        void SaveFileInfo(FileLocation fileLocation);
+        void SaveFileInfo(FileLocation fileLocation, IFormFile file);
     }
 }

@@ -59,38 +59,17 @@ namespace DataImporter.Web.Areas.User.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Upload(IFormFile file, FileLocationModel model)
         {
-            var userId = _userManager.GetUserId(HttpContext.User);
-
-            string wwwPath = this._environment.WebRootPath;
-            string contentPath = this._environment.ContentRootPath;
-
-            string path = Path.Combine(this._environment.WebRootPath, "uploadExcel");
-
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-
-            string fileName = Path.GetFileName(file.FileName);
-
-            using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
-            {
-                file.CopyTo(stream);
-            }
-
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    model.SaveFileInfo(fileName);
+                    model.SaveFileInfo(file.FileName, file);
                 }
                 catch (Exception ex)
                 {
-                    ModelState.AddModelError("", "Failed to Create Group");
-                    _logger.LogError(ex, "Create Group Failed");
+                    ModelState.AddModelError("", "Failed to Upload file");
+                    _logger.LogError(ex, "Failed to Upload file");
                 }
-
             }
             return View(model);
             

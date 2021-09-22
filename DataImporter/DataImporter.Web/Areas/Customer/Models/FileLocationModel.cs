@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using DataImporter.Import.BusinessObjects;
 using DataImporter.Import.Services;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,15 +24,25 @@ namespace DataImporter.Web.Areas.Customer.Models
             _importService = importService;
         }
 
-        internal void SaveFileInfo(string fileName)
+        internal void SaveFileInfo(string fileName, IFormFile file)
         {
+            fileName = RandomString(fileName.Length);
+
             var fileLocation = new FileLocation
             {
                 GroupId=GroupId,
                 FileName=fileName
             };
 
-            _importService.SaveFileInfo(fileLocation);
+            _importService.SaveFileInfo(fileLocation, file);
+        }
+
+        private static Random random = new Random();
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }

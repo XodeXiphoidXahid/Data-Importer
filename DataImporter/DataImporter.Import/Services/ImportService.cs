@@ -92,7 +92,7 @@ namespace DataImporter.Import.Services
             throw new NotImplementedException();
         }
 
-        public void SaveFileInfo(FileLocation fileLocation)
+        public void SaveFileInfo(FileLocation fileLocation, IFormFile file)
         {
             _importUnitOfWork.FileLocations.Add(
 
@@ -104,6 +104,22 @@ namespace DataImporter.Import.Services
                 });
 
             _importUnitOfWork.Save();
+
+            SaveFileInStorage(file, fileLocation.FileName);//ekhane file and file er name ta pathaite hbe.
+        }
+        public void SaveFileInStorage(IFormFile file, string fileName)
+        {
+            string path = "D:\\ASP.Net Core(Devskill)\\Asp_Dot_Net_Core\\ExcelFiles";
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            fileName = fileName + ".xlsx";
+            using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
         }
     }
 }
