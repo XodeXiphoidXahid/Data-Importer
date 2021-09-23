@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace DataImporter.Import.Entities
 {
-    public class ExcelData: IEntity<int>//One to Many
+    public class GroupColumnName : IEntity<int>//One to One
     {
         public int Id { get; set; }
+        public string ColumnList { get; set; }
+
         public int GroupId { get; set; }
-        public string Key { get; set; }
-        public string Value { get; set; }
         public Group Group { get; set; }
+
     }
 }

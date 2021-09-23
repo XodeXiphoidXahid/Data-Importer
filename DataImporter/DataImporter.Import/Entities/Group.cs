@@ -12,6 +12,10 @@ namespace DataImporter.Import.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public string UserId { get; set; }
+
         public List<ExcelData> ExcelDatas { get; set; }
+
+        public GroupColumnName GroupColumnName { get; set; }
+        
     }
 }

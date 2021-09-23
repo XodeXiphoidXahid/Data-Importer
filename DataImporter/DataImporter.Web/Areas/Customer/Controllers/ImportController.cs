@@ -83,7 +83,6 @@ namespace DataImporter.Web.Areas.User.Controllers
             FileInfo[] fileInfo = directoryInfo.GetFiles();
 
             foreach(var file in fileInfo)
-            
             {
                 using (var stream = System.IO.File.OpenRead(file.ToString()))
                 {
@@ -101,7 +100,9 @@ namespace DataImporter.Web.Areas.User.Controllers
 
         public JsonResult GetGroupList(string searchTerm)
         {
-            var groupList = _importUnitOfWork.Groups.GetAll().ToList();
+            var userId = _userManager.GetUserId(HttpContext.User);
+            var groupList = _importUnitOfWork.Groups.GetAll().Where(x=>x.UserId==userId ).ToList();
+            
 
             if(searchTerm != null)
             {

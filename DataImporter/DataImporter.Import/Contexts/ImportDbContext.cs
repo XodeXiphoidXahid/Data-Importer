@@ -32,10 +32,23 @@ namespace DataImporter.Import.Contexts
                 .HasMany(g => g.ExcelDatas)
                 .WithOne(e => e.Group);
 
+            //One to One relationship
+            modelBuilder.Entity<Group>()
+            .HasOne<GroupColumnName>(g=>g.GroupColumnName)
+            .WithOne(c => c.Group)
+            .HasForeignKey<GroupColumnName>(g => g.GroupId);
+
+            ////One to Many
+            //modelBuilder.Entity<Group>()
+            //    .HasMany(g => g.FileLocations)
+            //    .WithOne(e => e.Group);
+
+
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<ExcelData> ExcelDatas { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<FileLocation> FileLocations { get; set; }
+        public DbSet<GroupColumnName> GroupColumnNames { get; set; }
     }
 }

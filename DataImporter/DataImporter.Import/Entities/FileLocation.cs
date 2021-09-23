@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 
 namespace DataImporter.Import.Entities
 {
-    public class FileLocation : IEntity<int>
+    public class FileLocation : IEntity<int>//One to Many
     {
         public int Id { get; set; }
         public string FileName { get; set; }
+
         public int GroupId { get; set; }
+        
     }
 }
+
