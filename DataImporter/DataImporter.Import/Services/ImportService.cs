@@ -165,14 +165,46 @@ namespace DataImporter.Import.Services
 
         public bool CheckColumn(IFormFile file, int groupId)
         {
-            if (_importUnitOfWork.GroupColumnNames.GetCount(x => x.GroupId == groupId) == 0)
+            if (_importUnitOfWork.GroupColumnNames.GetCount(x => x.GroupId == groupId) == 0)//ekdm new group jedik kono file upload kora hoe nai.
                 return true;
+            //ei line e ashar por group ta exist kore, so sekhane file ta upload kora jabe kina setar checking dite hbe
             else
             {
-                var columnList = _importUnitOfWork.GroupColumnNames.GetAll().Where(x => x.GroupId == groupId);
+                var columnList = _importUnitOfWork.GroupColumnNames.GetAll().Where(x => x.GroupId == groupId).Select(x=>x.ColumnList).FirstOrDefault();
+
+                var splitColumnList = columnList.Split("~").ToList();
                 
+                var inputFileColList = fetchColList(file);
+
+                if (splitColumnList.OrderBy(m => m).SequenceEqual(inputFileColList.OrderBy(m => m)))
+                    return true;
             }
-            return true;
+            return false;
+        }
+
+        private List<string> fetchColList(IFormFile file)
+        {
+            List<string> colList = new List<string>();
+
+            using (var stream = new MemoryStream())
+            {
+                file.CopyTo(stream);
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+                using (var package = new ExcelPackage(stream))
+                {
+                    ExcelWorksheet workSheet = package.Workbook.Worksheets[0];
+
+                    var rowAndColInfo = GetRowAndColNumber(workSheet);
+
+                    for (int col = 1; col <= rowAndColInfo.colCount; col++)
+                    {
+                        colList.Add(workSheet.Cells[1, col].Value.ToString().Trim());
+                    }
+                }
+            }
+            colList.Add("");
+            return colList.ToList();
         }
     }
 }
