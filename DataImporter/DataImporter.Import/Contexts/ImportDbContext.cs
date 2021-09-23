@@ -38,10 +38,10 @@ namespace DataImporter.Import.Contexts
             .WithOne(c => c.Group)
             .HasForeignKey<GroupColumnName>(g => g.GroupId);
 
-            ////One to Many
-            //modelBuilder.Entity<Group>()
-            //    .HasMany(g => g.FileLocations)
-            //    .WithOne(e => e.Group);
+            //One to Many
+            modelBuilder.Entity<Group>()
+                .HasMany(g => g.FileLocations)
+                .WithOne(e => e.Group);
 
 
             base.OnModelCreating(modelBuilder);

@@ -15,6 +15,8 @@ namespace DataImporter.Import.Entities
 
         public List<ExcelData> ExcelDatas { get; set; }
 
+        public List<FileLocation> FileLocations { get; set; }
+
         public GroupColumnName GroupColumnName { get; set; }
         
     }
