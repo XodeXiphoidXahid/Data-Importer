@@ -44,5 +44,10 @@ namespace DataImporter.Web.Areas.Customer.Models
             return new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
+
+        internal bool RightGroup(IFormFile file)
+        {
+            return _importService.CheckColumn(file, GroupId);
+        }
     }
 }

@@ -105,8 +105,49 @@ namespace DataImporter.Import.Services
 
             _importUnitOfWork.Save();
 
+            SaveFileColumnName(file, fileLocation.GroupId);
             SaveFileInStorage(file, fileLocation.FileName);//ekhane file and file er name ta pathaite hbe.
+            
         }
+
+        private void SaveFileColumnName(IFormFile file, int groupId)
+        {
+            List<string> colList = new List<string>();
+
+            using (var stream = new MemoryStream())
+            {
+                file.CopyTo(stream);
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+                using (var package = new ExcelPackage(stream))
+                {
+                    ExcelWorksheet workSheet = package.Workbook.Worksheets[0];
+
+                    var rowAndColInfo = GetRowAndColNumber(workSheet);
+
+                    for (int col = 1; col <= rowAndColInfo.colCount; col++)
+                    {
+                        colList.Add(workSheet.Cells[1, col].Value.ToString().Trim());
+                    }
+                }
+            }
+            string allColumn = null;
+            foreach(var val in colList)
+            {
+                allColumn += val+"~";//last e je ~ add hbe seita delete dite hbe
+            }
+            
+            _importUnitOfWork.GroupColumnNames.Add(new Entities.GroupColumnName
+                {
+                    GroupId=groupId,
+                    ColumnList=allColumn
+                });
+
+            _importUnitOfWork.Save();
+
+        }
+
+
         public void SaveFileInStorage(IFormFile file, string fileName)
         {
             string path = "D:\\ASP.Net Core(Devskill)\\Asp_Dot_Net_Core\\ExcelFiles";
@@ -120,6 +161,18 @@ namespace DataImporter.Import.Services
             {
                 file.CopyTo(stream);
             }
+        }
+
+        public bool CheckColumn(IFormFile file, int groupId)
+        {
+            if (_importUnitOfWork.GroupColumnNames.GetCount(x => x.GroupId == groupId) == 0)
+                return true;
+            else
+            {
+                var columnList = _importUnitOfWork.GroupColumnNames.GetAll().Where(x => x.GroupId == groupId);
+                
+            }
+            return true;
         }
     }
 }

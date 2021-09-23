@@ -20,3 +20,96 @@
 2021-09-23 11:38:21.353 +06:00 [INF] User logged in.
 2021-09-23 11:39:35.534 +06:00 [INF] Application Starting up
 2021-09-23 11:39:58.406 +06:00 [INF] User logged in.
+2021-09-23 16:14:59.344 +06:00 [INF] Application Starting up
+2021-09-23 16:16:47.867 +06:00 [INF] User logged in.
+2021-09-23 16:16:52.861 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+Autofac.Core.DependencyResolutionException: An exception was thrown while activating DataImporter.Import.Services.ImportService -> DataImporter.Import.UnitOfWorks.ImportUnitOfWork.
+ ---> Autofac.Core.DependencyResolutionException: None of the constructors found with 'Autofac.Core.Activators.Reflection.DefaultConstructorFinder' on type 'DataImporter.Import.UnitOfWorks.ImportUnitOfWork' can be invoked with the available services and parameters:
+Cannot resolve parameter 'DataImporter.Import.Repositories.IGroupColumnNameRepository groupColumnNames' of constructor 'Void .ctor(DataImporter.Import.Contexts.ImportDbContext, DataImporter.Import.Repositories.IGroupRepository, DataImporter.Import.Repositories.IExcelDataRepository, DataImporter.Import.Repositories.IFileLocationRepository, DataImporter.Import.Repositories.IGroupColumnNameRepository)'.
+   at Autofac.Core.Activators.Reflection.ReflectionActivator.GetAllBindings(ConstructorBinder[] availableConstructors, IComponentContext context, IEnumerable`1 parameters)
+   at Autofac.Core.Activators.Reflection.ReflectionActivator.ActivateInstance(IComponentContext context, IEnumerable`1 parameters)
+   at Autofac.Core.Activators.Reflection.ReflectionActivator.<ConfigurePipeline>b__11_0(ResolveRequestContext ctxt, Action`1 next)
+   at Autofac.Core.Resolving.Middleware.DisposalTrackingMiddleware.Execute(ResolveRequestContext context, Action`1 next)
+   at Autofac.Core.Resolving.Middleware.ActivatorErrorHandlingMiddleware.Execute(ResolveRequestContext context, Action`1 next)
+   --- End of inner exception stack trace ---
+   at Autofac.Core.Resolving.Middleware.ActivatorErrorHandlingMiddleware.Execute(ResolveRequestContext context, Action`1 next)
+   at Autofac.Core.Resolving.Middleware.SharingMiddleware.<>c__DisplayClass5_0.<Execute>b__0()
+   at Autofac.Core.Lifetime.LifetimeScope.CreateSharedInstance(Guid id, Func`1 creator)
+   at Autofac.Core.Lifetime.LifetimeScope.CreateSharedInstance(Guid primaryId, Nullable`1 qualifyingId, Func`1 creator)
+   at Autofac.Core.Resolving.Middleware.SharingMiddleware.Execute(ResolveRequestContext context, Action`1 next)
+   at Autofac.Core.Resolving.Middleware.CircularDependencyDetectorMiddleware.Execute(ResolveRequestContext context, Action`1 next)
+   at Autofac.Core.Resolving.ResolveOperation.GetOrCreateInstance(ISharingLifetimeScope currentOperationScope, ResolveRequest request)
+   at Autofac.Core.Resolving.ResolveOperation.ExecuteOperation(ResolveRequest request)
+   at Autofac.ResolutionExtensions.TryResolveService(IComponentContext context, Service service, IEnumerable`1 parameters, Object& instance)
+   at Autofac.ResolutionExtensions.ResolveOptionalService(IComponentContext context, Service service, IEnumerable`1 parameters)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.GetService(IServiceProvider sp, Type type, Type requiredBy, Boolean isDefaultParameterRequired)
+   at lambda_method730(Closure , IServiceProvider , Object[] )
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.<>c__DisplayClass4_0.<CreateActivator>b__0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass5_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.MigrationsEndPointMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2021-09-23 16:17:56.818 +06:00 [INF] Application Starting up
+2021-09-23 16:18:10.775 +06:00 [INF] User logged in.
+2021-09-23 17:01:53.745 +06:00 [INF] Application Starting up
+2021-09-23 17:02:08.201 +06:00 [INF] User logged in.
+2021-09-23 17:04:01.362 +06:00 [ERR] Failed to Upload file
+System.IO.FileNotFoundException: Could not find file 'D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Web\Microsoft.AspNetCore.Http.FormFile'.
+File name: 'D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Web\Microsoft.AspNetCore.Http.FormFile'
+   at System.IO.FileStream.ValidateFileHandle(SafeFileHandle fileHandle)
+   at System.IO.FileStream.CreateFileOpenHandle(FileMode mode, FileShare share, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   at System.IO.File.OpenRead(String path)
+   at DataImporter.Import.Services.ImportService.SaveFileColumnName(IFormFile file, Int32 groupId) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Import\Services\ImportService.cs:line 116
+   at DataImporter.Import.Services.ImportService.SaveFileInfo(FileLocation fileLocation, IFormFile file) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Import\Services\ImportService.cs:line 109
+   at DataImporter.Web.Areas.Customer.Models.FileLocationModel.SaveFileInfo(String fileName, IFormFile file) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Web\Areas\Customer\Models\FileLocationModel.cs:line 37
+   at DataImporter.Web.Areas.User.Controllers.ImportController.Upload(IFormFile file, FileLocationModel model) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Web\Areas\Customer\Controllers\ImportController.cs:line 67
+2021-09-23 17:05:43.404 +06:00 [INF] Application Starting up
+2021-09-23 17:05:58.818 +06:00 [INF] User logged in.
+2021-09-23 17:07:19.972 +06:00 [ERR] Failed to Upload file
+System.IO.FileNotFoundException: Could not find file 'D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Web\Microsoft.AspNetCore.Http.FormFile'.
+File name: 'D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Web\Microsoft.AspNetCore.Http.FormFile'
+   at System.IO.FileStream.ValidateFileHandle(SafeFileHandle fileHandle)
+   at System.IO.FileStream.CreateFileOpenHandle(FileMode mode, FileShare share, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   at System.IO.File.OpenRead(String path)
+   at DataImporter.Import.Services.ImportService.SaveFileColumnName(IFormFile file, Int32 groupId) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Import\Services\ImportService.cs:line 116
+   at DataImporter.Import.Services.ImportService.SaveFileInfo(FileLocation fileLocation, IFormFile file) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Import\Services\ImportService.cs:line 109
+   at DataImporter.Web.Areas.Customer.Models.FileLocationModel.SaveFileInfo(String fileName, IFormFile file) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Web\Areas\Customer\Models\FileLocationModel.cs:line 37
+   at DataImporter.Web.Areas.User.Controllers.ImportController.Upload(IFormFile file, FileLocationModel model) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Web\Areas\Customer\Controllers\ImportController.cs:line 67
+2021-09-23 17:10:07.748 +06:00 [ERR] Failed to Upload file
+System.IO.FileNotFoundException: Could not find file 'D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Web\Microsoft.AspNetCore.Http.FormFile'.
+File name: 'D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Web\Microsoft.AspNetCore.Http.FormFile'
+   at System.IO.FileStream.ValidateFileHandle(SafeFileHandle fileHandle)
+   at System.IO.FileStream.CreateFileOpenHandle(FileMode mode, FileShare share, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   at System.IO.File.OpenRead(String path)
+   at DataImporter.Import.Services.ImportService.SaveFileColumnName(IFormFile file, Int32 groupId) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Import\Services\ImportService.cs:line 116
+   at DataImporter.Import.Services.ImportService.SaveFileInfo(FileLocation fileLocation, IFormFile file) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Import\Services\ImportService.cs:line 109
+   at DataImporter.Web.Areas.Customer.Models.FileLocationModel.SaveFileInfo(String fileName, IFormFile file) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Web\Areas\Customer\Models\FileLocationModel.cs:line 37
+   at DataImporter.Web.Areas.User.Controllers.ImportController.Upload(IFormFile file, FileLocationModel model) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Web\Areas\Customer\Controllers\ImportController.cs:line 67
+2021-09-23 17:11:54.258 +06:00 [INF] Application Starting up
+2021-09-23 17:12:39.863 +06:00 [INF] User logged in.
+2021-09-23 17:18:36.478 +06:00 [INF] Application Starting up
+2021-09-23 17:18:52.626 +06:00 [INF] User logged in.
+2021-09-23 17:25:40.161 +06:00 [INF] Application Starting up
+2021-09-23 17:25:57.000 +06:00 [INF] User logged in.
+2021-09-23 17:58:17.929 +06:00 [INF] Application Starting up
+2021-09-23 17:58:42.347 +06:00 [INF] User logged in.
