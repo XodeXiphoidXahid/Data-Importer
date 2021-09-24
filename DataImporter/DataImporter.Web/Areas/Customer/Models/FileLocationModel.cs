@@ -45,9 +45,12 @@ namespace DataImporter.Web.Areas.Customer.Models
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
-        internal bool RightGroup(IFormFile file)
+        internal (bool rightGroup, List<string> data,int? colNum) RightGroup(IFormFile file)
         {
-            return _importService.CheckColumn(file, GroupId);
+            //return _importService.CheckColumn(file, GroupId);
+            //public (bool rightGroup, List<string> data) CheckColumn(IFormFile file, int groupId);
+            var rightGroupInfo = _importService.CheckColumn(file, GroupId);
+            return (rightGroupInfo.rightGroup, rightGroupInfo.data, rightGroupInfo.colNum);
         }
     }
 }

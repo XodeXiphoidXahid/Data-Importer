@@ -36,6 +36,7 @@ namespace DataImporter.Web.Areas.User.Controllers
         public IActionResult Create(CreateGroupModel model)
         {
             var userId = _userManager.GetUserId(HttpContext.User);
+            
 
             if (ModelState.IsValid)
             {

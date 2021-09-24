@@ -63,8 +63,11 @@ namespace DataImporter.Web.Areas.User.Controllers
             {
                 try
                 {
-                    if(model.RightGroup(file))
+                    var result = model.RightGroup(file);
+                    if(result.rightGroup)
                         model.SaveFileInfo(file.FileName, file);
+                    ViewBag.data = result.data;
+                    ViewBag.colNum = result.colNum;
 
                 }
                 catch (Exception ex)

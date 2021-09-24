@@ -163,23 +163,38 @@ namespace DataImporter.Import.Services
             }
         }
 
-        public bool CheckColumn(IFormFile file, int groupId)
+        
+        public (bool rightGroup, List<string> data, int? colNum) CheckColumn(IFormFile file, int groupId)
         {
+            var rightGroup = true;
+            
             if (_importUnitOfWork.GroupColumnNames.GetCount(x => x.GroupId == groupId) == 0)//ekdm new group jedik kono file upload kora hoe nai.
-                return true;
+            {
+                var dataList = GetPreviewData(file);
+                return (rightGroup, dataList.data, dataList.colNum);
+            }
             //ei line e ashar por group ta exist kore, so sekhane file ta upload kora jabe kina setar checking dite hbe
             else
             {
                 var columnList = _importUnitOfWork.GroupColumnNames.GetAll().Where(x => x.GroupId == groupId).Select(x=>x.ColumnList).FirstOrDefault();
+                
+                //var test = _importUnitOfWork.Groups.Get(x=>x.Id==groupId, "GroupColumnName").FirstOrDefault().GroupColumnName
 
                 var splitColumnList = columnList.Split("~").ToList();
                 
                 var inputFileColList = fetchColList(file);
 
+                
+
                 if (splitColumnList.OrderBy(m => m).SequenceEqual(inputFileColList.OrderBy(m => m)))
-                    return true;
+                {
+                    var dataList = GetPreviewData(file);
+                    return (rightGroup, dataList.data, dataList.colNum);
+                }    
             }
-            return false;
+
+            rightGroup = false;
+            return (rightGroup, null, null);//Je group e upload dise sei group ta 
         }
 
         private List<string> fetchColList(IFormFile file)
@@ -205,6 +220,42 @@ namespace DataImporter.Import.Services
             }
             colList.Add("");
             return colList.ToList();
+        }
+
+        private (List<string> data, int colNum) GetPreviewData(IFormFile file)
+        {
+            List<string> dataList = new List<string>();
+            var colNum = 0;
+            using (var stream = new MemoryStream())
+            {
+                file.CopyTo(stream);
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+                using (var package = new ExcelPackage(stream))
+                {
+                    ExcelWorksheet workSheet = package.Workbook.Worksheets[0];
+
+                    var rowAndColInfo = GetRowAndColNumber(workSheet);
+
+                    int minRow = 10;
+                    colNum = rowAndColInfo.colCount;
+
+                    if (rowAndColInfo.rowCount < 10)
+                        minRow = rowAndColInfo.rowCount;
+
+                    for(int row=1;  row<=minRow;row++)
+                    {
+                        for (int col = 1; col <= rowAndColInfo.colCount; col++)
+                        {
+                            dataList.Add(workSheet.Cells[row, col].Value.ToString().Trim());
+                        }
+                    }
+                    
+                }
+            }
+
+            return (dataList, colNum);
+
         }
     }
 }
