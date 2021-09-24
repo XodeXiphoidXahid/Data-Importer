@@ -42,6 +42,7 @@ namespace DataImporter.Import
             builder.RegisterType<GroupRepository>().As<IGroupRepository>().InstancePerLifetimeScope();
             builder.RegisterType<FileLocationRepository>().As<IFileLocationRepository>().InstancePerLifetimeScope();
             builder.RegisterType<GroupColumnNameRepository>().As<IGroupColumnNameRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<PendingExportHistoryRepository>().As<IPendingExportHistoryRepository>().InstancePerLifetimeScope();
 
             base.Load(builder);
         }

@@ -1,5 +1,8 @@
 ﻿using ClosedXML.Excel;
 using DataImporter.Import.UnitOfWorks;
+using DataImporter.Membership.Contexts;
+using DataImporter.Membership.Entities;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,9 +15,11 @@ namespace DataImporter.Import.Services
     public class ExportService : IExportService
     {
         private readonly IImportUnitOfWork _importUnitOfWork;
-        public ExportService(IImportUnitOfWork importUnitOfWork)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public ExportService(IImportUnitOfWork importUnitOfWork, UserManager<ApplicationUser> userManager)
         {
             _importUnitOfWork = importUnitOfWork;
+            _userManager = userManager;
         }
         public void ExportDbData()
         {
@@ -69,6 +74,27 @@ namespace DataImporter.Import.Services
                 }
             }
                 
+        }
+        //ei method ta ekta grpId rcv korbe, pore oi grp id theke userId ber kore oi userId diye grp create korbe, oi grp e grp er data export kore file baniye rakhbo, sei file er nam ta kono variable e save rakhbo jate file ta return korte pari
+        public FileInfo GetFile(int groupId)
+        {
+            //Get the userId
+            var userId = _importUnitOfWork.Groups.Get(x => x.Id == groupId, null).Select(x => x.UserId).FirstOrDefault();
+
+            //Create/Check of the user's folder
+            string path = "D:\\ASP.Net Core(Devskill)\\Asp_Dot_Net_Core\\ExportedFiles"+userId;
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            fileName = fileName + ".xlsx";
+            using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+
+
         }
     }
 }

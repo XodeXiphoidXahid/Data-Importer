@@ -15,14 +15,17 @@ namespace DataImporter.Import.UnitOfWorks
         public IExcelDataRepository ExcelDatas { get; private set; }
         public IFileLocationRepository FileLocations { get; private set; }
         public IGroupColumnNameRepository GroupColumnNames { get; private set; }
+        public IPendingExportHistoryRepository PendingExportHistories { get; private set; }
+
         public ImportUnitOfWork(ImportDbContext context,
-            IGroupRepository groups, IExcelDataRepository excelDatas, IFileLocationRepository fileLocations, IGroupColumnNameRepository groupColumnNames)
+            IGroupRepository groups, IExcelDataRepository excelDatas, IFileLocationRepository fileLocations, IGroupColumnNameRepository groupColumnNames, IPendingExportHistoryRepository pendingExportHistories)
             : base(context)
         {
             Groups = groups;
             ExcelDatas = excelDatas;
             FileLocations = fileLocations;
             GroupColumnNames = groupColumnNames;
+            PendingExportHistories = pendingExportHistories;
         }
     }
 }

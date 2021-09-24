@@ -14,5 +14,6 @@ namespace DataImporter.Import.UnitOfWorks
         IExcelDataRepository ExcelDatas { get; }
         IFileLocationRepository FileLocations { get; }
         IGroupColumnNameRepository GroupColumnNames { get; }
+        IPendingExportHistoryRepository PendingExportHistories { get; }
     }
 }
