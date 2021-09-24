@@ -28,7 +28,8 @@ namespace DataImporter.Worker
             _importService = importService;
             _configuration = configuration;
         }
-       
+       //EI worker service muloto je file gula import kora hoise sekhan theke file gulo niye DB te import kore.
+       //ei worker service e notun kore kisu korte hbe na
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {

@@ -50,5 +50,6 @@ namespace DataImporter.Import.Contexts
         public DbSet<Group> Groups { get; set; }
         public DbSet<FileLocation> FileLocations { get; set; }
         public DbSet<GroupColumnName> GroupColumnNames { get; set; }
+        public DbSet<PendingExportHistory> PendingExportHistories { get; set; }
     }
 }

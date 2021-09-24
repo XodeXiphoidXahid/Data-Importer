@@ -1,4 +1,5 @@
 using DataImporter.Common.Utilities;
+using DataImporter.Import.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -18,19 +19,24 @@ namespace DataImporter.EmailWorker
         private readonly ILogger<Worker> _logger;
         private readonly IEmailService _emailService;
         private readonly IConfiguration _configuration;
-        public Worker(ILogger<Worker> logger, IEmailService emailService, IConfiguration configuration)
+        private readonly IExportService _exportService;
+        public Worker(ILogger<Worker> logger, IEmailService emailService, IConfiguration configuration, IExportService exportService)
         {
             _logger = logger;
             _emailService = emailService;
             _configuration = configuration;
+            _exportService = exportService;
         }
 
+        //ei worker service PendingExportFileHistory theke group id onujae data niye file create kore sei file ta sent korbe
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var excelFilePath = _configuration["wwwroot:UploadedExcel"];
 
             while (!stoppingToken.IsCancellationRequested)
             {
+
+
                 DirectoryInfo directoryInfo = new DirectoryInfo(excelFilePath);
                 FileInfo[] fileInfo = directoryInfo.GetFiles();
 
