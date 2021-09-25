@@ -75,6 +75,19 @@ namespace DataImporter.Import.Services
             }
                 
         }
+
+        public void ExportFile()
+        {
+            //first e PendingExportHistory check korbo
+            //sekhan theke grpId niye, ExportFile folder e dhuke user er folder e dhuke je GroupName_UserId file ta delete korbe
+            //pore oi groupid er data gulo ekta file e save kore sei file ta user folder e save rakhbe.
+            //PendingExportHistory theke oi grpid ta delete korbe
+            //ExportEmailHit entity te exporthit 1+ kore dibe
+
+            //---Need to write the code to implement the above concept--//
+            
+        }
+
         //ei method ta ekta grpId rcv korbe, pore oi grp id theke userId ber kore oi userId diye grp create korbe, oi grp e grp er data export kore file baniye rakhbo, sei file er nam ta kono variable e save rakhbo jate file ta return korte pari
         public FileInfo GetFile(int groupId)//eta SendEmail WorkerService theke call hbe.
         {

@@ -11,5 +11,6 @@ namespace DataImporter.Import.Services
     {
         void ExportDbData();
         FileInfo GetFile(int groupId);
+        void ExportFile();
     }
 }
