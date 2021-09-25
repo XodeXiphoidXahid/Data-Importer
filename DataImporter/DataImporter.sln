@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataImporter.EmailWorker", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataImporter.Common", "DataImporter.Common\DataImporter.Common.csproj", "{E0A6274C-BA98-4299-869D-4192DF94DD30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExportWorker", "ExportWorker\ExportWorker.csproj", "{991EC942-8F95-4F44-88AE-1AC3685FDB5F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataImporter.ExportWorker", "DataImporter.ExportWorker\DataImporter.ExportWorker.csproj", "{7A97352B-D297-4C76-8912-425F08B6D145}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +53,10 @@ Global
 		{E0A6274C-BA98-4299-869D-4192DF94DD30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0A6274C-BA98-4299-869D-4192DF94DD30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0A6274C-BA98-4299-869D-4192DF94DD30}.Release|Any CPU.Build.0 = Release|Any CPU
-		{991EC942-8F95-4F44-88AE-1AC3685FDB5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{991EC942-8F95-4F44-88AE-1AC3685FDB5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{991EC942-8F95-4F44-88AE-1AC3685FDB5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{991EC942-8F95-4F44-88AE-1AC3685FDB5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A97352B-D297-4C76-8912-425F08B6D145}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A97352B-D297-4C76-8912-425F08B6D145}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A97352B-D297-4C76-8912-425F08B6D145}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A97352B-D297-4C76-8912-425F08B6D145}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

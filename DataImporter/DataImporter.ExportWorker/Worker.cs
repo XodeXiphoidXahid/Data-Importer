@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ExportWorker
+namespace DataImporter.ExportWorker
 {
     public class Worker : BackgroundService
     {
@@ -25,6 +25,7 @@ namespace ExportWorker
             while (!stoppingToken.IsCancellationRequested)
             {
                 _exportService.ExportFile();
+
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 await Task.Delay(1000, stoppingToken);
             }

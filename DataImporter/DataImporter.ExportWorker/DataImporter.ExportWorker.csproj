@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <UserSecretsId>dotnet-ExportWorker-6642A78B-E047-41B5-8EDC-FB4A472CE78D</UserSecretsId>
+    <UserSecretsId>dotnet-DataImporter.ExportWorker-532929C9-9CDC-43F4-B169-59E3D058C0B7</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
