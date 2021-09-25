@@ -38,7 +38,7 @@ namespace DataImporter.EmailWorker
                 //Ekhane PendingExportHistory theke group id niye sei group id theke user er id and oi user id theke user mail ta ber korte hbe. Subject and file er nam ta hbe group er nam onujae.
 
                 //GroupId theke userId extract kore sei user er id diye folder create kore sei folder e shb extraked file gulo rakhbo, pore je fil
-                int groupId = 10;
+                int groupId = 10;//Ei grpId ta ashbe PendingExporthistory theke.
                 var file = _exportService.GetFile(groupId);
                 //DirectoryInfo directoryInfo = new DirectoryInfo(excelFilePath);
                 //FileInfo[] fileInfo = directoryInfo.GetFiles();

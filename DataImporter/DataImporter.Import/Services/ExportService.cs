@@ -76,23 +76,41 @@ namespace DataImporter.Import.Services
                 
         }
         //ei method ta ekta grpId rcv korbe, pore oi grp id theke userId ber kore oi userId diye grp create korbe, oi grp e grp er data export kore file baniye rakhbo, sei file er nam ta kono variable e save rakhbo jate file ta return korte pari
-        public FileInfo GetFile(int groupId)
+        public FileInfo GetFile(int groupId)//eta SendEmail WorkerService theke call hbe.
         {
             //Get the userId
             var userId = _importUnitOfWork.Groups.Get(x => x.Id == groupId, null).Select(x => x.UserId).FirstOrDefault();
+            var groupName = _importUnitOfWork.Groups.Get(x => x.Id == groupId, null).Select(x => x.Name).FirstOrDefault();
+            var fileName = groupName + "_" + userId.ToString() + ".xlsx";
 
             //Create/Check of the user's folder
             string path = "D:\\ASP.Net Core(Devskill)\\Asp_Dot_Net_Core\\ExportedFiles"+userId;
 
-            if (!Directory.Exists(path))
+            if (!Directory.Exists(path))//Eta naw drkr porte pare, karon group age theke delete korle sei user
             {
                 Directory.CreateDirectory(path);
             }
-            fileName = fileName + ".xlsx";
-            using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+
+            DirectoryInfo directoryInfo = new DirectoryInfo(path);
+            FileInfo[] fileInfo = directoryInfo.GetFiles();//user er grp er shb file gulo ke fetch kora holo.
+
+            FileInfo expectedFile = null;
+
+            foreach(var file in fileInfo)
             {
-                file.CopyTo(stream);
+                if (file.Name.Equals(fileName))
+                {
+                    expectedFile = file;
+                    break;
+                }
             }
+            return expectedFile;
+
+            //fileName = fileName + ".xlsx";
+            //using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+            //{
+            //    file.CopyTo(stream);
+            //}
 
 
         }

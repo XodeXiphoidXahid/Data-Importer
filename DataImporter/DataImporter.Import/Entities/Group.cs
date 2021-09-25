@@ -19,5 +19,8 @@ namespace DataImporter.Import.Entities
 
         public GroupColumnName GroupColumnName { get; set; }
         
+        public ExportEmailHit ExportEmailHit { get; set; }
+
+
     }
 }
