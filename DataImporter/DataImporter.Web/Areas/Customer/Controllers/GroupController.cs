@@ -1,5 +1,6 @@
 ﻿using DataImporter.Membership.Entities;
 using DataImporter.Web.Areas.Customer.Models;
+using DataImporter.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,16 @@ namespace DataImporter.Web.Areas.User.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var model = new GroupListModel();
+            return View(model);
+        }
+        public JsonResult GetGroupData()
+        {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            var dataTablesModel = new DataTablesAjaxRequestModel(Request);
+            var model = new GroupListModel();
+            var data = model.GetGroups(dataTablesModel, userId);
+            return Json(data);
         }
 
         public IActionResult Create()
