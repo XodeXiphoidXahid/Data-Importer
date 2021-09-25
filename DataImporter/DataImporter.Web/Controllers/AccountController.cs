@@ -171,7 +171,7 @@ namespace DataImporter.Controllers
                     if(emailStatus)
                     {
                         _logger.LogInformation("User logged in.");
-                        return LocalRedirect(returnUrl);
+                        return RedirectToAction("Index", "Dashboard", new { area="Customer"});
                     }
                     
                     
@@ -207,7 +207,7 @@ namespace DataImporter.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Account");
             }
         }
     }
