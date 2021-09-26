@@ -20,9 +20,10 @@ namespace DataImporter.Web.Areas.User.Controllers
             return View();
         }
         
-        public IActionResult ExportAsExcel()
+        public IActionResult ExportAsExcel(int groupId)
         {
-            //_exportService.ExportDbData();
+             
+            _exportService.UpdateExportHistory(groupId);//update both pending and export history
             return View();
         }
 

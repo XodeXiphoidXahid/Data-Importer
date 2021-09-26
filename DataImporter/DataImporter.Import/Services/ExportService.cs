@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using DataImporter.Common.Utilities;
 using DataImporter.Import.UnitOfWorks;
 using DataImporter.Membership.Contexts;
 using DataImporter.Membership.Entities;
@@ -15,10 +16,12 @@ namespace DataImporter.Import.Services
     public class ExportService : IExportService
     {
         private readonly IImportUnitOfWork _importUnitOfWork;
+        private readonly IDateTimeUtility _dateTimeUtility;
         
-        public ExportService(IImportUnitOfWork importUnitOfWork)
+        public ExportService(IImportUnitOfWork importUnitOfWork, IDateTimeUtility dateTimeUtility)
         {
             _importUnitOfWork = importUnitOfWork;
+            _dateTimeUtility = dateTimeUtility;
             
         }
         public void ExportDbData(int groupId)
@@ -101,7 +104,58 @@ namespace DataImporter.Import.Services
             //ExportEmailHit entity te exporthit 1+ kore dibe
 
             //---Need to write the code to implement the above concept--//
-            ExportDbData(19);
+            var allRecords = _importUnitOfWork.PendingExportHistories.GetAll();
+
+            if (allRecords.Count>0)
+            {
+                foreach(var record in allRecords)
+                {
+                    //ei groupId er folder ta delete korte hbe
+                    DeletePreviousFolder(record.GroupId);
+                    
+                    ExportDbData(record.GroupId);//Data export hoye save hbe ekta folder e
+
+                    //Update ExportHit in ExportEmailHit-------
+                    UpdatePreviousExportHit(record.GroupId);
+
+                    //Delete record of PendingExportHistory
+                    DeleteCurrentRecord(record);
+                   
+                    _importUnitOfWork.Save();     
+                }
+            }
+            
+        }
+
+        private void DeleteCurrentRecord(Entities.PendingExportHistory record)
+        {
+            _importUnitOfWork.PendingExportHistories.Remove(record);
+
+            _importUnitOfWork.Save();
+        }
+
+        private void UpdatePreviousExportHit(int groupId)
+        {
+            var exportHit = _importUnitOfWork.ExportEmailHits.Get(x => x.GroupId == groupId, string.Empty).Select(x => x.ExportHit).FirstOrDefault();
+
+            _importUnitOfWork.ExportEmailHits.Add(
+                new Entities.ExportEmailHit
+                {
+                    ExportHit = exportHit + 1
+                }
+                );
+
+            _importUnitOfWork.Save();
+        }
+
+        private void DeletePreviousFolder(int groupId)
+        {
+            DirectoryInfo dic = new DirectoryInfo("D:\\ASP.Net Core(Devskill)\\Asp_Dot_Net_Core\\ExportedFiles\\" + groupId);
+            if (dic.Exists)
+            {
+                dic.Delete();
+            }
+            
         }
 
         //ei method ta ekta grpId rcv korbe, pore oi grp id theke userId ber kore oi userId diye grp create korbe, oi grp e grp er data export kore file baniye rakhbo, sei file er nam ta kono variable e save rakhbo jate file ta return korte pari
@@ -142,6 +196,14 @@ namespace DataImporter.Import.Services
             //}
 
 
+        }
+
+        public void UpdateExportHistory(int groupId)
+        {
+            _importUnitOfWork.PendingExportHistories.Add(new Entities.PendingExportHistory { GroupId=groupId});
+            _importUnitOfWork.ExportHistories.Add(new Entities.ExportHistory { GroupId=groupId, ExportDate=_dateTimeUtility.Now});
+
+            _importUnitOfWork.Save();
         }
     }
 }

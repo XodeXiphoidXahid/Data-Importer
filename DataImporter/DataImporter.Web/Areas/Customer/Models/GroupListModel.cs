@@ -37,7 +37,8 @@ namespace DataImporter.Web.Areas.Customer.Models
                         select new string[]
                         {
                                 record.Name,
-                                record.CreateDate.ToString()  
+                                record.CreateDate.ToString(),
+                                record.Id.ToString()
                         }
                     ).ToArray()
             };

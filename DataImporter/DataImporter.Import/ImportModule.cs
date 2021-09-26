@@ -45,6 +45,7 @@ namespace DataImporter.Import
             builder.RegisterType<PendingExportHistoryRepository>().As<IPendingExportHistoryRepository>().InstancePerLifetimeScope();
             builder.RegisterType<ImportHistoryRepository>().As<IImportHistoryRepository>().InstancePerLifetimeScope();
             builder.RegisterType<ExportHistoryRepository>().As<IExportHistoryRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<ExportEmailHitRepository>().As<IExportEmailHitRepository>().InstancePerLifetimeScope();
 
             base.Load(builder);
         }

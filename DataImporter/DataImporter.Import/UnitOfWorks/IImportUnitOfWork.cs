@@ -17,5 +17,6 @@ namespace DataImporter.Import.UnitOfWorks
         IPendingExportHistoryRepository PendingExportHistories { get; }
         IImportHistoryRepository ImportHistories { get; }
         IExportHistoryRepository ExportHistories { get; }
+        IExportEmailHitRepository ExportEmailHits { get; }
     }
 }
