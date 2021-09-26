@@ -1,0 +1,25 @@
+2021-09-27 00:23:27.873 +06:00 [INF] Application Starting up
+2021-09-27 00:27:02.304 +06:00 [INF] Application Starting up
+2021-09-27 00:27:06.531 +06:00 [FTL] Application start-up failed
+System.IO.IOException: The process cannot access the file 'D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\ExportedFiles\FileName.xlsx' because it is being used by another process.
+   at System.IO.FileSystem.DeleteFile(String fullPath)
+   at System.IO.File.Delete(String path)
+   at ClosedXML.Excel.XLWorkbook.SaveAs(String file, SaveOptions options)
+   at ClosedXML.Excel.XLWorkbook.SaveAs(String file, Boolean validate, Boolean evaluateFormulae)
+   at ClosedXML.Excel.XLWorkbook.SaveAs(String file)
+   at DataImporter.Import.Services.ExportService.ExportDbData(Int32 groupId) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Import\Services\ExportService.cs:line 71
+   at DataImporter.Import.Services.ExportService.ExportFile() in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Import\Services\ExportService.cs:line 94
+   at DataImporter.ExportWorker.Worker.ExecuteAsync(CancellationToken stoppingToken) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.ExportWorker\Worker.cs:line 30
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at DataImporter.ExportWorker.Program.Main(String[] args) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.ExportWorker\Program.cs:line 43
+2021-09-27 00:27:28.592 +06:00 [INF] Application Starting up
+2021-09-27 00:28:19.149 +06:00 [INF] Application Starting up
+2021-09-27 00:34:54.165 +06:00 [INF] Application Starting up
+2021-09-27 00:36:56.409 +06:00 [INF] Application Starting up
+2021-09-27 00:47:50.289 +06:00 [INF] Application Starting up
+2021-09-27 00:51:12.836 +06:00 [INF] Application Starting up
+2021-09-27 00:52:46.962 +06:00 [INF] Application Starting up
+2021-09-27 00:59:18.834 +06:00 [INF] Application Starting up

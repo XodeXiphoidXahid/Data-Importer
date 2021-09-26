@@ -9,7 +9,7 @@ namespace DataImporter.Import.Services
 {
     public interface IExportService
     {
-        void ExportDbData();
+        void ExportDbData(int groupId);
         FileInfo GetFile(int groupId);
         void ExportFile();
     }

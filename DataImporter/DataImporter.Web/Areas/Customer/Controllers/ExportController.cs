@@ -22,7 +22,7 @@ namespace DataImporter.Web.Areas.User.Controllers
         
         public IActionResult ExportAsExcel()
         {
-            _exportService.ExportDbData();
+            //_exportService.ExportDbData();
             return View();
         }
 

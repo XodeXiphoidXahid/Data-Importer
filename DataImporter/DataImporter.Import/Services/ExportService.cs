@@ -15,31 +15,33 @@ namespace DataImporter.Import.Services
     public class ExportService : IExportService
     {
         private readonly IImportUnitOfWork _importUnitOfWork;
-        private readonly UserManager<ApplicationUser> _userManager;
-        public ExportService(IImportUnitOfWork importUnitOfWork, UserManager<ApplicationUser> userManager)
+        
+        public ExportService(IImportUnitOfWork importUnitOfWork)
         {
             _importUnitOfWork = importUnitOfWork;
-            _userManager = userManager;
+            
         }
-        public void ExportDbData()
+        public void ExportDbData(int groupId)
         {
-            var allRecords = _importUnitOfWork.ExcelDatas.GetAll();
+            var allRecords = _importUnitOfWork.ExcelDatas.Get(x=>x.GroupId==groupId, string.Empty);
 
 
             using (var workbook = new XLWorkbook())
             {
                 var worksheet = workbook.Worksheets.Add("TestFile");
-                //ekhane column list ta lagbe
+                //ekhane column list ta lagbe--GroupColumnNames theke ante hbe.
                 List<string> colList = new List<string>();
                 int grpColNumber = 4;
                 int cnt = 0;
                 foreach (var record in allRecords)
                 {
+                    colList.Add(record.Key.ToString());
+
                     cnt++;
                     if (cnt == grpColNumber)
                         break;
 
-                    colList.Add(record.Key.ToString());
+                    
                 }
                 //xl er first row initialize kora holo
                 int col = 1;
@@ -54,24 +56,38 @@ namespace DataImporter.Import.Services
 
                 foreach(var record in allRecords)
                 {
-                    worksheet.Cell(row, col).Value = record.Value;
+                    worksheet.Cell(row, col).Value = record.Value;//21
 
                     if (col == grpColNumber)
-                        col = 1;
+                    {
+                        col = 0;
+                        row++;
+                    }
 
                     col++;
-                    row++;
+                    
                 }
-
-                using (var stream = new MemoryStream())
+                var groupName = _importUnitOfWork.Groups.GetById(groupId).Name;
+                var userId = _importUnitOfWork.Groups.Get(x => x.Id == groupId, string.Empty).Select(x => x.UserId).FirstOrDefault();
+                //--Here we need to create specific folder for each user to save their group files--
+                string path = "D:\\ASP.Net Core(Devskill)\\Asp_Dot_Net_Core\\ExportedFiles\\" + userId+"\\";
+                if (!Directory.Exists(path))
                 {
-                    workbook.SaveAs(stream);
-
-                    using (var fileStream = new FileStream("D:\\ASP.Net Core(Devskill)\\Asp_Dot_Net_Core\\DataImporter\\DataImporter.Web\\wwwroot", FileMode.Create, FileAccess.Write))
-                    {
-                        stream.CopyTo(fileStream);
-                    }
+                    Directory.CreateDirectory(path);
                 }
+                var fileName = groupName + ".xlsx";
+                path += fileName;
+                 //path = "D:\\ASP.Net Core(Devskill)\\Asp_Dot_Net_Core\\ExportedFiles\\" + "FileName.xlsx";
+                workbook.SaveAs(path);
+                //using (var stream = new MemoryStream())
+                //{
+                //    worksheet.SaveAs(stream);
+
+                //    using (var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write))
+                //    {
+                //        stream.CopyTo(fileStream);
+                //    }
+                //}
             }
                 
         }
@@ -79,13 +95,13 @@ namespace DataImporter.Import.Services
         public void ExportFile()
         {
             //first e PendingExportHistory check korbo
-            //sekhan theke grpId niye, ExportFile folder e dhuke user er folder e dhuke je GroupName_UserId file ta delete korbe
+            //sekhan theke grpId niye, ExportFile folder e dhuke user er folder e dhuke je GroupName_UserId file ta delete korbe(Jdi age theke oi file ta exist kore rki)
             //pore oi groupid er data gulo ekta file e save kore sei file ta user folder e save rakhbe.
             //PendingExportHistory theke oi grpid ta delete korbe
             //ExportEmailHit entity te exporthit 1+ kore dibe
 
             //---Need to write the code to implement the above concept--//
-            
+            ExportDbData(19);
         }
 
         //ei method ta ekta grpId rcv korbe, pore oi grp id theke userId ber kore oi userId diye grp create korbe, oi grp e grp er data export kore file baniye rakhbo, sei file er nam ta kono variable e save rakhbo jate file ta return korte pari

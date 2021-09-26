@@ -15,6 +15,7 @@ namespace DataImporter.Import.Services
         void SaveExcelInDb(FileInfo[] fileInfo);
         void SaveFileInfo(FileLocation fileLocation, IFormFile file);
         (bool rightGroup, List<string> data, int? colNum) CheckColumn(IFormFile file, int groupId);
+        void Import();
         //bool CheckColumn(IFormFile file, int groupId);
     }
 }

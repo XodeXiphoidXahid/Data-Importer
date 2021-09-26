@@ -24,6 +24,8 @@ namespace DataImporter.Import.Services
         {
             foreach (var file in fileInfo)
             {
+                var groupId = GetGroupId(file.Name.Split(".")[0]);
+
                 List<string> colList = new List<string>();
 
                 using (var stream = System.IO.File.OpenRead(file.ToString()))
@@ -51,7 +53,8 @@ namespace DataImporter.Import.Services
                                     new Entities.ExcelData
                                     {
                                         Key = colList[col - 1],
-                                        Value = workSheet.Cells[row, col].Value.ToString().Trim()
+                                        Value = workSheet.Cells[row, col].Value.ToString().Trim(),
+                                        GroupId=groupId
                                     }
                                     );
                             }
@@ -64,10 +67,15 @@ namespace DataImporter.Import.Services
             }
         }
 
+        private int GetGroupId(string name)
+        {
+            return _importUnitOfWork.FileLocations.Get(x => x.FileName == name, string.Empty).Select(x => x.GroupId).FirstOrDefault();
+        }
+
         private void DeleteFile(FileInfo file)
         {
             var fileName = file.Name;
-            DeleteFileLocation(fileName);
+            DeleteFileLocation(fileName.Split(".")[0]);
             file.Delete();
             
         }
@@ -277,6 +285,20 @@ namespace DataImporter.Import.Services
 
             return (dataList, colNum);
 
+        }
+
+        public void Import()
+        {
+            var excelFilePath = "D:\\ASP.Net Core(Devskill)\\Asp_Dot_Net_Core\\ExcelFiles";
+
+            DirectoryInfo directoryInfo = new DirectoryInfo(excelFilePath);
+            FileInfo[] fileInfo = directoryInfo.GetFiles();
+
+            if (fileInfo.Count() > 0)
+            {
+
+                SaveExcelInDb(fileInfo);// Ekhane groupId taw pass korte hbe.
+            }
         }
     }
 }

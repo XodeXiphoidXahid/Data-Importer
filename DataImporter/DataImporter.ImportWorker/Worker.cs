@@ -23,19 +23,12 @@ namespace DataImporter.ImportWorker
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var excelFilePath = "D:\\ASP.Net Core(Devskill)\\Asp_Dot_Net_Core\\ExcelFiles";
+           
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                Console.WriteLine("OK");
 
-                DirectoryInfo directoryInfo = new DirectoryInfo(excelFilePath);
-                FileInfo[] fileInfo = directoryInfo.GetFiles();
-
-                if (fileInfo.Count() > 0)
-                {
-                    _importService.SaveExcelInDb(fileInfo);// Ekhane groupId taw pass korte hbe.
-                }
+                _importService.Import();
 
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 await Task.Delay(1000, stoppingToken);
