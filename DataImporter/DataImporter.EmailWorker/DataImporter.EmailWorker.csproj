@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk.Worker">
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <UserSecretsId>dotnet-DataImporter.EmailWorker-B459EE13-7D1C-4D1E-A96D-F3808F0D10B7</UserSecretsId>
+    <UserSecretsId>dotnet-DataImporter.EmailWorker-BBB71346-44BC-4EAF-A207-B5600E69381E</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

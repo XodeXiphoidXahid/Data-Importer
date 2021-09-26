@@ -1,4 +1,4 @@
-using DataImporter.Import.Services;
+
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,19 +12,19 @@ namespace DataImporter.ExportWorker
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
-        private readonly IExportService _exportService;
+        //private readonly IExportService _exportService;
 
-        public Worker(ILogger<Worker> logger, IExportService exportService)
+        public Worker(ILogger<Worker> logger)
         {
             _logger = logger;
-            _exportService = exportService;
+            //_exportService = exportService;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                _exportService.ExportFile();
+                //_exportService.ExportFile();
 
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 await Task.Delay(1000, stoppingToken);

@@ -1,6 +1,6 @@
 ﻿{
   "profiles": {
-    "DataImport.Worker": {
+    "DataImporter.ImportWorker": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "environmentVariables": {

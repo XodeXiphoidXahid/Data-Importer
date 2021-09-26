@@ -1,6 +1,5 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using DataImporter.Common;
 using DataImporter.Import;
 using DataImporter.Import.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -52,7 +51,8 @@ namespace DataImporter.EmailWorker
             {
                 Log.CloseAndFlush();
             }
-            
+
+
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -63,8 +63,6 @@ namespace DataImporter.EmailWorker
                 .ConfigureContainer<ContainerBuilder>(builder => {
                     builder.RegisterModule(new ImportModule(_connectionString,
                     _migrationAssemblyName, _configuration));
-
-                    builder.RegisterModule(new CommonModule());
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
@@ -77,6 +75,7 @@ namespace DataImporter.EmailWorker
                     _migrationAssemblyName = typeof(Worker).Assembly.FullName;
 
                     services.AddHostedService<Worker>();
+
                     services.AddDbContext<ImportDbContext>(options =>
                         options.UseSqlServer(_connectionString, b =>
                         b.MigrationsAssembly(_migrationAssemblyName)));

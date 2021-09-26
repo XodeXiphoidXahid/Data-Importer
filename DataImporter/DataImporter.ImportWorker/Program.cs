@@ -13,14 +13,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DataImporter.Worker
+namespace DataImporter.ImportWorker
 {
     public class Program
     {
         private static string _connectionString;
         private static string _migrationAssemblyName;
         private static IConfiguration _configuration;
-        
+
         public static void Main(string[] args)
         {
             _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", false)
@@ -51,10 +51,10 @@ namespace DataImporter.Worker
             {
                 Log.CloseAndFlush();
             }
-            
+
 
         }
-        
+
         public static IHostBuilder CreateHostBuilder(string[] args) =>
              Host.CreateDefaultBuilder(args)
                 .UseWindowsService()
@@ -81,8 +81,5 @@ namespace DataImporter.Worker
                         b.MigrationsAssembly(_migrationAssemblyName)));
 
                 });
-
-
     }
-    
 }
