@@ -105,13 +105,31 @@ namespace DataImporter.Import.Services
 
             _importUnitOfWork.Save();
 
-            SaveFileColumnName(file, fileLocation.GroupId);
+            if (_importUnitOfWork.GroupColumnNames.GetCount(x => x.GroupId == fileLocation.GroupId) == 0)
+            {
+                SaveFileColumnName(file, fileLocation.GroupId);
+            }
+                
             SaveFileInStorage(file, fileLocation.FileName);//ekhane file and file er name ta pathaite hbe.
-            
+            UpdateImportHistory(fileLocation);
+        }
+
+        private void UpdateImportHistory(FileLocation fileLocation)
+        {
+            _importUnitOfWork.ImportHistories.Add(
+                new Entities.ImportHistory
+                {
+                    GroupId=fileLocation.GroupId,
+                    ImportDate=fileLocation.ImportDate
+                }
+                );
+
+            _importUnitOfWork.Save();
         }
 
         private void SaveFileColumnName(IFormFile file, int groupId)
         {
+            
             List<string> colList = new List<string>();
 
             using (var stream = new MemoryStream())
@@ -171,6 +189,7 @@ namespace DataImporter.Import.Services
             if (_importUnitOfWork.GroupColumnNames.GetCount(x => x.GroupId == groupId) == 0)//ekdm new group jedik kono file upload kora hoe nai.
             {
                 var dataList = GetPreviewData(file);
+                //ekhane file save korar function call dite hbe, jeta Import controller er upload action e dewa ase
                 return (rightGroup, dataList.data, dataList.colNum);
             }
             //ei line e ashar por group ta exist kore, so sekhane file ta upload kora jabe kina setar checking dite hbe
@@ -190,11 +209,13 @@ namespace DataImporter.Import.Services
                 {
                     var dataList = GetPreviewData(file);
                     return (rightGroup, dataList.data, dataList.colNum);
-                }    
+                }
+
+                rightGroup = false;
+                return (rightGroup, null, null);
             }
 
-            rightGroup = false;
-            return (rightGroup, null, null);//Je group e upload dise sei group ta 
+            
         }
 
         private List<string> fetchColList(IFormFile file)

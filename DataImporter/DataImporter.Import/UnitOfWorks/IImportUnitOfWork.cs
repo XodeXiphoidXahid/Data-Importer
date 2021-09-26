@@ -15,5 +15,7 @@ namespace DataImporter.Import.UnitOfWorks
         IFileLocationRepository FileLocations { get; }
         IGroupColumnNameRepository GroupColumnNames { get; }
         IPendingExportHistoryRepository PendingExportHistories { get; }
+        IImportHistoryRepository ImportHistories { get; }
+        IExportHistoryRepository ExportHistories { get; }
     }
 }

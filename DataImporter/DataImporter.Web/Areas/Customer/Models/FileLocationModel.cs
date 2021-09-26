@@ -12,6 +12,7 @@ namespace DataImporter.Web.Areas.Customer.Models
     public class FileLocationModel
     {
         public int GroupId { get; set; }
+        public DateTime ImportDate { get; set; }
 
         private readonly IImportService _importService;
 
@@ -31,7 +32,8 @@ namespace DataImporter.Web.Areas.Customer.Models
             var fileLocation = new FileLocation
             {
                 GroupId=GroupId,
-                FileName=fileName
+                FileName=fileName,
+                ImportDate=ImportDate
             };
 
             _importService.SaveFileInfo(fileLocation, file);

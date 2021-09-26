@@ -17,8 +17,12 @@ namespace DataImporter.Import.UnitOfWorks
         public IGroupColumnNameRepository GroupColumnNames { get; private set; }
         public IPendingExportHistoryRepository PendingExportHistories { get; private set; }
 
+        public IImportHistoryRepository ImportHistories { get; private set; }
+
+        public IExportHistoryRepository ExportHistories { get; private set; }
+
         public ImportUnitOfWork(ImportDbContext context,
-            IGroupRepository groups, IExcelDataRepository excelDatas, IFileLocationRepository fileLocations, IGroupColumnNameRepository groupColumnNames, IPendingExportHistoryRepository pendingExportHistories)
+            IGroupRepository groups, IExcelDataRepository excelDatas, IFileLocationRepository fileLocations, IGroupColumnNameRepository groupColumnNames, IPendingExportHistoryRepository pendingExportHistories, IImportHistoryRepository importHistories, IExportHistoryRepository exportHistories)
             : base(context)
         {
             Groups = groups;
@@ -26,6 +30,9 @@ namespace DataImporter.Import.UnitOfWorks
             FileLocations = fileLocations;
             GroupColumnNames = groupColumnNames;
             PendingExportHistories = pendingExportHistories;
+            ImportHistories = importHistories;
+            ExportHistories = exportHistories;
+
         }
     }
 }

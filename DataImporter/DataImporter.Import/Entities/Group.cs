@@ -22,6 +22,8 @@ namespace DataImporter.Import.Entities
         
         public ExportEmailHit ExportEmailHit { get; set; }
 
+        public List<ImportHistory> ImportHistories { get; set; }
 
+        public List<ExportHistory> ExportHistories { get; set; }
     }
 }

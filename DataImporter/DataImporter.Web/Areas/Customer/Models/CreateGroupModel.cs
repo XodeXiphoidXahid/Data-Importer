@@ -12,9 +12,10 @@ namespace DataImporter.Web.Areas.Customer.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public DateTime CreateDate { get; set; }
 
         private readonly IGroupService _groupService;
-
+        
         public CreateGroupModel()
         {
             _groupService = Startup.AutofacContainer.Resolve<IGroupService>();
@@ -27,7 +28,8 @@ namespace DataImporter.Web.Areas.Customer.Models
         {
             var group = new Group
             {
-                Name = Name
+                Name = Name,
+                CreateDate=CreateDate
             };
 
             _groupService.CreateGroup(group, userId);

@@ -11,5 +11,6 @@ namespace DataImporter.Import.BusinessObjects
         public int Id { get; set; }
         public string FileName { get; set; }
         public int GroupId { get; set; }
+        public DateTime ImportDate { get; set; }
     }
 }

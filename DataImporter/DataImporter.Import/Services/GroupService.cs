@@ -26,7 +26,8 @@ namespace DataImporter.Import.Services
                 new Entities.Group
                 {
                     Name = group.Name,
-                    UserId = userId
+                    UserId = userId,
+                    CreateDate=group.CreateDate
                 }
             );
 

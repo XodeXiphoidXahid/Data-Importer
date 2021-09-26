@@ -49,6 +49,16 @@ namespace DataImporter.Import.Contexts
             .WithOne(c => c.Group)
             .HasForeignKey<ExportEmailHit>(g => g.GroupId);
 
+            //One to many
+            modelBuilder.Entity<Group>()
+                .HasMany(g => g.ImportHistories)
+                .WithOne(e => e.Group);
+
+            //One to many
+            modelBuilder.Entity<Group>()
+                .HasMany(g => g.ExportHistories)
+                .WithOne(e => e.Group);
+
 
             base.OnModelCreating(modelBuilder);
         }
@@ -58,5 +68,7 @@ namespace DataImporter.Import.Contexts
         public DbSet<GroupColumnName> GroupColumnNames { get; set; }
         public DbSet<PendingExportHistory> PendingExportHistories { get; set; }
         public DbSet<ExportEmailHit> ExportEmailHits { get; set; }
+        public DbSet<ImportHistory> ImportHistories { get; set; }
+        public DbSet<ExportHistory> ExportHistories { get; set; }
     }
 }

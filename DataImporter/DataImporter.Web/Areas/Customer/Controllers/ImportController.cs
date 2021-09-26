@@ -66,14 +66,20 @@ namespace DataImporter.Web.Areas.User.Controllers
                     var result = model.RightGroup(file);
                     if(result.rightGroup)
                         model.SaveFileInfo(file.FileName, file);
-                    ViewBag.data = result.data;
-                    ViewBag.colNum = result.colNum;
+                    //ViewBag.data = result.data;
+                    //ViewBag.colNum = result.colNum;
+                    else
+                    {
+                        ModelState.AddModelError("CustomError", "Please select or create a appropriate Group for your file");
+                    }
+                    
 
                 }
                 catch (Exception ex)
                 {
-                    ModelState.AddModelError("", "Failed to Upload file");
+                    ModelState.AddModelError("Name", "Failed to Upload file");
                     _logger.LogError(ex, "Failed to Upload file");
+                    
                 }
             }
             return View(model);
