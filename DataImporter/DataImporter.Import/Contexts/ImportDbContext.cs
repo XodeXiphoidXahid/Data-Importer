@@ -59,6 +59,12 @@ namespace DataImporter.Import.Contexts
                 .HasMany(g => g.ExportHistories)
                 .WithOne(e => e.Group);
 
+            //One to One
+            modelBuilder.Entity<Group>()
+            .HasOne<PendingExportHistory>(g => g.PendingExportHistory)
+            .WithOne(c => c.Group)
+            .HasForeignKey<PendingExportHistory>(g => g.GroupId);
+
 
             base.OnModelCreating(modelBuilder);
         }

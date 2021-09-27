@@ -200,9 +200,16 @@ namespace DataImporter.Import.Services
 
         public void UpdateExportHistory(int groupId)
         {
-            _importUnitOfWork.PendingExportHistories.Add(new Entities.PendingExportHistory { GroupId=groupId});
+            UpdatePendingExportHistory(groupId);
+
             _importUnitOfWork.ExportHistories.Add(new Entities.ExportHistory { GroupId=groupId, ExportDate=_dateTimeUtility.Now});
 
+            _importUnitOfWork.Save();
+        }
+
+        private void UpdatePendingExportHistory(int groupId)
+        {
+            _importUnitOfWork.PendingExportHistories.Add(new Entities.PendingExportHistory { GroupId = groupId });
             _importUnitOfWork.Save();
         }
     }

@@ -23,7 +23,8 @@ namespace DataImporter.Common
                 .WithParameter("from", "zahidsheikh1521996@gmail.com")
                 .InstancePerLifetimeScope();
 
-            
+            builder.RegisterType<DateTimeUtility>().As<IDateTimeUtility>()
+                .InstancePerLifetimeScope();
 
             base.Load(builder);
         }

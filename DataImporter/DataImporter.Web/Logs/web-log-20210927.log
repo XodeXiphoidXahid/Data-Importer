@@ -49,3 +49,14 @@ Cannot resolve parameter 'DataImporter.Common.Utilities.IDateTimeUtility dateTim
    at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
    at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.MigrationsEndPointMiddleware.Invoke(HttpContext context)
    at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2021-09-27 12:47:56.115 +06:00 [INF] Application Starting up
+2021-09-27 12:49:00.040 +06:00 [INF] Application Starting up
+2021-09-27 12:49:14.751 +06:00 [INF] User logged in.
+2021-09-27 13:38:30.273 +06:00 [INF] Application Starting up
+2021-09-27 13:38:44.961 +06:00 [INF] User logged in.
+2021-09-27 13:43:13.450 +06:00 [INF] Application Starting up
+2021-09-27 13:43:26.630 +06:00 [INF] User logged in.
+2021-09-27 13:49:23.467 +06:00 [INF] Application Starting up
+2021-09-27 13:49:35.917 +06:00 [INF] User logged in.
+2021-09-27 14:03:13.790 +06:00 [INF] Application Starting up
+2021-09-27 14:03:42.342 +06:00 [INF] User logged in.

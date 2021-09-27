@@ -19,6 +19,8 @@ namespace DataImporter.Import.Entities
         public List<FileLocation> FileLocations { get; set; }
 
         public GroupColumnName GroupColumnName { get; set; }
+
+        public PendingExportHistory PendingExportHistory { get; set; }
         
         public ExportEmailHit ExportEmailHit { get; set; }
 
