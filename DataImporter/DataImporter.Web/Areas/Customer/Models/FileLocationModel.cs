@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DataImporter.Common.Utilities;
 using DataImporter.Import.BusinessObjects;
 using DataImporter.Import.Services;
 using Microsoft.AspNetCore.Http;
@@ -15,14 +16,16 @@ namespace DataImporter.Web.Areas.Customer.Models
         public DateTime ImportDate { get; set; }
 
         private readonly IImportService _importService;
+        private readonly IDateTimeUtility _dateTimeUtility;
 
         public FileLocationModel()
         {
             _importService = Startup.AutofacContainer.Resolve<IImportService>();
         }
-        public FileLocationModel(IImportService importService)
+        public FileLocationModel(IImportService importService, IDateTimeUtility dateTimeUtility)
         {
             _importService = importService;
+            _dateTimeUtility = dateTimeUtility;
         }
 
         internal void SaveFileInfo(string fileName, IFormFile file)
@@ -33,7 +36,7 @@ namespace DataImporter.Web.Areas.Customer.Models
             {
                 GroupId=GroupId,
                 FileName=fileName,
-                ImportDate=ImportDate
+                ImportDate=_dateTimeUtility.Now
             };
 
             _importService.SaveFileInfo(fileLocation, file);
