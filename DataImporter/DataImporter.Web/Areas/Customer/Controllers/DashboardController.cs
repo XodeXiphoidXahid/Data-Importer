@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DataImporter.Web.Areas.Customer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,9 @@ namespace DataImporter.Web.Areas.User.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var model = new DashboardInfo();
+            model.GetDashboardInfo();
+            return View(model);
         }
         public IActionResult Login()
         {

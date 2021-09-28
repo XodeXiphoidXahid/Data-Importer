@@ -1,4 +1,4 @@
-﻿
+﻿@model DashboardInfo 
 @section Styles
 {
     <link href="~/Admin/plugins/select2/css/select2.min.css" rel="stylesheet" />
@@ -52,7 +52,7 @@
 
                     <div class="info-box-content">
                         <span class="info-box-text">Imports</span>
-                        <span class="info-box-number">41,410</span>
+                        <span class="info-box-number">@Model.TotalImport</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -68,7 +68,7 @@
 
                     <div class="info-box-content">
                         <span class="info-box-text">Exports</span>
-                        <span class="info-box-number">760</span>
+                        <span class="info-box-number">@Model.TotalExport</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -81,7 +81,7 @@
 
                     <div class="info-box-content">
                         <span class="info-box-text">Total Groups</span>
-                        <span class="info-box-number">2,000</span>
+                        <span class="info-box-number">@Model.TotalGroup</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>

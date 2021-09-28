@@ -34,6 +34,21 @@ namespace DataImporter.Import.Services
             _importUnitOfWork.Save();
         }
 
+        public DashboardInfo GetDashboardInfo()
+        {
+            var TotalImport = _importUnitOfWork.ImportHistories.GetAll().Count;
+            var TotalExport = _importUnitOfWork.ExportHistories.GetAll().Count;
+            var TotalGroup = _importUnitOfWork.Groups.GetAll().Count;
+
+            return new DashboardInfo
+            {
+                TotalExport=TotalExport,
+                TotalImport=TotalImport,
+                TotalGroup=TotalGroup
+            };
+
+        }
+
         public (IList<Group> records, int total, int totalDisplay) GetGroups(int pageIndex, int pageSize, string searchText, string sortText,string userId)
         {
             var groupData = _importUnitOfWork.Groups.GetDynamic(

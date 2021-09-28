@@ -1,0 +1,26 @@
+2021-09-28 02:16:18.094 +06:00 [INF] Application Starting up
+2021-09-28 02:16:36.386 +06:00 [INF] User logged in.
+2021-09-28 02:28:50.592 +06:00 [INF] Application Starting up
+2021-09-28 02:29:02.158 +06:00 [INF] User logged in.
+2021-09-28 02:32:27.828 +06:00 [INF] Application Starting up
+2021-09-28 02:32:39.682 +06:00 [INF] User logged in.
+2021-09-28 02:34:15.725 +06:00 [INF] Application Starting up
+2021-09-28 02:34:26.615 +06:00 [INF] User logged in.
+2021-09-28 02:36:13.084 +06:00 [ERR] Create Group Failed
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at DataImporter.Web.Areas.Customer.Models.CreateGroupModel.CreateGroup(String userId) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Web\Areas\Customer\Models\CreateGroupModel.cs:line 32
+   at DataImporter.Web.Areas.User.Controllers.GroupController.Create(CreateGroupModel model) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Web\Areas\Customer\Controllers\GroupController.cs:line 55
+2021-09-28 12:39:28.840 +06:00 [INF] Application Starting up
+2021-09-28 12:39:42.789 +06:00 [INF] User logged in.
+2021-09-28 12:41:00.401 +06:00 [INF] Application Starting up
+2021-09-28 12:41:19.540 +06:00 [INF] User logged in.
+2021-09-28 12:53:42.166 +06:00 [INF] Application Starting up
+2021-09-28 12:53:53.174 +06:00 [INF] User logged in.
+2021-09-28 12:54:17.559 +06:00 [INF] Application Starting up
+2021-09-28 12:54:28.090 +06:00 [INF] User logged in.
+2021-09-28 13:02:52.622 +06:00 [INF] Application Starting up
+2021-09-28 13:03:47.454 +06:00 [INF] User logged in.
+2021-09-28 13:05:00.949 +06:00 [INF] Application Starting up
+2021-09-28 13:05:12.652 +06:00 [INF] User logged in.
+2021-09-28 13:08:44.026 +06:00 [INF] Application Starting up
+2021-09-28 13:08:57.226 +06:00 [INF] User logged in.

@@ -41,7 +41,6 @@ namespace DataImporter.Web.Areas.User.Controllers
 
         public IActionResult Index()
         {
-            
             return View();
         }
 
@@ -65,7 +64,7 @@ namespace DataImporter.Web.Areas.User.Controllers
                 {
                     var result = model.RightGroup(file);
                     if(result.rightGroup)
-                        model.SaveFileInfo(file.FileName, file);
+                        model.SaveFileInfo(file.FileName, file);//file ta save korar somoe import history taw save korte hbe
                     //ViewBag.data = result.data;
                     //ViewBag.colNum = result.colNum;
                     else

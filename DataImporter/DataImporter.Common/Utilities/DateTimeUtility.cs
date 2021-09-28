@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataImporter.Common.Utilities
 {
-    public class DateTimeUtility:IDateTimeUtility
+    public class DateTimeUtility: IDateTimeUtility
     {
         public DateTime Now
         {

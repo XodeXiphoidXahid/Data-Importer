@@ -13,7 +13,6 @@ namespace DataImporter.Web.Areas.Customer.Models
     public class FileLocationModel
     {
         public int GroupId { get; set; }
-        public DateTime ImportDate { get; set; }
 
         private readonly IImportService _importService;
         private readonly IDateTimeUtility _dateTimeUtility;
@@ -21,11 +20,12 @@ namespace DataImporter.Web.Areas.Customer.Models
         public FileLocationModel()
         {
             _importService = Startup.AutofacContainer.Resolve<IImportService>();
+            _dateTimeUtility= Startup.AutofacContainer.Resolve<IDateTimeUtility>();
         }
-        public FileLocationModel(IImportService importService, IDateTimeUtility dateTimeUtility)
+        public FileLocationModel(IImportService importService)
         {
             _importService = importService;
-            _dateTimeUtility = dateTimeUtility;
+           
         }
 
         internal void SaveFileInfo(string fileName, IFormFile file)
@@ -37,6 +37,7 @@ namespace DataImporter.Web.Areas.Customer.Models
                 GroupId=GroupId,
                 FileName=fileName,
                 ImportDate=_dateTimeUtility.Now
+                
             };
 
             _importService.SaveFileInfo(fileLocation, file);
@@ -52,8 +53,6 @@ namespace DataImporter.Web.Areas.Customer.Models
 
         internal (bool rightGroup, List<string> data,int? colNum) RightGroup(IFormFile file)
         {
-            //return _importService.CheckColumn(file, GroupId);
-            //public (bool rightGroup, List<string> data) CheckColumn(IFormFile file, int groupId);
             var rightGroupInfo = _importService.CheckColumn(file, GroupId);
             return (rightGroupInfo.rightGroup, rightGroupInfo.data, rightGroupInfo.colNum);
         }

@@ -14,6 +14,10 @@ namespace DataImporter.Common
         
         protected override void Load(ContainerBuilder builder)
         {
+
+            builder.RegisterType<DateTimeUtility>().As<IDateTimeUtility>()
+                .InstancePerLifetimeScope();
+
             builder.RegisterType<EmailService>().As<IEmailService>()
                 .WithParameter("host", "smtp.gmail.com")
                 .WithParameter("port", 465)
@@ -21,9 +25,6 @@ namespace DataImporter.Common
                 .WithParameter("password", "dotnetdeveloperzahidsheikhuap9696")
                 .WithParameter("useSSL", true)
                 .WithParameter("from", "zahidsheikh1521996@gmail.com")
-                .InstancePerLifetimeScope();
-
-            builder.RegisterType<DateTimeUtility>().As<IDateTimeUtility>()
                 .InstancePerLifetimeScope();
 
             base.Load(builder);
