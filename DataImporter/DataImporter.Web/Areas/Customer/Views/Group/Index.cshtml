@@ -93,9 +93,10 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">All Registered Groups</h3>
+                    <a href="/customer/group/create" class="card-title  btn btn-navbar btn-danger btn-sm float-right"> <i class="fas fa-layer-group"></i><b> Add Group</b></a>
                 </div>
                 <!-- Date -->
-                <div class="form-group col-6">
+                @*<div class="form-group col-6">
                     <label>Date:</label>
                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
                         <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" />
@@ -103,31 +104,33 @@
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
                     </div>
-                </div>
+                </div>*@
+                
 
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <table id="customers" class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Create Date</th>
-                                <th style="width:500px">Action</th>
-                            </tr>
-                        </thead>
+                    <!-- /.card-header -->
+            <div class="card-body">
+                
+                <table id="customers" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Create Date</th>
+                            <th style="width:500px">Action</th>
+                        </tr>
+                    </thead>
 
-                        <tfoot>
-                            <tr>
-                                <th>Name</th>
-                                <th>Create Date</th>
-                                <th style="width:500px">Action</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    <partial name="_DeletePopupPartial" />
-                </div>
-                <!-- /.card-body -->
+                    <tfoot>
+                        <tr>
+                            <th>Name</th>
+                            <th>Create Date</th>
+                            <th style="width:500px">Action</th>
+                        </tr>
+                    </tfoot>
+                </table>
+                <partial name="_DeletePopupPartial" />
             </div>
+                    <!-- /.card-body -->
+                </div>
                 <!-- /.card -->
             </div>
         <!-- /.col -->
