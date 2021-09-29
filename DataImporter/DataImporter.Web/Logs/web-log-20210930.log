@@ -1,0 +1,53 @@
+2021-09-30 01:50:38.283 +06:00 [INF] Application Starting up
+2021-09-30 01:51:07.747 +06:00 [INF] User logged in.
+2021-09-30 01:53:01.460 +06:00 [INF] Application Starting up
+2021-09-30 01:53:14.264 +06:00 [INF] User logged in.
+2021-09-30 01:56:21.412 +06:00 [INF] Application Starting up
+2021-09-30 01:56:34.154 +06:00 [INF] User logged in.
+2021-09-30 01:57:12.958 +06:00 [INF] Application Starting up
+2021-09-30 01:57:24.633 +06:00 [INF] User logged in.
+2021-09-30 02:05:45.607 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Collections.Generic.KeyNotFoundException: The given key 'Id' was not present in the dictionary.
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at AspNetCore.Areas_Customer_Views_Group_ViewGroupData.ExecuteAsync() in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Web\Areas\Customer\Views\Group\ViewGroupData.cshtml:line 49
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ActionContext actionContext, IView view, ViewDataDictionary viewData, ITempDataDictionary tempData, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|29_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.MigrationsEndPointMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2021-09-30 02:09:25.960 +06:00 [INF] Application Starting up
+2021-09-30 02:09:37.223 +06:00 [INF] User logged in.
+2021-09-30 02:20:41.092 +06:00 [INF] Application Starting up
+2021-09-30 02:21:05.173 +06:00 [INF] User logged in.
+2021-09-30 02:27:44.613 +06:00 [INF] Application Starting up
+2021-09-30 02:27:57.039 +06:00 [INF] User logged in.
+2021-09-30 02:43:34.440 +06:00 [INF] Application Starting up
+2021-09-30 02:43:51.485 +06:00 [INF] User logged in.
+2021-09-30 02:46:47.736 +06:00 [INF] Application Starting up
+2021-09-30 02:46:59.007 +06:00 [INF] User logged in.
+2021-09-30 02:48:39.549 +06:00 [INF] Application Starting up
+2021-09-30 02:48:51.416 +06:00 [INF] User logged in.
+2021-09-30 02:51:41.745 +06:00 [INF] Application Starting up
+2021-09-30 02:51:59.497 +06:00 [INF] User logged in.

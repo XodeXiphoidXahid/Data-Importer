@@ -63,5 +63,15 @@ namespace DataImporter.Web.Areas.User.Controllers
             }
             return View(model);
         }
+
+        public IActionResult ViewGroupData(int id)
+        {
+            var model = new GroupDataModel();
+
+            model.LoadGroupData(id);
+
+            return View(model);
+        }
+
     }
 }

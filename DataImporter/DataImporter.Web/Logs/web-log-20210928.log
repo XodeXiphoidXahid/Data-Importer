@@ -72,3 +72,40 @@ System.NullReferenceException: Object reference not set to an instance of an obj
 2021-09-28 19:17:06.568 +06:00 [INF] User logged in.
 2021-09-28 19:33:21.959 +06:00 [INF] Application Starting up
 2021-09-28 19:33:34.810 +06:00 [INF] User logged in.
+2021-09-28 20:40:43.872 +06:00 [INF] Application Starting up
+2021-09-28 20:40:57.861 +06:00 [INF] User logged in.
+2021-09-28 22:03:40.866 +06:00 [INF] Application Starting up
+2021-09-28 22:03:57.335 +06:00 [INF] User logged in.
+2021-09-28 22:04:27.626 +06:00 [ERR] The view 'ViewGroupData' was not found. Searched locations: ["/Areas/Customer/Views/Group/ViewGroupData.cshtml","/Areas/Customer/Views/Shared/ViewGroupData.cshtml","/Views/Shared/ViewGroupData.cshtml","/Pages/Shared/ViewGroupData.cshtml"]
+2021-09-28 22:04:27.673 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The view 'ViewGroupData' was not found. The following locations were searched:
+/Areas/Customer/Views/Group/ViewGroupData.cshtml
+/Areas/Customer/Views/Shared/ViewGroupData.cshtml
+/Views/Shared/ViewGroupData.cshtml
+/Pages/Shared/ViewGroupData.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|29_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.MigrationsEndPointMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2021-09-28 22:05:24.695 +06:00 [INF] Application Starting up
+2021-09-28 22:05:35.723 +06:00 [INF] User logged in.
+2021-09-28 22:07:15.325 +06:00 [INF] Application Starting up
+2021-09-28 22:07:42.401 +06:00 [INF] User logged in.
