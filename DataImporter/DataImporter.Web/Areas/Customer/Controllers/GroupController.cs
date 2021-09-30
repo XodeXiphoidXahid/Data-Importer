@@ -70,6 +70,9 @@ namespace DataImporter.Web.Areas.User.Controllers
 
             model.LoadGroupData(id);
 
+            if (model.GroupData == null)
+                return View("EmptyGroupError");
+
             return View(model);
         }
 

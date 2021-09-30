@@ -53,6 +53,8 @@ namespace DataImporter.Import.Services
         public (List<Dictionary<string, string>> groupData, List<string> allColumns) GetGroupData(int groupId)
         {
             var groupData = _importUnitOfWork.ExcelDatas.Get(x => x.GroupId == groupId, string.Empty);
+            if (groupData.Count == 0)
+                return (null, null);
             var columnList = _importUnitOfWork.GroupColumnNames.Get(x => x.GroupId == groupId, string.Empty).Select(x=>x.ColumnList).FirstOrDefault();
             var allColumns = GetColumns(columnList);
 
