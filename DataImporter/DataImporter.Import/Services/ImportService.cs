@@ -15,8 +15,6 @@ namespace DataImporter.Import.Services
     public class ImportService : IImportService
     {
         private readonly IImportUnitOfWork _importUnitOfWork;
-        
-
 
         public ImportService(IImportUnitOfWork importUnitOfWork)
         {
@@ -301,6 +299,31 @@ namespace DataImporter.Import.Services
 
                 SaveExcelInDb(fileInfo);// Ekhane groupId taw pass korte hbe.
             }
+        }
+
+        public (IList<Group> records, int total, int totalDisplay) GetImportHistories(int pageIndex, int pageSize, string searchText, string sortText, Guid userId)
+        {
+            var groupData = _importUnitOfWork.Groups.GetDynamic(
+                 string.IsNullOrWhiteSpace(searchText) ? null : x => (x.Name.Contains(searchText)) && (x.ApplicationUserId == userId)
+                , sortText, string.Empty, pageIndex, pageSize);
+
+            //var importHistoryData = _importUnitOfWork.ImportHistories.GetDynamic(x=>x.GroupId, sortText, string.Empty, pageIndex, pageSize);
+
+            //var groupList = _importUnitOfWork.Groups.Get(x => x.UserId == userId, string.Empty);
+            // GetDynamic(
+            //string.IsNullOrWhiteSpace(searchText) ? null : x => x.Name.Contains(searchText)
+            //, sortText, string.Empty, pageIndex, pageSize);
+
+            var resultData = (from grp in groupData.data.Where(x => x.ApplicationUserId == userId)
+                              select new Group
+                              {
+                                  Id = grp.Id,
+                                  Name = grp.Name,
+                                  CreateDate = grp.CreateDate
+
+                              }).ToList();
+
+            return (resultData, groupData.total, groupData.totalDisplay);
         }
     }
 }

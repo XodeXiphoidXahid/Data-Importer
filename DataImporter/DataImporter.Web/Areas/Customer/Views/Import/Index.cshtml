@@ -17,17 +17,14 @@
     <script>
 
         $(function () {
-            $('#reservationStartDate').datetimepicker({
-                format: 'L'
-            });
-            $('#reservationEndDate').datetimepicker({
+            $('#reservationdate').datetimepicker({
                 format: 'L'
             });
 
             $('#customers').DataTable({
                 "processing": true,
                 "serverSide": true,
-                "ajax": "/Customer/group/GetGroupData",
+                "ajax": "/Customer/import/GetImportHistory",
                 "columnDefs": [
                     {
                         "orderable": false,
@@ -52,22 +49,22 @@
                                         Export
                                     </button>`;
 
-                                                    
+
                         }
                     }
                 ]
             });
-            $('#groups').on('click', '.show-bs-modal', function (event) {
-                var id = $(this).data("id");
-                var modal = $("#modal-default");
-                modal.find('.modal-body p').text('Are you sure you want to delete this record?')
-                $("#deleteId").val(id);
-                $("#deleteForm").attr("action", "/customer/group/delete")
-                modal.modal('show');
-            });
-            $("#deleteButton").click(function () {
-                $("#deleteForm").submit();
-            });
+            //$('#imports').on('click', '.show-bs-modal', function (event) {
+            //    var id = $(this).data("id");
+            //    var modal = $("#modal-default");
+            //    modal.find('.modal-body p').text('Are you sure you want to delete this record?')
+            //    $("#deleteId").val(id);
+            //    $("#deleteForm").attr("action", "/customer/group/delete")
+            //    modal.modal('show');
+            //});
+            //$("#deleteButton").click(function () {
+            //    $("#deleteForm").submit();
+            //});
         });
     </script>
 }
@@ -98,29 +95,16 @@
                     <h3 class="card-title">All Registered Groups</h3>
                     <a href="/customer/group/create" class="card-title  btn btn-navbar btn-danger btn-sm float-right"> <i class="fas fa-layer-group"></i><b> Add Group</b></a>
                 </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="form-group  col-3">
-                            <label>Start Date:</label>
-                            <div class="input-group date" id="reservationStartDate" data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input" data-target="#reservationStartDate" />
-                                <div class="input-group-append" data-target="#reservationStartDate" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group  col-3">
-                            <label>End Date:</label>
-                            <div class="input-group date" id="reservationEndDate" data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input" data-target="#reservationEndDate" />
-                                <div class="input-group-append" data-target="#reservationStartDate" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                </div>
+                <!-- Date -->
+                <div class="form-group col-6">
+                        <label>Date:</label>
+                        <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" />
+                            <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
 
 
                 <!-- /.card-header -->
@@ -147,8 +131,8 @@
                 </div>
                 <!-- /.card-body -->
             </div>
-                <!-- /.card -->
-            </div>
+            <!-- /.card -->
+        </div>
         <!-- /.col -->
     </div>
     <!-- /.row -->

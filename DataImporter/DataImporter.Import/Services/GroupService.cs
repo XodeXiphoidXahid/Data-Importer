@@ -18,7 +18,7 @@ namespace DataImporter.Import.Services
         {
             _importUnitOfWork = importUnitOfWork;
         }
-        public void CreateGroup(Group group, string userId)
+        public void CreateGroup(Group group, Guid userId)
         {
             if (group == null)
                 throw new InvalidParameterException("Group was not provided");
@@ -27,7 +27,7 @@ namespace DataImporter.Import.Services
                 new Entities.Group
                 {
                     Name = group.Name,
-                    UserId = userId,
+                    ApplicationUserId = userId,
                     CreateDate=group.CreateDate
                 }
             );
@@ -94,10 +94,10 @@ namespace DataImporter.Import.Services
             return result;
         }
 
-        public (IList<Group> records, int total, int totalDisplay) GetGroups(int pageIndex, int pageSize, string searchText, string sortText,string userId)
+        public (IList<Group> records, int total, int totalDisplay) GetGroups(int pageIndex, int pageSize, string searchText, string sortText,Guid userId)
         {
             var groupData = _importUnitOfWork.Groups.GetDynamic(
-                 string.IsNullOrWhiteSpace(searchText) ? null : x=>(x.Name.Contains(searchText)) && (x.UserId==userId)
+                 string.IsNullOrWhiteSpace(searchText) ? null : x=>(x.Name.Contains(searchText)) && (x.ApplicationUserId ==userId)
                 , sortText, string.Empty, pageIndex, pageSize);
 
             //var groupList = _importUnitOfWork.Groups.Get(x => x.UserId == userId, string.Empty);
@@ -105,7 +105,7 @@ namespace DataImporter.Import.Services
             //string.IsNullOrWhiteSpace(searchText) ? null : x => x.Name.Contains(searchText)
             //, sortText, string.Empty, pageIndex, pageSize);
 
-            var resultData = (from grp in groupData.data.Where(x=>x.UserId==userId)
+            var resultData = (from grp in groupData.data.Where(x=>x.ApplicationUserId==userId)
                               select new Group
                               {
                                   Id = grp.Id,

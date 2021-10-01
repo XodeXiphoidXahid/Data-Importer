@@ -30,7 +30,7 @@ namespace DataImporter.Web.Areas.User.Controllers
         }
         public JsonResult GetGroupData()
         {
-            var userId = _userManager.GetUserId(HttpContext.User);
+            var userId = new Guid(_userManager.GetUserId(HttpContext.User));
             var dataTablesModel = new DataTablesAjaxRequestModel(Request);
             var model = new GroupListModel();
             var data = model.GetGroups(dataTablesModel, userId);
@@ -45,8 +45,9 @@ namespace DataImporter.Web.Areas.User.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Create(CreateGroupModel model)
         {
-            var userId = _userManager.GetUserId(HttpContext.User);
+            var userId = new Guid (_userManager.GetUserId(HttpContext.User));
             
+
 
             if (ModelState.IsValid)
             {

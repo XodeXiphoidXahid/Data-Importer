@@ -16,6 +16,7 @@ namespace DataImporter.Import.Services
         void SaveFileInfo(FileLocation fileLocation, IFormFile file);
         (bool rightGroup, List<string> data, int? colNum) CheckColumn(IFormFile file, int groupId);
         void Import();
+        (IList<Group> records, int total, int totalDisplay) GetImportHistories(int pageIndex, int pageSize, string searchText, string v, Guid userId);
         //bool CheckColumn(IFormFile file, int groupId);
     }
 }

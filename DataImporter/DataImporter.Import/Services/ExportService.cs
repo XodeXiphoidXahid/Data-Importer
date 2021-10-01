@@ -71,7 +71,8 @@ namespace DataImporter.Import.Services
                     
                 }
                 var groupName = _importUnitOfWork.Groups.GetById(groupId).Name;
-                var userId = _importUnitOfWork.Groups.Get(x => x.Id == groupId, string.Empty).Select(x => x.UserId).FirstOrDefault();
+                var userId = _importUnitOfWork.Groups.Get(x => x.Id == groupId, string.Empty).Select(x => x.ApplicationUserId).FirstOrDefault();
+                //var userId = "123";
                 //--Here we need to create specific folder for each user to save their group files--
                 string path = "D:\\ASP.Net Core(Devskill)\\Asp_Dot_Net_Core\\ExportedFiles\\" + groupId+"\\";
                 if (!Directory.Exists(path))
@@ -162,7 +163,7 @@ namespace DataImporter.Import.Services
         public FileInfo GetFile(int groupId)//eta SendEmail WorkerService theke call hbe.
         {
             //Get the userId
-            var userId = _importUnitOfWork.Groups.Get(x => x.Id == groupId, null).Select(x => x.UserId).FirstOrDefault();
+            var userId = _importUnitOfWork.Groups.Get(x => x.Id == groupId, null).Select(x => x.ApplicationUserId).FirstOrDefault();
             var groupName = _importUnitOfWork.Groups.Get(x => x.Id == groupId, null).Select(x => x.Name).FirstOrDefault();
             var fileName = groupName + "_" + userId.ToString() + ".xlsx";
 

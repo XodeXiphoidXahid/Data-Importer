@@ -41,9 +41,19 @@ namespace DataImporter.Web.Areas.User.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = new ImportHistoryModel();
+            return View(model);
         }
 
+        public JsonResult GetImportHistory()
+        {
+            var userId = new Guid( _userManager.GetUserId(HttpContext.User));
+
+            var dataTablesModel = new DataTablesAjaxRequestModel(Request);
+            var model = new ImportHistoryModel();
+            var data = model.GetImportHistories(dataTablesModel, userId);
+            return Json(data);
+        }
         public IActionResult Create()
         {
             return View();
@@ -110,8 +120,9 @@ namespace DataImporter.Web.Areas.User.Controllers
 
         public JsonResult GetGroupList(string searchTerm)
         {
-            var userId = _userManager.GetUserId(HttpContext.User);
-            var groupList = _importUnitOfWork.Groups.GetAll().Where(x=>x.UserId==userId ).ToList();
+            var userId = new Guid(_userManager.GetUserId(HttpContext.User));
+
+            var groupList = _importUnitOfWork.Groups.GetAll().Where(x=>x.ApplicationUserId==userId ).ToList();
             
 
             if(searchTerm != null)

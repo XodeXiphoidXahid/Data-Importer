@@ -28,7 +28,7 @@ namespace DataImporter.Web.Areas.Customer.Models
             _groupService = groupService;
             
         }
-        internal void CreateGroup(string userId)
+        internal void CreateGroup(Guid userId)
         {
             var group = new Group
             {

@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DataImporter.Web.Data.migrations
+namespace DataImporter.Web.Migrations
 {
     [DbContext(typeof(ImportDbContext))]
-    [Migration("20210926075836_AddImportHistoryAndExportHistory")]
-    partial class AddImportHistoryAndExportHistory
+    [Migration("20211001104617_AddDataImporterEntities")]
+    partial class AddDataImporterEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -115,16 +115,18 @@ namespace DataImporter.Web.Data.migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<Guid?>("ApplicationUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Groups");
                 });
@@ -182,7 +184,69 @@ namespace DataImporter.Web.Data.migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GroupId")
+                        .IsUnique();
+
                     b.ToTable("PendingExportHistories");
+                });
+
+            modelBuilder.Entity("DataImporter.Membership.Entities.ApplicationUser", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AspNetUsers", t => t.ExcludeFromMigrations());
                 });
 
             modelBuilder.Entity("DataImporter.Import.Entities.ExcelData", b =>
@@ -229,6 +293,15 @@ namespace DataImporter.Web.Data.migrations
                     b.Navigation("Group");
                 });
 
+            modelBuilder.Entity("DataImporter.Import.Entities.Group", b =>
+                {
+                    b.HasOne("DataImporter.Membership.Entities.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.Navigation("ApplicationUser");
+                });
+
             modelBuilder.Entity("DataImporter.Import.Entities.GroupColumnName", b =>
                 {
                     b.HasOne("DataImporter.Import.Entities.Group", "Group")
@@ -251,6 +324,17 @@ namespace DataImporter.Web.Data.migrations
                     b.Navigation("Group");
                 });
 
+            modelBuilder.Entity("DataImporter.Import.Entities.PendingExportHistory", b =>
+                {
+                    b.HasOne("DataImporter.Import.Entities.Group", "Group")
+                        .WithOne("PendingExportHistory")
+                        .HasForeignKey("DataImporter.Import.Entities.PendingExportHistory", "GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+                });
+
             modelBuilder.Entity("DataImporter.Import.Entities.Group", b =>
                 {
                     b.Navigation("ExcelDatas");
@@ -264,6 +348,8 @@ namespace DataImporter.Web.Data.migrations
                     b.Navigation("GroupColumnName");
 
                     b.Navigation("ImportHistories");
+
+                    b.Navigation("PendingExportHistory");
                 });
 #pragma warning restore 612, 618
         }

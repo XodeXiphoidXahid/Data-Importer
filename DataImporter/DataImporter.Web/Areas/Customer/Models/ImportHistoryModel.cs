@@ -8,26 +8,27 @@ using System.Threading.Tasks;
 
 namespace DataImporter.Web.Areas.Customer.Models
 {
-    public class GroupListModel
+    public class ImportHistoryModel
     {
-        private IGroupService _groupService;
+        private IImportService _importService;
 
-        public GroupListModel()
+        public ImportHistoryModel()
         {
-            _groupService = Startup.AutofacContainer.Resolve<IGroupService>();
+            _importService = Startup.AutofacContainer.Resolve<IImportService>();
         }
 
-        public GroupListModel(IGroupService groupService)
+        public ImportHistoryModel(IImportService importService)
         {
-            _groupService = groupService;
+            _importService = importService;
         }
-        internal object GetGroups(DataTablesAjaxRequestModel tableModel, Guid userId)
+
+        internal object GetImportHistories(DataTablesAjaxRequestModel tableModel, Guid userId)
         {
-            var data = _groupService.GetGroups(
+            var data = _importService.GetImportHistories(
                 tableModel.PageIndex,
                 tableModel.PageSize,
                 tableModel.SearchText,
-                tableModel.GetSortText(new string[] { "Name", "CreateDate" }), userId);
+                tableModel.GetSortText(new string[] { "ImportDate", "GroupId" }), userId);
 
             return new
             {
