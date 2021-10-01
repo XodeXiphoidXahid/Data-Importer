@@ -36,3 +36,34 @@ Error Number:547,State:0,Class:16
    at DataImporter.Web.Areas.Customer.Models.CreateGroupModel.CreateGroup(String userId) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Web\Areas\Customer\Models\CreateGroupModel.cs:line 39
    at DataImporter.Web.Areas.User.Controllers.GroupController.Create(CreateGroupModel model) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.Web\Areas\Customer\Controllers\GroupController.cs:line 56
 2021-10-01 16:04:57.154 +06:00 [INF] Application Starting up
+2021-10-01 16:49:38.437 +06:00 [INF] Application Starting up
+2021-10-01 16:50:17.442 +06:00 [INF] User logged in.
+2021-10-01 16:53:50.806 +06:00 [INF] Application Starting up
+2021-10-01 16:54:05.600 +06:00 [WRN] Invalid password for user.
+2021-10-01 16:54:05.609 +06:00 [WRN] User failed to provide the correct password.
+2021-10-01 16:54:13.844 +06:00 [INF] User logged in.
+2021-10-01 17:03:44.912 +06:00 [INF] Application Starting up
+2021-10-01 17:04:02.787 +06:00 [INF] User logged in.
+2021-10-01 17:17:25.947 +06:00 [INF] Application Starting up
+2021-10-01 17:17:42.553 +06:00 [INF] User logged in.
+2021-10-01 17:18:34.970 +06:00 [INF] Application Starting up
+2021-10-01 17:18:55.941 +06:00 [INF] User logged in.
+2021-10-01 17:37:56.992 +06:00 [INF] User logged in.
+2021-10-01 17:45:36.914 +06:00 [INF] Application Starting up
+2021-10-01 17:45:54.459 +06:00 [INF] User logged in.
+2021-10-01 17:53:45.817 +06:00 [INF] Application Starting up
+2021-10-01 17:54:07.069 +06:00 [INF] User logged in.
+2021-10-01 17:57:00.490 +06:00 [INF] Application Starting up
+2021-10-01 17:57:14.907 +06:00 [INF] User logged in.
+2021-10-01 17:59:23.018 +06:00 [INF] Application Starting up
+2021-10-01 17:59:38.876 +06:00 [INF] User logged in.
+2021-10-01 18:03:17.485 +06:00 [INF] Application Starting up
+2021-10-01 18:03:42.071 +06:00 [INF] User logged in.
+2021-10-01 18:08:06.868 +06:00 [INF] Application Starting up
+2021-10-01 18:08:23.584 +06:00 [INF] User logged in.
+2021-10-01 18:17:22.385 +06:00 [INF] Application Starting up
+2021-10-01 18:17:35.914 +06:00 [INF] User logged in.
+2021-10-01 18:21:05.419 +06:00 [INF] Application Starting up
+2021-10-01 18:21:17.161 +06:00 [INF] User logged in.
+2021-10-01 18:26:22.642 +06:00 [INF] Application Starting up
+2021-10-01 18:26:42.597 +06:00 [INF] User logged in.

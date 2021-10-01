@@ -61,6 +61,21 @@ namespace DataImporter.Web.Models
             }
         }
 
+        public DateTime StartDate
+        {
+            get
+            {
+                return Convert.ToDateTime(_request.Query["startDate"]);
+            }
+        }
+        public DateTime EndDate
+        {
+            get
+            {
+                return Convert.ToDateTime(_request.Query["endDate"]);
+            }
+        }
+
         public static object EmptyResult
         {
             get
