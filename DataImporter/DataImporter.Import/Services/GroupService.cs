@@ -35,19 +35,43 @@ namespace DataImporter.Import.Services
             _importUnitOfWork.Save();
         }
 
-        public DashboardInfo GetDashboardInfo()
+        public DashboardInfo GetDashboardInfo(Guid userId)
         {
-            var TotalImport = _importUnitOfWork.ImportHistories.GetAll().Count;
-            var TotalExport = _importUnitOfWork.ExportHistories.GetAll().Count;
-            var TotalGroup = _importUnitOfWork.Groups.GetAll().Count;
+            //var TotalImport = _importUnitOfWork.Groups.Get(x => x.ApplicationUserId == userId, String.Empty).Select(x => x.ImportHistories).Count();
+            //var TotalImport = _importUnitOfWork.ImportHistories.GetAll().Where(x => x.Group.ApplicationUserId == userId).Count();
+
+            var groups = _importUnitOfWork.Groups.Get(x => x.ApplicationUserId == userId, string.Empty).Select(x=>x.Id).ToList();
+
+            var groupImport= _importUnitOfWork.ImportHistories.GetAll().Select(x => x.GroupId).ToList();
+            var groupExport = _importUnitOfWork.ExportHistories.GetAll().Select(x => x.GroupId).ToList();
+            var totalGroup = _importUnitOfWork.Groups.Get(x => x.ApplicationUserId == userId, String.Empty).Count();
+
+            int totalImport = 0;
+            foreach(var groupId in groups)
+            {
+                totalImport += CountGroupOccurence(groupImport, groupId);
+            }
+
+            int totalExport = 0;
+            foreach (var groupId in groups)
+            {
+                totalExport += CountGroupOccurence(groupExport, groupId);
+            }
 
             return new DashboardInfo
             {
-                TotalExport=TotalExport,
-                TotalImport=TotalImport,
-                TotalGroup=TotalGroup
+                TotalExport= totalExport,
+                TotalImport= totalImport,
+                TotalGroup= totalGroup
             };
 
+        }
+
+        private int CountGroupOccurence(List<int> list, int target)
+        {
+            return  list.Where(groupId => groupId.Equals(target))
+                    .Select(groupId => groupId)
+                    .Count(); 
         }
 
         public (List<Dictionary<string, string>> groupData, List<string> allColumns) GetGroupData(int groupId)

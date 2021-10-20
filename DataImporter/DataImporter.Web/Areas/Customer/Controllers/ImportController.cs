@@ -74,9 +74,11 @@ namespace DataImporter.Web.Areas.User.Controllers
                 {
                     var result = model.RightGroup(file);
                     if(result.rightGroup)
+                    {
                         model.SaveFileInfo(file.FileName, file);//file ta save korar somoe import history taw save korte hbe
-                    //ViewBag.data = result.data;
-                    //ViewBag.colNum = result.colNum;
+                    }
+                       
+                    
                     else
                     {
                         ModelState.AddModelError("CustomError", "Please select or create a appropriate Group for your file");

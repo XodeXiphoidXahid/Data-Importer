@@ -301,10 +301,10 @@ namespace DataImporter.Import.Services
             }
         }
 
-        public (IList<Group> records, int total, int totalDisplay) GetImportHistories(int pageIndex, int pageSize, string searchText, string sortText, Guid userId)
+        public (IList<ImportHistory> records, int total, int totalDisplay) GetImportHistories(int pageIndex, int pageSize, string searchText, DateTime startDate, DateTime endDate, string sortText, Guid userId)
         {
-            var groupData = _importUnitOfWork.Groups.GetDynamic(
-                 string.IsNullOrWhiteSpace(searchText) ? null : x => (x.Name.Contains(searchText)) && (x.ApplicationUserId == userId)
+            var importData = _importUnitOfWork.ImportHistories.GetDynamic(
+                 string.IsNullOrWhiteSpace(searchText) ? null : x => x.Group.Name.Contains(searchText) 
                 , sortText, string.Empty, pageIndex, pageSize);
 
             //var importHistoryData = _importUnitOfWork.ImportHistories.GetDynamic(x=>x.GroupId, sortText, string.Empty, pageIndex, pageSize);
@@ -314,16 +314,16 @@ namespace DataImporter.Import.Services
             //string.IsNullOrWhiteSpace(searchText) ? null : x => x.Name.Contains(searchText)
             //, sortText, string.Empty, pageIndex, pageSize);
 
-            var resultData = (from grp in groupData.data.Where(x => x.ApplicationUserId == userId)
-                              select new Group
+            var resultData = (from import in importData.data.Where(x => (x.Group.ApplicationUserId == userId) && (x.ImportDate>=startDate && x.ImportDate<=endDate) )
+                              select new ImportHistory
                               {
-                                  Id = grp.Id,
-                                  Name = grp.Name,
-                                  CreateDate = grp.CreateDate
+                                  Id = import.Id,
+                                  ImportDate = import.ImportDate,
+                                  GroupName = import.Group.Name
 
                               }).ToList();
 
-            return (resultData, groupData.total, groupData.totalDisplay);
+            return (resultData, importData.total, importData.totalDisplay);
         }
     }
 }

@@ -28,7 +28,9 @@ namespace DataImporter.Web.Areas.Customer.Models
                 tableModel.PageIndex,
                 tableModel.PageSize,
                 tableModel.SearchText,
-                tableModel.GetSortText(new string[] { "ImportDate", "GroupId" }), userId);
+                tableModel.StartDate,
+                tableModel.EndDate,
+                tableModel.GetSortText(new string[] { "GroupId", "ImportDate" }), userId);
 
             return new
             {
@@ -37,8 +39,8 @@ namespace DataImporter.Web.Areas.Customer.Models
                 data = (from record in data.records
                         select new string[]
                         {
-                                record.Name,
-                                record.CreateDate.ToString(),
+                                record.GroupName,
+                                record.ImportDate.ToString(),
                                 record.Id.ToString()
                         }
                     ).ToArray()

@@ -1,4 +1,4 @@
-﻿<!-- Content Header (Page header) -->
+﻿ Content Header (Page header) 
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -12,7 +12,8 @@
                 </ol>
             </div>
         </div>
-    </div><!-- /.container-fluid -->
+    </div>
+ /.container-fluid 
 </section>
 
 <section class="content">
@@ -99,7 +100,7 @@
                 "processing": true,
                 "serverSide": true,
                 "stateSave": true,
-                
+
                 "ajax": {
                     "url": ajax_url,
                     "dataType": "json",
@@ -110,7 +111,7 @@
                         "final_date": final_date,
                         "gender": gender
                     },
-                    
+
                 },
                 "columns": [
                     { "data": "counter" },
@@ -160,4 +161,131 @@
 
     </script>
 }
+
+
+@{
+    ViewData["Title"] = "ViewGroupData";
+}
+<script>
+    $(document).ready(function () {
+
+        var sDate, eDate;
+
+
+        $('#startDate').daterangepicker({
+            singleDatePicker: true,
+        }, function (start, end, label) {
+            sDate = moment(start).format();
+            console.log(sDate);
+        });
+
+        $('#endDate').daterangepicker({
+            singleDatePicker: true,
+        }, function (start, end, label) {
+            eDate = moment(start).format();
+            console.log(eDate);
+        });
+
+        $("#btnGet").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/Home/AjaxMethod",
+                data: { "name": $("#txtName").val() },
+                success: function (response) {
+                    alert("Hello: " + response.Name + " .\nCurrent Date and Time: " + response.DateTime);
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+
+        
+
+    });
+</script>
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Group Name</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Groups</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Data of Group</h3>
+                        <div class="container">
+                            <div class="row">
+                                <div class="form-group  col-3">
+
+                                    <label>Start Date:</label>
+                                    <input type="text" id="startDate" value="10/24/1984" />
+                                </div>
+
+                                <div class="form-group  col-3">
+                                    <label>End Date:</label>
+                                    <input type="text" id="endDate" value="10/24/1984" />
+
+                                </div>
+                                <div class="form-group  col-3">
+                                    <button id="flt"> Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Head-1</th>
+                                    <th>Head-2</th>
+                                    <th>Head-3</th>
+                                    <th>Head-4</th>
+                                </tr>
+                            </thead>
+                            <tbody>                              
+                                <tr>
+                                    <td>
+                                        value1
+                                    </td>
+                                    <td>
+                                        value2
+                                    </td>
+                                    <td>
+                                        value3
+                                    </td>
+
+                                    <td>
+                                        value4
+                                    </td>
+                                </tr>          
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 

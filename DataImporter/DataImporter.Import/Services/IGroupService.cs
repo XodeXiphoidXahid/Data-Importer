@@ -11,7 +11,7 @@ namespace DataImporter.Import.Services
     {
         void CreateGroup(Group group, Guid userId);
         (IList<Group> records, int total, int totalDisplay) GetGroups(int pageIndex, int pageSize, string searchText, string sortText, Guid userId);
-        DashboardInfo GetDashboardInfo();
+        DashboardInfo GetDashboardInfo(Guid userId);
         (List<Dictionary<string, string>> groupData, List<string> allColumns) GetGroupData(int id);
     }
 }

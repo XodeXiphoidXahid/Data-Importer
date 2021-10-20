@@ -27,9 +27,9 @@ namespace DataImporter.Web.Areas.Customer.Models
 
         }
 
-        internal void GetDashboardInfo()
+        internal void GetDashboardInfo(Guid userId)
         {
-            var dashboardInfo = _groupService.GetDashboardInfo();
+            var dashboardInfo = _groupService.GetDashboardInfo(userId);
 
             TotalGroup = dashboardInfo.TotalGroup;
             TotalExport = dashboardInfo.TotalExport;
