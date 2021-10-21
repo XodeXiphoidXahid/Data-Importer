@@ -37,9 +37,7 @@ namespace DataImporter.Import.Services
 
         public DashboardInfo GetDashboardInfo(Guid userId)
         {
-            //var TotalImport = _importUnitOfWork.Groups.Get(x => x.ApplicationUserId == userId, String.Empty).Select(x => x.ImportHistories).Count();
-            //var TotalImport = _importUnitOfWork.ImportHistories.GetAll().Where(x => x.Group.ApplicationUserId == userId).Count();
-
+            
             var groups = _importUnitOfWork.Groups.Get(x => x.ApplicationUserId == userId, string.Empty).Select(x=>x.Id).ToList();
 
             var groupImport= _importUnitOfWork.ImportHistories.GetAll().Select(x => x.GroupId).ToList();
@@ -118,7 +116,7 @@ namespace DataImporter.Import.Services
             return result;
         }
 
-        public (IList<Group> records, int total, int totalDisplay) GetGroups(int pageIndex, int pageSize, string searchText, string sortText,Guid userId)
+        public (IList<Group> records, int total, int totalDisplay) GetGroups(int pageIndex, int pageSize, string searchText, DateTime startDate, DateTime endDate, string sortText,Guid userId)
         {
             var groupData = _importUnitOfWork.Groups.GetDynamic(
                  string.IsNullOrWhiteSpace(searchText) ? null : x=>(x.Name.Contains(searchText)) && (x.ApplicationUserId ==userId)
@@ -129,7 +127,7 @@ namespace DataImporter.Import.Services
             //string.IsNullOrWhiteSpace(searchText) ? null : x => x.Name.Contains(searchText)
             //, sortText, string.Empty, pageIndex, pageSize);
 
-            var resultData = (from grp in groupData.data.Where(x=>x.ApplicationUserId==userId)
+            var resultData = (from grp in groupData.data.Where(x => (x.ApplicationUserId == userId) && (x.CreateDate >= startDate && x.CreateDate <= endDate))
                               select new Group
                               {
                                   Id = grp.Id,

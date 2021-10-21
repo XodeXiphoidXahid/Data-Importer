@@ -27,6 +27,8 @@ namespace DataImporter.Web.Areas.Customer.Models
                 tableModel.PageIndex,
                 tableModel.PageSize,
                 tableModel.SearchText,
+                tableModel.StartDate,
+                tableModel.EndDate,
                 tableModel.GetSortText(new string[] { "Name", "CreateDate" }), userId);
 
             return new
