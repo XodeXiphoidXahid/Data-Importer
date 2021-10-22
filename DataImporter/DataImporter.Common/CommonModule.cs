@@ -18,6 +18,9 @@ namespace DataImporter.Common
             builder.RegisterType<DateTimeUtility>().As<IDateTimeUtility>()
                 .InstancePerLifetimeScope();
 
+            builder.RegisterType<ImportExportStatus>().As<IImportExportStatus>()
+                .InstancePerLifetimeScope();
+
             builder.RegisterType<EmailService>().As<IEmailService>()
                 .WithParameter("host", "smtp.gmail.com")
                 .WithParameter("port", 465)

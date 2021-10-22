@@ -23,11 +23,8 @@ namespace DataImporter.ImportWorker
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-           
-
             while (!stoppingToken.IsCancellationRequested)
             {
-
                 _importService.Import();
 
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
