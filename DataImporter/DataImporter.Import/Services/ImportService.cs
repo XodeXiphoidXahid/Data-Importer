@@ -15,6 +15,7 @@ namespace DataImporter.Import.Services
     public class ImportService : IImportService
     {
         private readonly IImportUnitOfWork _importUnitOfWork;
+        
 
         public ImportService(IImportUnitOfWork importUnitOfWork)
         {
@@ -24,6 +25,9 @@ namespace DataImporter.Import.Services
         {
             foreach (var file in fileInfo)
             {
+                //Import history te ei file er nam e je record ta ase setar status ta Processing kore dibo
+                UpdateStatus(file, "Processing");
+               
                 var groupId = GetGroupId(file.Name.Split(".")[0]);
 
                 List<string> colList = new List<string>();
@@ -59,12 +63,34 @@ namespace DataImporter.Import.Services
                                     );
                             }
                         }
+                     
                         _importUnitOfWork.Save();
                         
                     }
                 }
+                UpdateStatus(file, "Completed");
                 DeleteFile(file);
             }
+        }
+
+        private void UpdateStatus(FileInfo file, string Status)
+        {
+            var importId = GetImportId(file.Name.Split(".")[0]);
+
+            var importEntity = _importUnitOfWork.ImportHistories.GetById(importId);
+
+            if(importEntity!=null)
+            {
+                importEntity.Status = Status;
+                _importUnitOfWork.Save();
+            }
+        }
+
+        private int GetImportId(string fileName)
+        {
+            var importId = _importUnitOfWork.ImportHistories.Get(x => x.FileName == fileName, string.Empty).Select(x => x.Id).FirstOrDefault();
+
+            return importId;
         }
 
         private int GetGroupId(string name)
@@ -111,6 +137,8 @@ namespace DataImporter.Import.Services
 
                 });
 
+            
+
             _importUnitOfWork.Save();
 
             if (_importUnitOfWork.GroupColumnNames.GetCount(x => x.GroupId == fileLocation.GroupId) == 0)
@@ -119,7 +147,7 @@ namespace DataImporter.Import.Services
             }
                 
             SaveFileInStorage(file, fileLocation.FileName);//ekhane file and file er name ta pathaite hbe.
-            UpdateImportHistory(fileLocation);
+            UpdateImportHistory(fileLocation);//Import history te ei file er nam e je record ta ase setar status ta Pending kore dibo
         }
 
         private void UpdateImportHistory(FileLocation fileLocation)
@@ -128,7 +156,9 @@ namespace DataImporter.Import.Services
                 new Entities.ImportHistory
                 {
                     GroupId=fileLocation.GroupId,
-                    ImportDate=fileLocation.ImportDate
+                    ImportDate=fileLocation.ImportDate,
+                    FileName=fileLocation.FileName,
+                    Status="Pending"
                 }
                 );
 
@@ -296,7 +326,6 @@ namespace DataImporter.Import.Services
 
             if (fileInfo.Count() > 0)
             {
-
                 SaveExcelInDb(fileInfo);// Ekhane groupId taw pass korte hbe.
             }
         }
@@ -307,19 +336,13 @@ namespace DataImporter.Import.Services
                  string.IsNullOrWhiteSpace(searchText) ? null : x => x.Group.Name.Contains(searchText) 
                 , sortText, string.Empty, pageIndex, pageSize);
 
-            //var importHistoryData = _importUnitOfWork.ImportHistories.GetDynamic(x=>x.GroupId, sortText, string.Empty, pageIndex, pageSize);
-
-            //var groupList = _importUnitOfWork.Groups.Get(x => x.UserId == userId, string.Empty);
-            // GetDynamic(
-            //string.IsNullOrWhiteSpace(searchText) ? null : x => x.Name.Contains(searchText)
-            //, sortText, string.Empty, pageIndex, pageSize);
-
             var resultData = (from import in importData.data.Where(x => (x.Group.ApplicationUserId == userId) && (x.ImportDate>=startDate && x.ImportDate<=endDate) )
                               select new ImportHistory
                               {
                                   Id = import.Id,
                                   ImportDate = import.ImportDate,
-                                  GroupName = import.Group.Name
+                                  GroupName = import.Group.Name,
+                                  Status=import.Status
 
                               }).ToList();
 

@@ -30,7 +30,7 @@ namespace DataImporter.Web.Areas.Customer.Models
                 tableModel.SearchText,
                 tableModel.StartDate,
                 tableModel.EndDate,
-                tableModel.GetSortText(new string[] { "GroupId", "ImportDate" }), userId);
+                tableModel.GetSortText(new string[] { "GroupId", "ImportDate", "Status" }), userId);
 
             return new
             {
@@ -41,6 +41,7 @@ namespace DataImporter.Web.Areas.Customer.Models
                         {
                                 record.GroupName,
                                 record.ImportDate.ToString(),
+                                record.Status,
                                 record.Id.ToString()
                         }
                     ).ToArray()
