@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using DataImporter.Common.Utilities;
+using DataImporter.Import.BusinessObjects;
 using DataImporter.Import.UnitOfWorks;
 using DataImporter.Membership.Contexts;
 using DataImporter.Membership.Entities;
@@ -212,6 +213,25 @@ namespace DataImporter.Import.Services
         {
             _importUnitOfWork.PendingExportHistories.Add(new Entities.PendingExportHistory { GroupId = groupId });
             _importUnitOfWork.Save();
+        }
+
+        public (IList<ExportHistory> records, int total, int totalDisplay) GetExportHistories(int pageIndex, int pageSize, string searchText, DateTime startDate, DateTime endDate, string sortText, Guid userId)
+        {
+            var exportData = _importUnitOfWork.ExportHistories.GetDynamic(
+                 string.IsNullOrWhiteSpace(searchText) ? null : x => x.Group.Name.Contains(searchText)
+                , sortText, string.Empty, pageIndex, pageSize);
+
+            var resultData = (from export in exportData.data.Where(x => (x.Group.ApplicationUserId == userId) && (x.ExportDate >= startDate && x.ExportDate <= endDate))
+                              select new ExportHistory
+                              {
+                                  Id = export.Id,
+                                  ExportDate = export.ExportDate,
+                                  GroupName = export.Group.Name,
+                                  Status = export.Status
+
+                              }).ToList();
+
+            return (resultData, exportData.total, exportData.totalDisplay);
         }
     }
 }

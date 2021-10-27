@@ -28,7 +28,7 @@ namespace DataImporter.ExportWorker
             while (!stoppingToken.IsCancellationRequested)
             {
                 _exportService.ExportFile();
-                //_importService.Import();
+
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 await Task.Delay(1000, stoppingToken);
             }

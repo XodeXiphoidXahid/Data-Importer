@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataImporter.Import.BusinessObjects;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace DataImporter.Import.Services
         FileInfo GetFile(int groupId);
         void ExportFile();
         void UpdateExportHistory(int id);
+        (IList<ExportHistory> records, int total, int totalDisplay) GetExportHistories(int pageIndex, int pageSize, string searchText, DateTime startDate, DateTime endDate, string v, Guid userId);
     }
 }
