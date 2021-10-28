@@ -114,8 +114,12 @@ namespace DataImporter.Import.Services
                 {
                     //ei groupId er folder ta delete korte hbe
                     DeletePreviousFolder(record.GroupId);
-                    
+
+                    //ekhane status update=Processing er code ta likhte hbe
+                    UpdateStatus(record.GroupId, "Processing");
                     ExportDbData(record.GroupId);//Data export hoye save hbe ekta folder e
+                    //ekhane status update=Completed er code ta likhte hbe
+                    UpdateStatus(record.GroupId, "Completed");
 
                     //Update ExportHit in ExportEmailHit-------
                     UpdatePreviousExportHit(record.GroupId);
@@ -124,6 +128,33 @@ namespace DataImporter.Import.Services
                     DeleteCurrentRecord(record);
                    
                     _importUnitOfWork.Save();     
+                }
+            }
+            
+        }
+
+        private void UpdateStatus(int groupId, string status)
+        {
+            //first e ExportHistory theke GroupId==groupId && status==pending sei entity ta uthae ante hbe
+
+            if(status=="Processing")
+            {
+                var exportHistory = _importUnitOfWork.ExportHistories.Get(x => (x.GroupId == groupId) && (x.Status == "Pending"), string.Empty).FirstOrDefault();
+
+                if (exportHistory != null)
+                {
+                    exportHistory.Status = status;
+                    _importUnitOfWork.Save();
+                }
+            }
+            else
+            {
+                var exportHistory = _importUnitOfWork.ExportHistories.Get(x => (x.GroupId == groupId) && (x.Status == "Processing"), string.Empty).FirstOrDefault();
+
+                if (exportHistory != null)
+                {
+                    exportHistory.Status = status;
+                    _importUnitOfWork.Save();
                 }
             }
             
@@ -204,7 +235,7 @@ namespace DataImporter.Import.Services
         {
             UpdatePendingExportHistory(groupId);
 
-            _importUnitOfWork.ExportHistories.Add(new Entities.ExportHistory { GroupId=groupId, ExportDate=_dateTimeUtility.Now});
+            _importUnitOfWork.ExportHistories.Add(new Entities.ExportHistory { GroupId=groupId, ExportDate=_dateTimeUtility.Now, Status="Pending"});
 
             _importUnitOfWork.Save();
         }
