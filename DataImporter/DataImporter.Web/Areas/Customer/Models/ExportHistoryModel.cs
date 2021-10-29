@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DataImporter.Common.Utilities;
 using DataImporter.Import.Services;
 using DataImporter.Web.Models;
 using System;
@@ -11,15 +12,18 @@ namespace DataImporter.Web.Areas.Customer.Models
     public class ExportHistoryModel
     {
         private IExportService _exportService;
+        private IDateTimeUtility _dateTimeUtility;
 
         public ExportHistoryModel()
         {
             _exportService = Startup.AutofacContainer.Resolve<IExportService>();
+            _dateTimeUtility = Startup.AutofacContainer.Resolve<IDateTimeUtility>();
         }
 
-        public ExportHistoryModel(IExportService exportService)
+        public ExportHistoryModel(IExportService exportService, IDateTimeUtility dateTimeUtility)
         {
             _exportService = exportService;
+            _dateTimeUtility = dateTimeUtility;
         }
 
         internal object GetExportHistories(DataTablesAjaxRequestModel tableModel, Guid userId)
@@ -46,6 +50,11 @@ namespace DataImporter.Web.Areas.Customer.Models
                         }
                     ).ToArray()
             };
+        }
+
+        internal void UpdateExportHistory(int id)
+        {
+            _exportService.UpdateExportHistory(id, _dateTimeUtility.Now);
         }
     }
 }

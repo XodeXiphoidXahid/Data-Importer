@@ -17,18 +17,15 @@ namespace DataImporter.Import.Services
     public class ExportService : IExportService
     {
         private readonly IImportUnitOfWork _importUnitOfWork;
-        private readonly IDateTimeUtility _dateTimeUtility;
         
-        public ExportService(IImportUnitOfWork importUnitOfWork, IDateTimeUtility dateTimeUtility)
+        public ExportService(IImportUnitOfWork importUnitOfWork)
         {
             _importUnitOfWork = importUnitOfWork;
-            _dateTimeUtility = dateTimeUtility;
             
         }
         public void ExportDbData(int groupId)
         {
             var allRecords = _importUnitOfWork.ExcelDatas.Get(x=>x.GroupId==groupId, string.Empty);
-
 
             using (var workbook = new XLWorkbook())
             {
@@ -169,14 +166,27 @@ namespace DataImporter.Import.Services
 
         private void UpdatePreviousExportHit(int groupId)
         {
-            var exportHit = _importUnitOfWork.ExportEmailHits.Get(x => x.GroupId == groupId, string.Empty).Select(x => x.ExportHit).FirstOrDefault();
+            var exportHit = _importUnitOfWork.ExportEmailHits.Get(x => x.GroupId == groupId, string.Empty).FirstOrDefault();
+            
 
-            _importUnitOfWork.ExportEmailHits.Add(
+            if (exportHit != null)
+            {
+                var exportHitEntity = _importUnitOfWork.ExportEmailHits.GetById(exportHit.Id);
+                var newExportHit = exportHitEntity.ExportHit+1;
+
+                exportHitEntity.ExportHit = newExportHit;
+            }
+            else
+            {
+                _importUnitOfWork.ExportEmailHits.Add(
                 new Entities.ExportEmailHit
                 {
-                    ExportHit = exportHit + 1
+                    ExportHit = 1,
+                    GroupId=groupId
                 }
                 );
+            }
+            
 
             _importUnitOfWork.Save();
         }
@@ -186,7 +196,7 @@ namespace DataImporter.Import.Services
             DirectoryInfo dic = new DirectoryInfo("D:\\ASP.Net Core(Devskill)\\Asp_Dot_Net_Core\\ExportedFiles\\" + groupId);
             if (dic.Exists)
             {
-                dic.Delete();
+                dic.Delete(true);
             }
             
         }
@@ -231,11 +241,11 @@ namespace DataImporter.Import.Services
 
         }
 
-        public void UpdateExportHistory(int groupId)
+        public void UpdateExportHistory(int groupId, DateTime dateTime)
         {
             UpdatePendingExportHistory(groupId);
 
-            _importUnitOfWork.ExportHistories.Add(new Entities.ExportHistory { GroupId=groupId, ExportDate=_dateTimeUtility.Now, Status="Pending"});
+            _importUnitOfWork.ExportHistories.Add(new Entities.ExportHistory { GroupId=groupId, ExportDate=dateTime, Status="Pending"});
 
             _importUnitOfWork.Save();
         }

@@ -47,8 +47,10 @@ namespace DataImporter.Web.Areas.User.Controllers
 
         public IActionResult ExportAsExcel(int id)//group Id
         {
-             //PendingExportHistory te jdi age theke groupId ta thake tahole ekta error dekhaite hbe je "Your previous export request of this group is pending, please wait"
-            _exportService.UpdateExportHistory(id);//update both pending and export history
+            //PendingExportHistory te jdi age theke groupId ta thake tahole ekta error dekhaite hbe je "Your previous export request of this group is pending, please wait"
+            var model = new ExportHistoryModel();
+            model.UpdateExportHistory(id);
+            //_exportService.UpdateExportHistory(id);//update both pending and export history
             return RedirectToAction("index", "group");
         }
 
