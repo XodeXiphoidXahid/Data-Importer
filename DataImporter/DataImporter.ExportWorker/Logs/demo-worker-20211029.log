@@ -84,3 +84,4 @@ Error Number:547,State:0,Class:16
    at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
    at DataImporter.ExportWorker.Program.Main(String[] args) in D:\ASP.Net Core(Devskill)\Asp_Dot_Net_Core\DataImporter\DataImporter.ExportWorker\Program.cs:line 43
 2021-10-29 11:10:31.649 +06:00 [INF] Application Starting up
+2021-10-29 17:17:38.348 +06:00 [INF] Application Starting up

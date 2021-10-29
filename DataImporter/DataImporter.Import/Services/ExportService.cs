@@ -32,7 +32,7 @@ namespace DataImporter.Import.Services
                 var worksheet = workbook.Worksheets.Add("TestFile");
                 //ekhane column list ta lagbe--GroupColumnNames theke ante hbe.
                 List<string> colList = new List<string>();
-                int grpColNumber = 4;
+                int grpColNumber = GetGroupColNumber(groupId);
                 int cnt = 0;
                 foreach (var record in allRecords)
                 {
@@ -92,6 +92,14 @@ namespace DataImporter.Import.Services
                 //}
             }
                 
+        }
+
+        private int GetGroupColNumber(int groupId)
+        {
+            var columnList= _importUnitOfWork.GroupColumnNames.Get(x => x.GroupId==groupId, string.Empty).Select(x=>x.ColumnList).FirstOrDefault();
+            var colNumber = columnList.Split("~").Count()-1;
+
+            return colNumber;
         }
 
         public void ExportFile()

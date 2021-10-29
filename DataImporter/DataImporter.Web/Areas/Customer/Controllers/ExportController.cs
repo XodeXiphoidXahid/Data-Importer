@@ -70,7 +70,8 @@ namespace DataImporter.Web.Areas.User.Controllers
 
             memory.Position = 0;
 
-            return File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", Path.GetFileName(path));
+            return File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", Path.GetFileName(path));//edike xls file jate download kora jae sejonno File
+                                                                                                                            //er vitor perameter change korte hbe
         }
     }
 }
