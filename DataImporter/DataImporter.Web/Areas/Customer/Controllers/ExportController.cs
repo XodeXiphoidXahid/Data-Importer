@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -54,9 +55,22 @@ namespace DataImporter.Web.Areas.User.Controllers
             return RedirectToAction("index", "group");
         }
 
-        public IActionResult Test()
+        public IActionResult DownloadFile(int id)//exportId
         {
-            return View();
+            var groupId = _importUnitOfWork.ExportHistories.Get(x => x.Id == id, string.Empty).Select(x => x.GroupId).FirstOrDefault();
+            var fileName = _importUnitOfWork.Groups.Get(x=>x.Id== groupId, string.Empty).Select(x=>x.Name).FirstOrDefault()+".xlsx";
+            
+            var path = "D:\\ASP.Net Core(Devskill)\\Asp_Dot_Net_Core\\ExportedFiles\\"+groupId+"\\"+fileName;
+
+            var memory = new MemoryStream();
+            using (var stream= new FileStream(path,FileMode.Open))
+            {
+                stream.CopyToAsync(memory);
+            }
+
+            memory.Position = 0;
+
+            return File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", Path.GetFileName(path));
         }
     }
 }
