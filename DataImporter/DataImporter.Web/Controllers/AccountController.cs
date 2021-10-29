@@ -197,6 +197,7 @@ namespace DataImporter.Controllers
         }
 
         [HttpPost]
+        [Area("Customer"), Authorize]
         public async Task<IActionResult> Logout(string returnUrl = null)
         {
             await _signInManager.SignOutAsync();
@@ -207,7 +208,7 @@ namespace DataImporter.Controllers
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                return Redirect("https://localhost:44305/Account/Login");
             }
         }
     }

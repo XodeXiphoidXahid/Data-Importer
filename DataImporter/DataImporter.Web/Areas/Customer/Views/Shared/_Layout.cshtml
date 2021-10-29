@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<DataImporter.Membership.Entities.ApplicationUser> SignInManager
+@inject UserManager<DataImporter.Membership.Entities.ApplicationUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -53,10 +57,16 @@
 
             <!-- Right navbar links -->
             <nav class="navbar-nav ml-auto">
-                <a class="btn  bg-primary btn-sm" style="margin:5px;" href="/account/logout">
-                    <i class="fas fa-sign-out-alt"></i> LogOut
-                </a>
-                
+
+
+
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <form class="form-inline" asp-controller="Account" asp-action="Logout">
+                        <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                    </form>
+                }
+
 
                 <!-- Messages Dropdown Menu -->
                 <!-- Notifications Dropdown Menu -->
@@ -72,7 +82,7 @@
             </a>
 
             <!-- Sidebar -->
-            <partial name="_AdminMenuPartial"/>
+            <partial name="_AdminMenuPartial" />
             <!-- /.sidebar -->
         </aside>
 
@@ -92,7 +102,7 @@
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
-        </aside>  
+        </aside>
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
