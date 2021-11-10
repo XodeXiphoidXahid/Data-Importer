@@ -59,10 +59,10 @@ namespace DataImporter.Web.Areas.User.Controllers
             return View();
         }
 
-        public IActionResult Upload()
+        public IActionResult Upload(bool message=false)
         {
             var model = new FileLocationModel();
-            
+            ViewBag.message = message;
             return View(model);
         }
         [HttpPost, ValidateAntiForgeryToken]
@@ -82,6 +82,7 @@ namespace DataImporter.Web.Areas.User.Controllers
                     else
                     {
                         ModelState.AddModelError("CustomError", "Please select or create a appropriate Group for your file");
+                        return RedirectToAction("Upload", new { message=true});
                     }
                     
 
