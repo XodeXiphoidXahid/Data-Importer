@@ -13,6 +13,7 @@ namespace DataImporter.Web.Areas.Customer.Models
         public List<Dictionary<string, string>> GroupData;
         public List<string> AllColumns;
         public List<string> rowValues;
+        public string GroupName { get; set; }
 
         private readonly IGroupService _groupService;
         public GroupDataModel()
@@ -29,6 +30,7 @@ namespace DataImporter.Web.Areas.Customer.Models
         {
             var GroupInfo=_groupService.GetGroupData(id);
 
+            GroupName = GroupInfo.groupName;
             GroupData = GroupInfo.groupData;
             AllColumns = GroupInfo.allColumns;
             

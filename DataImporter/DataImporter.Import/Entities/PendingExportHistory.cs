@@ -12,5 +12,6 @@ namespace DataImporter.Import.Entities
         public int Id { get; set; }
         public int GroupId { get; set; }
         public Group Group { get; set; }
+        public int ExportId { get; set; }
     }
 }

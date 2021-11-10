@@ -336,6 +336,13 @@ namespace DataImporter.Import.Services
                  string.IsNullOrWhiteSpace(searchText) ? null : x => x.Group.Name.Contains(searchText) 
                 , sortText, string.Empty, pageIndex, pageSize);
 
+            if (startDate == endDate)
+            {
+                //assigns year, month, day, hour, min, seconds
+                startDate = new DateTime(2021, 10, 1, 12, 0, 0);
+                endDate = new DateTime(2021, 12, 30, 12, 0, 0);
+            }
+
             var resultData = (from import in importData.data.Where(x => (x.Group.ApplicationUserId == userId) && (x.ImportDate>=startDate && x.ImportDate<=endDate) )
                               select new ImportHistory
                               {

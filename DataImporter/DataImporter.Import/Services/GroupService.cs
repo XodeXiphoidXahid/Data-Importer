@@ -72,11 +72,12 @@ namespace DataImporter.Import.Services
                     .Count(); 
         }
 
-        public (List<Dictionary<string, string>> groupData, List<string> allColumns) GetGroupData(int groupId)
+        public (List<Dictionary<string, string>> groupData, List<string> allColumns, string groupName) GetGroupData(int groupId)
         {
+            var groupName = _importUnitOfWork.Groups.GetById(groupId).Name;
             var groupData = _importUnitOfWork.ExcelDatas.Get(x => x.GroupId == groupId, string.Empty);
             if (groupData.Count == 0)
-                return (null, null);
+                return (null, null, null);
             var columnList = _importUnitOfWork.GroupColumnNames.Get(x => x.GroupId == groupId, string.Empty).Select(x=>x.ColumnList).FirstOrDefault();
             var allColumns = GetColumns(columnList);
 
@@ -102,7 +103,7 @@ namespace DataImporter.Import.Services
                 //if (tempList.Count == columnNumber)
                 //    tempList.Clear();
             }
-            return (rowDataList, allColumns);
+            return (rowDataList, allColumns, groupName);
         }
 
         private List<string> GetColumns(string columnList)
@@ -121,6 +122,13 @@ namespace DataImporter.Import.Services
             var groupData = _importUnitOfWork.Groups.GetDynamic(
                  string.IsNullOrWhiteSpace(searchText) ? null : x=>(x.Name.Contains(searchText)) && (x.ApplicationUserId ==userId)
                 , sortText, string.Empty, pageIndex, pageSize);
+
+            if (startDate == endDate)
+            {
+                //assigns year, month, day, hour, min, seconds
+                startDate = new DateTime(2021, 10, 1, 12, 0, 0);
+                endDate = new DateTime(2021, 12, 30, 12, 0, 0);
+            }
 
             //var groupList = _importUnitOfWork.Groups.Get(x => x.UserId == userId, string.Empty);
             // GetDynamic(

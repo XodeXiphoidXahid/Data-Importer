@@ -251,21 +251,31 @@ namespace DataImporter.Import.Services
 
         public void UpdateExportHistory(int groupId, DateTime dateTime)
         {
-            UpdatePendingExportHistory(groupId);
+            
 
             _importUnitOfWork.ExportHistories.Add(new Entities.ExportHistory { GroupId=groupId, ExportDate=dateTime, Status="Pending"});
+            int exportId = _importUnitOfWork.ExportHistories.Get(x => (x.GroupId == groupId) && (x.Status == "Pending"), string.Empty).Select(x=>x.Id).FirstOrDefault();
+            //groupId and pending ektai record thakbe
+
+            UpdatePendingExportHistory(groupId, exportId);
 
             _importUnitOfWork.Save();
         }
 
-        private void UpdatePendingExportHistory(int groupId)
+        private void UpdatePendingExportHistory(int groupId, int exportId)
         {
-            _importUnitOfWork.PendingExportHistories.Add(new Entities.PendingExportHistory { GroupId = groupId });
+            _importUnitOfWork.PendingExportHistories.Add(new Entities.PendingExportHistory { GroupId = groupId, ExportId=exportId });
             _importUnitOfWork.Save();
         }
 
         public (IList<ExportHistory> records, int total, int totalDisplay) GetExportHistories(int pageIndex, int pageSize, string searchText, DateTime startDate, DateTime endDate, string sortText, Guid userId)
         {
+            if(startDate==endDate)
+            {
+                //assigns year, month, day, hour, min, seconds
+                startDate = new DateTime(2021, 10, 1, 12, 0, 0);
+                endDate = new DateTime(2021, 12, 30, 12, 0, 0);
+            }
             var exportData = _importUnitOfWork.ExportHistories.GetDynamic(
                  string.IsNullOrWhiteSpace(searchText) ? null : x => x.Group.Name.Contains(searchText)
                 , sortText, string.Empty, pageIndex, pageSize);
