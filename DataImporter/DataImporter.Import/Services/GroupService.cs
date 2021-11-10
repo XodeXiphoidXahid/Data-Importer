@@ -123,11 +123,15 @@ namespace DataImporter.Import.Services
                  string.IsNullOrWhiteSpace(searchText) ? null : x=>(x.Name.Contains(searchText)) && (x.ApplicationUserId ==userId)
                 , sortText, string.Empty, pageIndex, pageSize);
 
-            if (startDate == endDate)
+            var Date = "1/1/0001 12:00:00 AM";
+            DateTime defaultDate = Convert.ToDateTime(Date);
+            bool flag = false;
+            if (startDate == defaultDate && endDate == defaultDate)
             {
                 //assigns year, month, day, hour, min, seconds
                 startDate = new DateTime(2021, 10, 1, 12, 0, 0);
                 endDate = new DateTime(2021, 12, 30, 12, 0, 0);
+                flag = true;
             }
 
             //var groupList = _importUnitOfWork.Groups.Get(x => x.UserId == userId, string.Empty);
@@ -143,7 +147,8 @@ namespace DataImporter.Import.Services
                                   CreateDate = grp.CreateDate
                                   
                               }).ToList();
-
+            if (flag == true && resultData.Count >= 2)
+                resultData = resultData.Take(2).ToList();
             return (resultData, groupData.total, groupData.totalDisplay);
         }
     }

@@ -270,12 +270,18 @@ namespace DataImporter.Import.Services
 
         public (IList<ExportHistory> records, int total, int totalDisplay) GetExportHistories(int pageIndex, int pageSize, string searchText, DateTime startDate, DateTime endDate, string sortText, Guid userId)
         {
-            if(startDate==endDate)
+            var Date = "1/1/0001 12:00:00 AM";
+            DateTime defaultDate = Convert.ToDateTime(Date);
+            bool flag = false;
+
+            if (startDate == defaultDate && endDate == defaultDate)
             {
                 //assigns year, month, day, hour, min, seconds
                 startDate = new DateTime(2021, 10, 1, 12, 0, 0);
                 endDate = new DateTime(2021, 12, 30, 12, 0, 0);
+                flag = true;
             }
+
             var exportData = _importUnitOfWork.ExportHistories.GetDynamic(
                  string.IsNullOrWhiteSpace(searchText) ? null : x => x.Group.Name.Contains(searchText)
                 , sortText, string.Empty, pageIndex, pageSize);
@@ -289,6 +295,9 @@ namespace DataImporter.Import.Services
                                   Status = export.Status
 
                               }).ToList();
+
+            if (flag == true && resultData.Count >= 2)
+                resultData = resultData.Take(2).ToList();
 
             return (resultData, exportData.total, exportData.totalDisplay);
         }
