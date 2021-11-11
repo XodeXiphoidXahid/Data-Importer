@@ -20,10 +20,16 @@ namespace DataImporter.Web.Areas.Customer.Models
             _dateTimeUtility = Startup.AutofacContainer.Resolve<IDateTimeUtility>();
         }
 
+        
+
         public ExportHistoryModel(IExportService exportService, IDateTimeUtility dateTimeUtility)
         {
             _exportService = exportService;
             _dateTimeUtility = dateTimeUtility;
+        }
+        internal bool GroupIdAlreadyExistOrNot(int id)
+        {
+            return _exportService.GroupIdAlreadyExistOrNot(id);
         }
 
         internal object GetExportHistories(DataTablesAjaxRequestModel tableModel, Guid userId)

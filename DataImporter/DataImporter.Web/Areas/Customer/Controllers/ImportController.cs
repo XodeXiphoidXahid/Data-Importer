@@ -94,7 +94,7 @@ namespace DataImporter.Web.Areas.User.Controllers
                     
                 }
             }
-            return View(model);
+            return RedirectToAction("Index", "Import");
             
         }
 

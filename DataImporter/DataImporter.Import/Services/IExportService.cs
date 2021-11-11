@@ -10,10 +10,11 @@ namespace DataImporter.Import.Services
 {
     public interface IExportService
     {
-        void ExportDbData(int groupId);
+        string ExportDbData(int groupId);
         FileInfo GetFile(int groupId);
         void ExportFile();
         void UpdateExportHistory(int id, DateTime dateTime);
         (IList<ExportHistory> records, int total, int totalDisplay) GetExportHistories(int pageIndex, int pageSize, string searchText, DateTime startDate, DateTime endDate, string v, Guid userId);
+        bool GroupIdAlreadyExistOrNot(int id);
     }
 }

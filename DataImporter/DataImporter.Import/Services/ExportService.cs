@@ -23,10 +23,18 @@ namespace DataImporter.Import.Services
             _importUnitOfWork = importUnitOfWork;
             
         }
-        public void ExportDbData(int groupId)
+        private static Random random = new Random();
+        public static string RandomString(int length)
+        {
+            
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+        public string ExportDbData(int groupId)
         {
             var allRecords = _importUnitOfWork.ExcelDatas.Get(x=>x.GroupId==groupId, string.Empty);
-
+            var folderName = RandomString(10);
             using (var workbook = new XLWorkbook())
             {
                 var worksheet = workbook.Worksheets.Add("TestFile");
@@ -69,10 +77,11 @@ namespace DataImporter.Import.Services
                     
                 }
                 var groupName = _importUnitOfWork.Groups.GetById(groupId).Name;
+                
                 var userId = _importUnitOfWork.Groups.Get(x => x.Id == groupId, string.Empty).Select(x => x.ApplicationUserId).FirstOrDefault();
                 //var userId = "123";
                 //--Here we need to create specific folder for each user to save their group files--
-                string path = "D:\\ASP.Net Core(Devskill)\\Asp_Dot_Net_Core\\ExportedFiles\\" + groupId+"\\";
+                string path = "D:\\ASP.Net Core(Devskill)\\Asp_Dot_Net_Core\\ExportedFiles\\" + folderName+"\\";
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
@@ -91,6 +100,7 @@ namespace DataImporter.Import.Services
                 //    }
                 //}
             }
+            return folderName;
                 
         }
 
@@ -118,11 +128,14 @@ namespace DataImporter.Import.Services
                 foreach(var record in allRecords)
                 {
                     //ei groupId er folder ta delete korte hbe
-                    DeletePreviousFolder(record.GroupId);
+                    //DeletePreviousFolder(record.GroupId);
 
                     //ekhane status update=Processing er code ta likhte hbe
                     UpdateStatus(record.GroupId, "Processing");
-                    ExportDbData(record.GroupId);//Data export hoye save hbe ekta folder e
+
+                    string folderName=ExportDbData(record.GroupId);//Data export hoye save hbe ekta folder e
+
+                    UpdateExportHistoryFolderName(folderName);
                     //ekhane status update=Completed er code ta likhte hbe
                     UpdateStatus(record.GroupId, "Completed");
 
@@ -136,6 +149,11 @@ namespace DataImporter.Import.Services
                 }
             }
             
+        }
+
+        private void UpdateExportHistoryFolderName(string folderName)
+        {
+            throw new NotImplementedException();
         }
 
         private void UpdateStatus(int groupId, string status)
@@ -300,6 +318,15 @@ namespace DataImporter.Import.Services
                 resultData = resultData.Take(2).ToList();
 
             return (resultData, exportData.total, exportData.totalDisplay);
+        }
+
+        public bool GroupIdAlreadyExistOrNot(int id)
+        {
+            var groupIdValue = _importUnitOfWork.PendingExportHistories.Get(x => x.GroupId == id, string.Empty).FirstOrDefault();
+            if (groupIdValue != null)
+                return true;
+            else
+                return false;
         }
     }
 }
