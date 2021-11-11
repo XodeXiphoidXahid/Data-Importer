@@ -151,6 +151,42 @@ namespace DataImporter.Import.Services
                 resultData = resultData.Take(2).ToList();
             return (resultData, groupData.total, groupData.totalDisplay);
         }
+
+        public Group GetGroup(int id)
+        {
+            var group = _importUnitOfWork.Groups.GetById(id);
+
+            if (group == null) return null;
+
+            return new Group
+            {
+                Id = group.Id,
+                Name = group.Name
+            };
+        }
+
+        public void UpdateGroup(Group group)
+        {
+            if (group == null)
+                throw new InvalidOperationException("Group is missing");
+
+            var groupEntity = _importUnitOfWork.Groups.GetById(group.Id);
+
+            if (groupEntity != null)
+            {
+                groupEntity.Name = group.Name;
+            
+                _importUnitOfWork.Save();
+            }
+            else
+                throw new InvalidOperationException("Couldn't find Group");
+        }
+
+        public void DeleteGroup(int id)
+        {
+            _importUnitOfWork.Groups.Remove(id);
+            _importUnitOfWork.Save();
+        }
     }
 
 }

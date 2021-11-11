@@ -13,5 +13,8 @@ namespace DataImporter.Import.Services
         (IList<Group> records, int total, int totalDisplay) GetGroups(int pageIndex, int pageSize, string searchText, DateTime startDate, DateTime endDate, string sortText, Guid userId);
         DashboardInfo GetDashboardInfo(Guid userId);
         (List<Dictionary<string, string>> groupData, List<string> allColumns, string groupName) GetGroupData(int id);
+        Group GetGroup(int id);
+        void UpdateGroup(Group group);
+        void DeleteGroup(int id);
     }
 }

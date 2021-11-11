@@ -83,5 +83,42 @@ namespace DataImporter.Web.Areas.User.Controllers
             return View(model);
         }
 
+        public IActionResult Edit(int id)
+        {
+            var model = new EditGroupModel();
+            model.LoadModelData(id);
+
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult Edit(EditGroupModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    model.Update();
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Failed to Edit Group");
+                    _logger.LogError(ex, "Edit Group Failed");
+                }
+
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            var model = new GroupListModel();
+            model.Delete(id);
+
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
