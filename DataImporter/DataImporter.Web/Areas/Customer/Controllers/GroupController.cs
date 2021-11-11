@@ -23,9 +23,10 @@ namespace DataImporter.Web.Areas.User.Controllers
             _logger = logger;
             _userManager = userManager;
         }
-        public IActionResult Index()
+        public IActionResult Index(bool message=false)
         {
             var model = new GroupListModel();
+            ViewBag.message = message;
             return View(model);
         }
         public JsonResult GetGroupData()
@@ -71,8 +72,13 @@ namespace DataImporter.Web.Areas.User.Controllers
 
             model.LoadGroupData(id);
 
+            
+
             if (model.GroupData == null)
-                return View("EmptyGroupError");
+            {
+                return RedirectToAction("Index","Group", new { message = true });
+            }
+                
 
             return View(model);
         }

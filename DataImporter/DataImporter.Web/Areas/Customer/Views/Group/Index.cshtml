@@ -17,9 +17,9 @@
     <script src="/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    
+
     <script>
-        
+
         $(function () {
 
             var sDate, eDate;
@@ -28,19 +28,19 @@
             $('#startDate').daterangepicker({
                 singleDatePicker: true,
             }, function (start, end, label) {
-                    sDate = moment(start).format();
-                    console.log(sDate);
+                sDate = moment(start).format();
+                console.log(sDate);
             });
 
             $('#endDate').daterangepicker({
                 singleDatePicker: true,
             }, function (start, end, label) {
-                    eDate = moment(start).format();
-                    console.log(eDate);
+                eDate = moment(start).format();
+                console.log(eDate);
             });
 
 
-            
+
             var cusTable = $('#customerz').DataTable({
                 "processing": true,
                 "serverSide": true,
@@ -50,35 +50,35 @@
                     data: function (d) {
                         d.startDate = sDate;
                         d.endDate = eDate;
-                        
+
                     }
                 },
 
-                
-                
+
+
                 "columnDefs": [
                     {
                         "orderable": false,
                         "targets": 2,
                         "render": function (data, type, row) {
                             return `<button type="submit" class="btn btn-secondary btn-sm" onclick="window.location.href='/customer/group/edit/${data}'" value='${data}'>
-                                            <i class="fas fa-pencil-alt">
-                                            </i>
-                                            Edit
-                                        </button>
-                                        <button type="submit" class="btn btn-danger btn-sm show-bs-modal" href="#" data-id='${data}' value='${data}'>
-                                            <i class="fas fa-trash">
-                                            </i>
-                                            Delete
-                                        </button>
-                                        <button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='/customer/group/ViewGroupData/${data}'" value='${data}'>
-                                            <i class="fas fa-eye"></i>
-                                            View
-                                        </button>
-                                        <button type="submit" class="btn btn-primary btn-sm" onclick="window.location.href='/customer/export/ExportAsExcel/${data}'" value='${data}'>
-                                            <i class="fas fa-file-export"></i>
-                                            Export
-                                        </button>`;
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
+                                                Edit
+                                            </button>
+                                            <button type="submit" class="btn btn-danger btn-sm show-bs-modal" href="#" data-id='${data}' value='${data}'>
+                                                <i class="fas fa-trash">
+                                                </i>
+                                                Delete
+                                            </button>
+                                            <button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='/customer/group/ViewGroupData/${data}'" value='${data}'>
+                                                <i class="fas fa-eye"></i>
+                                                View
+                                            </button>
+                                            <button type="submit" class="btn btn-primary btn-sm" onclick="window.location.href='/customer/export/ExportAsExcel/${data}'" value='${data}'>
+                                                <i class="fas fa-file-export"></i>
+                                                Export
+                                            </button>`;
                         }
                     }
                 ]
@@ -102,6 +102,17 @@
             });
         });
     </script>
+}
+
+@if (ViewBag.message)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+
+        <strong>Opps!</strong> This group has no data. Please <a href="/customer/import/upload" class="alert-link">Insert</a> data in group.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 }
 
 <!-- Content Header (Page header) -->
@@ -131,17 +142,17 @@
                     <div class="container">
                         <div class="row">
                             <div class="form-group  col-2">
-                                <label >Start Date:</label>
+                                <label>Start Date:</label>
                             </div>
 
                             <div class="form-group  col-3">
-                                
+
                                 <input type="text" id="startDate" value="10/24/2021" />
                             </div>
 
                             <div class="form-group  col-2">
                                 <label>End Date:</label>
-                                
+
                             </div>
 
                             <div class="form-group  col-3">
@@ -155,7 +166,7 @@
                         </div>
                     </div>
                 </div>
-                
+
 
 
 
