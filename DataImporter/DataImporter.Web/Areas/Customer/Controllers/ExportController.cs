@@ -63,16 +63,17 @@ namespace DataImporter.Web.Areas.User.Controllers
 
         public IActionResult DownloadFile(int id)//exportId
         {
+            var folderName= _importUnitOfWork.ExportHistories.Get(x => x.Id == id, string.Empty).Select(x => x.FolderName).FirstOrDefault();
             //ei exportId r respect e je folderName ta ase seta diye file download korte hbe.
             var groupId = _importUnitOfWork.ExportHistories.Get(x => x.Id == id, string.Empty).Select(x => x.GroupId).FirstOrDefault();
             var fileName = _importUnitOfWork.Groups.Get(x=>x.Id== groupId, string.Empty).Select(x=>x.Name).FirstOrDefault()+".xlsx";
             
-            var path = "D:\\ASP.Net Core(Devskill)\\Asp_Dot_Net_Core\\ExportedFiles\\"+groupId+"\\"+fileName;
+            var path = "D:\\ASP.Net Core(Devskill)\\Asp_Dot_Net_Core\\ExportedFiles\\"+ folderName + "\\"+fileName;
 
             var memory = new MemoryStream();
             using (var stream= new FileStream(path,FileMode.Open))
             {
-                stream.CopyToAsync(memory);
+                stream.CopyTo(memory);
             }
 
             memory.Position = 0;

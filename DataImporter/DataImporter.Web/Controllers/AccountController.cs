@@ -100,7 +100,7 @@ namespace DataImporter.Controllers
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(model.ReturnUrl);
+                        return RedirectToAction("Login", "Account");
                     }
                 }
                 foreach (var error in result.Errors)
