@@ -353,3 +353,8 @@ System.IO.IOException: A connection attempt failed because the connected party d
 2021-11-12 20:50:39.481 +06:00 [INF] Application Starting up
 2021-11-12 20:51:07.224 +06:00 [INF] User created a new account with password.
 2021-11-12 20:51:58.233 +06:00 [INF] User logged in.
+2021-11-12 21:32:47.116 +06:00 [INF] Application Starting up
+2021-11-12 22:00:33.947 +06:00 [INF] Application Starting up
+2021-11-12 22:00:51.372 +06:00 [INF] User logged in.
+2021-11-12 22:05:09.708 +06:00 [INF] Application Starting up
+2021-11-12 22:05:23.816 +06:00 [INF] User logged in.

@@ -136,6 +136,7 @@ namespace DataImporter.Import.Services
                     string folderName=ExportDbData(record.GroupId);//Data export hoye save hbe ekta folder e
 
                     UpdateExportHistoryFolderName(folderName, record.GroupId);
+                    InsertInEmailFile(folderName, record.GroupId);
                     //ekhane status update=Completed er code ta likhte hbe
                     UpdateStatus(record.GroupId, "Completed");
 
@@ -151,6 +152,17 @@ namespace DataImporter.Import.Services
             
         }
 
+        private void InsertInEmailFile(string folderName, int groupId)
+        {
+            _importUnitOfWork.EmailFiles.Add(new Entities.EmailFile
+            {
+                GroupId=groupId,
+                FolderName=folderName
+            });
+
+            _importUnitOfWork.Save();
+        }
+
         private void UpdateExportHistoryFolderName(string folderName, int groupId)
         {
             var exportHistory = _importUnitOfWork.ExportHistories.Get(x => (x.GroupId == groupId) && (x.Status == "Processing"), string.Empty).FirstOrDefault();
@@ -160,6 +172,8 @@ namespace DataImporter.Import.Services
                 exportHistory.FolderName = folderName;
                 _importUnitOfWork.Save();
             }
+
+            //UpdatePreviousExportHit();
         }
 
         private void UpdateStatus(int groupId, string status)

@@ -1,7 +1,13 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using DataImporter.Common;
 using DataImporter.Import;
 using DataImporter.Import.Contexts;
+using DataImporter.Membership;
+using DataImporter.Membership.Contexts;
+using DataImporter.Membership.Entities;
+using DataImporter.Membership.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -63,6 +69,10 @@ namespace DataImporter.EmailWorker
                 .ConfigureContainer<ContainerBuilder>(builder => {
                     builder.RegisterModule(new ImportModule(_connectionString,
                     _migrationAssemblyName, _configuration));
+                    builder.RegisterModule(new CommonModule(_connectionString,
+                    _migrationAssemblyName, _configuration));
+                    builder.RegisterModule(new MembershipModule(_connectionString,
+                    _migrationAssemblyName, _configuration));
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
@@ -79,6 +89,15 @@ namespace DataImporter.EmailWorker
                     services.AddDbContext<ImportDbContext>(options =>
                         options.UseSqlServer(_connectionString, b =>
                         b.MigrationsAssembly(_migrationAssemblyName)));
+
+                    services
+                        .AddIdentity<ApplicationUser, Role>()
+                        .AddEntityFrameworkStores<ApplicationDbContext>()
+                        .AddUserManager<UserManager>()
+                        .AddRoleManager<RoleManager>()
+                        .AddSignInManager<SignInManager>()
+                        .AddDefaultUI()
+                        .AddDefaultTokenProviders();
 
                 });
     }

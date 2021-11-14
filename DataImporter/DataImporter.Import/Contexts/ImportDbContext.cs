@@ -71,6 +71,11 @@ namespace DataImporter.Import.Contexts
             .WithOne(c => c.Group)
             .HasForeignKey<PendingExportHistory>(g => g.GroupId);
 
+            //One to many
+            modelBuilder.Entity<Group>()
+                .HasMany(g => g.EmailFiles)
+                .WithOne(e => e.Group);
+
 
             base.OnModelCreating(modelBuilder);
         }
@@ -82,5 +87,6 @@ namespace DataImporter.Import.Contexts
         public DbSet<ExportEmailHit> ExportEmailHits { get; set; }
         public DbSet<ImportHistory> ImportHistories { get; set; }
         public DbSet<ExportHistory> ExportHistories { get; set; }
+        public DbSet<EmailFile> EmailFiles { get; set; }
     }
 }

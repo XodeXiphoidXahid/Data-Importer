@@ -4,40 +4,22 @@ using DataImporter.Import.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataImporter.Web.Migrations
 {
     [DbContext(typeof(ImportDbContext))]
-    partial class ImportDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211112173543_AddExportIdInHit")]
+    partial class AddExportIdInHit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("DataImporter.Import.Entities.EmailFile", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("FolderName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("GroupId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GroupId");
-
-                    b.ToTable("EmailFiles");
-                });
 
             modelBuilder.Entity("DataImporter.Import.Entities.ExcelData", b =>
                 {
@@ -285,17 +267,6 @@ namespace DataImporter.Web.Migrations
                     b.ToTable("AspNetUsers", t => t.ExcludeFromMigrations());
                 });
 
-            modelBuilder.Entity("DataImporter.Import.Entities.EmailFile", b =>
-                {
-                    b.HasOne("DataImporter.Import.Entities.Group", "Group")
-                        .WithMany("EmailFiles")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Group");
-                });
-
             modelBuilder.Entity("DataImporter.Import.Entities.ExcelData", b =>
                 {
                     b.HasOne("DataImporter.Import.Entities.Group", "Group")
@@ -384,8 +355,6 @@ namespace DataImporter.Web.Migrations
 
             modelBuilder.Entity("DataImporter.Import.Entities.Group", b =>
                 {
-                    b.Navigation("EmailFiles");
-
                     b.Navigation("ExcelDatas");
 
                     b.Navigation("ExportEmailHit");

@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using DataImporter.Membership.Contexts;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,19 @@ namespace DataImporter.Membership
     {
         private readonly string _connectionString;
         private readonly string _migrationAssemblyName;
+        private readonly IConfiguration _configuration;
 
-        public MembershipModule(string connectionString, string migrationAssemblyName)
+
+        //public MembershipModule(string connectionString, string migrationAssemblyName)
+        //{
+        //    _connectionString = connectionString;
+        //    _migrationAssemblyName = migrationAssemblyName;
+        //}
+        public MembershipModule(string connectionString, string migrationAssemblyName, IConfiguration configuration)
         {
             _connectionString = connectionString;
             _migrationAssemblyName = migrationAssemblyName;
+            _configuration = configuration;
         }
 
         protected override void Load(ContainerBuilder builder)

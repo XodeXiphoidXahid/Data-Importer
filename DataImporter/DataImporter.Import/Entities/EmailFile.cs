@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace DataImporter.Import.Entities
 {
-    public class ExportEmailHit: IEntity<int>//One to one with Group
+    public class EmailFile : IEntity<int>
     {
         public int Id { get; set; }
-        public int ExportHit { get; set; }
-        public int EmailHit { get; set; }
-        public int ExportId { get; set; }
+        public string FolderName { get; set; }
 
         public int GroupId { get; set; }
         public Group Group { get; set; }
+
     }
 }

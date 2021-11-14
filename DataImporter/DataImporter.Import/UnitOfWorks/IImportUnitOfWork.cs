@@ -18,5 +18,6 @@ namespace DataImporter.Import.UnitOfWorks
         IImportHistoryRepository ImportHistories { get; }
         IExportHistoryRepository ExportHistories { get; }
         IExportEmailHitRepository ExportEmailHits { get; }
+        IEmailFileRepository EmailFiles { get; }
     }
 }

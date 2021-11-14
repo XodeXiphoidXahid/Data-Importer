@@ -30,5 +30,7 @@ namespace DataImporter.Import.Entities
         public List<ImportHistory> ImportHistories { get; set; }
 
         public List<ExportHistory> ExportHistories { get; set; }
+
+        public List<EmailFile> EmailFiles { get; set; }
     }
 }

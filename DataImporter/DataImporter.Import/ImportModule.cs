@@ -34,7 +34,8 @@ namespace DataImporter.Import
             builder.RegisterType<ImportService>().As<IImportService>().InstancePerLifetimeScope();
             builder.RegisterType<ExportService>().As<IExportService>().InstancePerLifetimeScope();
             builder.RegisterType<GroupService>().As<IGroupService>().InstancePerLifetimeScope();
-            
+            builder.RegisterType<EmailFileService>().As<IEmailFileService>().InstancePerLifetimeScope();
+
 
             builder.RegisterType<ImportUnitOfWork>().As<IImportUnitOfWork>().InstancePerLifetimeScope();
 
@@ -46,6 +47,7 @@ namespace DataImporter.Import
             builder.RegisterType<ImportHistoryRepository>().As<IImportHistoryRepository>().InstancePerLifetimeScope();
             builder.RegisterType<ExportHistoryRepository>().As<IExportHistoryRepository>().InstancePerLifetimeScope();
             builder.RegisterType<ExportEmailHitRepository>().As<IExportEmailHitRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<EmailFileRepository>().As<IEmailFileRepository>().InstancePerLifetimeScope();
 
             base.Load(builder);
         }

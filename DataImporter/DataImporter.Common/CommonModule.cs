@@ -11,7 +11,18 @@ namespace DataImporter.Common
 {
     public class CommonModule: Module
     {
-        
+        private readonly string _connectionString;
+        private readonly string _migrationAssemblyName;
+        private readonly IConfiguration _configuration;
+
+        public CommonModule(string connectionString, string migrationAssemblyName, IConfiguration configuration)
+        {
+            _connectionString = connectionString;
+            _migrationAssemblyName = migrationAssemblyName;
+            _configuration = configuration;
+
+        }
+
         protected override void Load(ContainerBuilder builder)
         {
 
